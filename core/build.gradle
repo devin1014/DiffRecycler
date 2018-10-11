@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0-beta2"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            libraryVariants.all { variant ->
+                if (variant.buildType.name == 'release') {
+                    variant.outputs.all {
+                        outputFileName = "recyclerViewSupport_v${android.defaultConfig.versionName}.aar"
+                    }
+                }
+            }
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+tasks.withType(Jar) { jarTask ->
+    if (jarTask.name == 'packageReleaseJar') {
+        jarTask.from android.sourceSets.main.java.srcDirs
+    }
+}
+
+ext {
+    SUPPORTLIBVERSION = '26.1.0'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
+
+    implementation project(':diff-processor-api')
+    annotationProcessor project(':diff-processor')
+}

@@ -1,0 +1,28 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile project(':diff-processor-api')
+    compile 'com.google.auto.service:auto-service:1.0-rc3'
+    compile 'com.squareup:javapoet:1.9.0'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+//task to delete the old jar
+task deleteOldJar(type: Delete) {
+    delete 'release/DiffRecyclerProcessor.jar'
+}
+
+//task to export contents as jar
+task exportJar(type: Copy) {
+    from('build/libs/')
+    into('release/')
+    include('diff-processor.jar')
+    ///Rename the jar
+    rename('diff-processor.jar', 'DiffRecyclerProcessor.jar')
+}
+
+exportJar.dependsOn(deleteOldJar, build)
