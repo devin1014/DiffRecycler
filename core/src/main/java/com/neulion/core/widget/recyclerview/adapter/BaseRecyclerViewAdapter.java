@@ -29,7 +29,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
     @Override
     public final Holder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        LogUtil.warn(this, "onCreateViewHolder(viewType:" + viewType + ")");
+        LogUtil.info(this, String.format("onCreateViewHolder(viewType=%s)", viewType));
 
         return onCreateViewHolder(mLayoutInflater, parent, viewType);
     }
@@ -39,7 +39,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
     @Override
     public void onBindViewHolder(Holder holder, int position, List<Object> payloads)
     {
-        LogUtil.log(this, "onBindViewHolder(holder:" + Integer.toHexString(holder.hashCode()) + ",position:" + position + ",payloads:" + payloads + ")");
+        LogUtil.log(this, String.format("onBindViewHolder(holder=@%s,position=%s,payloads=%s", Integer.toHexString(holder.hashCode()), position, payloads));
 
         super.onBindViewHolder(holder, position, payloads);
     }
@@ -47,11 +47,10 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
     @Override
     public final void onBindViewHolder(Holder holder, int position)
     {
-        //LogUtil.log(this, "onBindViewHolder(holder:" + Integer.toHexString(holder.hashCode()) + ",position:" + position + ")");
-
         onBindViewHolder(holder, getItem(position), position);
     }
 
+    //_TODO:should add List<Object> payloads
     public abstract void onBindViewHolder(Holder holder, T t, int position);
 
     @Override
@@ -62,7 +61,14 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
 
     public void setData(List<T> list)
     {
-        LogUtil.log(this, "setData(" + list.getClass().getSimpleName() + ")");
+        if (list == null || list.size() == 0)
+        {
+            LogUtil.warn(this, "setData(list=null/empty)");
+        }
+        else
+        {
+            LogUtil.log(this, String.format("setData(list<%s>) , list.getSize()=%s", list.get(0).getClass().getSimpleName(), list.size()));
+        }
 
         if (mDataList != list)
         {
@@ -76,8 +82,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
 
     protected void onDataSetChanged(List<T> oldList, List<T> newList)
     {
-        LogUtil.warn(this, "onDataSetChanged(oldList:" + (oldList != null && oldList.size() > 0 ? +oldList.size() : "null") + ")");
-        LogUtil.warn(this, "onDataSetChanged(newList:" + (newList != null && newList.size() > 0 ? +newList.size() : "null") + ")");
+        LogUtil.warn(this, String.format("onDataSetChanged(oldList=%s,newList=%s)", oldList != null ? oldList.size() : 0, newList != null ? newList.size() : 0));
     }
 
     public final void appendData(T t, int pos)
@@ -117,11 +122,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
 
     protected void onDataSetAppended(int position, int count)
     {
-        LogUtil.info(this, "onDataSetAppended(position:" + position + ",count:" + count + ")");
-    }
-
-    public void onRecyclerViewDetachedFromWindow()
-    {
+        LogUtil.info(this, String.format("onDataSetAppended(position=%s,count=%s", position, count));
     }
 
     public final int findItemPosition(T t)

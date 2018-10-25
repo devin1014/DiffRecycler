@@ -28,7 +28,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
 
         mNewList = convertList(newList);
 
-        LogUtil.test(this, "convert list ");
+        LogUtil.test(this, "convert list item to IDiffComparable object!");
     }
 
     private List<IDiffComparable> convertList(List<T> list)
@@ -53,7 +53,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
     {
         int size = mOldList != null ? mOldList.size() : 0;
 
-        LogUtil.warn(this, "getOldListSize:" + size);
+        LogUtil.warn(this, String.format("getOldListSize=%s", size));
 
         return size;
     }
@@ -63,7 +63,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
     {
         int size = mNewList != null ? mNewList.size() : 0;
 
-        LogUtil.warn(this, "getNewListSize:" + size);
+        LogUtil.warn(this, String.format("getNewListSize=%s", size));
 
         return size;
     }
@@ -76,7 +76,10 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
         {
             boolean itemSame = mOldList.get(oldItemPosition).compareObject(mNewList.get(newItemPosition));
 
-            LogUtil.info(this, String.format("compare item:[old=" + oldItemPosition + ",new=" + newItemPosition + "] [%s]", itemSame));
+            if (!itemSame)
+            {
+                LogUtil.info(this, String.format("compareItem(old=%s,new=%s) [changed]", oldItemPosition, newItemPosition));
+            }
 
             return itemSame;
         }
@@ -94,7 +97,10 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
         {
             boolean contentSame = mOldList.get(oldItemPosition).compareContent(mNewList.get(newItemPosition));
 
-            LogUtil.info(this, String.format("compare content:[old=" + oldItemPosition + ",new=" + newItemPosition + "] [%s]", contentSame));
+            if (!contentSame)
+            {
+                LogUtil.info(this, String.format("compareContent(old=%s,new=%s) [changed]", oldItemPosition, newItemPosition));
+            }
 
             return contentSame;
         }
@@ -113,7 +119,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
         {
             Object object = mOldList.get(oldItemPosition).getChangePayload(mNewList.get(newItemPosition));
 
-            LogUtil.info(this, String.format("getChangePayload:[old=" + oldItemPosition + ",new=" + newItemPosition + "] [%s]", object));
+            LogUtil.info(this, String.format("getChangePayload(old=%s,new=%s,object=%s)", oldItemPosition, newItemPosition, object));
 
             return object;
         }

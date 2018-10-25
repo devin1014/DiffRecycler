@@ -64,7 +64,7 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onInserted(int position, int count)
         {
-            LogUtil.warn(this, "onInserted:" + position + "," + count);
+            LogUtil.info(this, String.format("onInserted(position=%s,count=%s)", position, count));
 
             notifyItemRangeInserted(position, count);
         }
@@ -72,7 +72,7 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onRemoved(int position, int count)
         {
-            LogUtil.warn(this, "onRemoved:" + position + "," + count);
+            LogUtil.info(this, String.format("onRemoved(position=%s,count=%s)", position, count));
 
             notifyItemRangeRemoved(position, count);
         }
@@ -80,7 +80,7 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onMoved(int fromPosition, int toPosition)
         {
-            LogUtil.info(this, "onMoved:" + fromPosition + "," + toPosition);
+            LogUtil.info(this, String.format("onMoved(fromPosition=%s,toPosition=%s)", fromPosition, toPosition));
 
             notifyItemMoved(fromPosition, toPosition);
         }
@@ -88,7 +88,7 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onChanged(int position, int count, Object payload)
         {
-            LogUtil.warn(this, "onChanged:" + position + "," + count + "," + payload);
+            LogUtil.info(this, String.format("onChanged(position=%s,count=%s,payload=%s)", position, count, payload));
 
             notifyItemRangeChanged(position, count, payload);
         }
@@ -109,11 +109,16 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            LogUtil.info(this, "---------------- DiffCompareTask Start ------------");
+        }
+
+        @Override
         protected DiffResult doInBackground(Void... voids)
         {
-            LogUtil.info(this, "####################################################");
-            LogUtil.info(this, "---------------- DiffUtil.calculateDiff ------------");
-
             LogUtil.set(this);
 
             // detectMoves should set to false!
@@ -123,14 +128,11 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         protected void onPostExecute(DiffResult diffResult)
         {
+            LogUtil.test(this, "---------------- DiffCompareTask Complete ------------");
+
             onCompareTaskFinished(newList);
 
             diffResult.dispatchUpdatesTo(mListUpdateCallbackWrapper);
-
-            LogUtil.test(this, "calculateDiff:" + oldList.size() + "," + newList.size());
-
-            LogUtil.info(this, "---------------- DiffUtil.calculateDiff ------------");
-            LogUtil.info(this, "####################################################");
         }
 
         @Override
@@ -138,7 +140,7 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         {
             super.onCancelled(diffResult);
 
-            LogUtil.warn(this, "calculateDiff: canceled");
+            LogUtil.warn(this, "---------------- DiffCompareTask Cancelled ------------");
         }
     }
 

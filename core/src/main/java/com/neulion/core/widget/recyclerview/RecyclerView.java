@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
 import com.neulion.core.R;
-import com.neulion.core.widget.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -103,14 +102,4 @@ public class RecyclerView extends android.support.v7.widget.RecyclerView
         super.addItemDecoration(decor, index);
     }
 
-    @Override
-    protected void onDetachedFromWindow()
-    {
-        super.onDetachedFromWindow();
-
-        if (getAdapter() instanceof BaseRecyclerViewAdapter)
-        {
-            ((BaseRecyclerViewAdapter) getAdapter()).onRecyclerViewDetachedFromWindow();
-        }
-    }
 }
