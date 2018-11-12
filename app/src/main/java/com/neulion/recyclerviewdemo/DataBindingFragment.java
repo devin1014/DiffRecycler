@@ -1,6 +1,5 @@
 package com.neulion.recyclerviewdemo;
 
-import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,6 @@ import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.bean.UIData;
-import com.neulion.recyclerviewdemo.databinding.ItemRecyclerViewBindingBinding;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 /**
@@ -113,15 +111,25 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         @Override
         public void onBindViewHolder(DataBindingHolder<UIData> holder, UIData data, int position)
         {
+            super.onBindViewHolder(holder, data, position);
+
             holder.itemView.setBackgroundColor(COLORS[position % 2]);
 
-            ViewDataBinding dataBinding = holder.getViewDataBinding();
+            //            ViewDataBinding dataBinding = holder.getViewDataBinding();
+            //
+            //            ((ItemRecyclerViewBindingBinding) dataBinding).setData(data);
+            //
+            //            ((ItemRecyclerViewBindingBinding) dataBinding).setClickListener(this);
+            //
+            //            dataBinding.executePendingBindings();
+        }
 
-            ((ItemRecyclerViewBindingBinding) dataBinding).setData(data);
+        @Override
+        public void onItemClick(View view, UIData uiData)
+        {
+            super.onItemClick(view, uiData);
 
-            ((ItemRecyclerViewBindingBinding) dataBinding).setClickListener(this);
-
-            dataBinding.executePendingBindings();
+            notifyItemChanged(findItemPosition(uiData));
         }
     }
 }

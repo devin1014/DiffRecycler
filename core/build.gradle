@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+def versionNamePrefix = '1.0.'
+
+static def getVersionName(String prefix) {
+    return prefix + new Date().format("MMdd", TimeZone.getTimeZone("GMT+8"))
+}
+
 android {
     compileSdkVersion 26
 
@@ -7,7 +13,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0-beta2"
+        versionName getVersionName(versionNamePrefix)
     }
 
     buildTypes {
@@ -46,6 +52,6 @@ dependencies {
 
     implementation("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
 
-    implementation project(':diff-processor-api')
+    //implementation project(':diff-processor-api')
     annotationProcessor project(':diff-processor')
 }

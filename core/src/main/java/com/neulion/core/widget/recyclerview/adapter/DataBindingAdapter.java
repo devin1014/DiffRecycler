@@ -32,7 +32,13 @@ public abstract class DataBindingAdapter<T> extends BaseRecyclerViewAdapter<T, D
     protected abstract int getLayout(int viewType);
 
     @Override
-    public final void onItemClick(View view, T t)
+    public void onBindViewHolder(DataBindingHolder<T> holder, T t, int position)
+    {
+        holder.setData(t);
+    }
+
+    @Override
+    public void onItemClick(View view, T t)
     {
         if (mOnItemClickListener != null)
         {

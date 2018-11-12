@@ -11,7 +11,7 @@
             type="com.neulion.recyclerviewdemo.bean.UIData" />
 
         <variable
-            name="clickListener"
+            name="itemClickListener"
             type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
 
     </data>
@@ -21,7 +21,7 @@
         android:layout_height="96dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
-        android:onClick="@{(view)->clickListener.onItemClick(view,data)}"
+        android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}"
         android:orientation="vertical"
         tools:background="#55888888">
 

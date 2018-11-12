@@ -46,7 +46,7 @@ dependencies {
     implementation project(':core')
     //implementation(name: 'recyclerViewSupport_v1.0', ext: 'aar')
 
-    implementation project(':diff-processor')
+    //implementation project(':diff-processor-api')
     //implementation files('libs/DiffRecyclerProcessor_api.jar')
 
     annotationProcessor project(':diff-processor')

@@ -8,8 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
-import com.neulion.core.R;
-
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
  * Date: 2017-11-27
