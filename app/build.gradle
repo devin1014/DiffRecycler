@@ -44,12 +44,11 @@ dependencies {
     implementation("com.android.support:design:${SUPPORTLIBVERSION}")
 
     implementation project(':core')
-    //implementation(name: 'recyclerViewSupport_v1.0', ext: 'aar')
+    implementation project(':diff-processor') //注解@DiffItem,@DiffContent
+    annotationProcessor project(':diff-processor') //注解解释器
 
-    //implementation project(':diff-processor-api')
+    //implementation(name: 'recyclerViewSupport_v1.0.1112', ext: 'aar')
     //implementation files('libs/DiffRecyclerProcessor_api.jar')
-
-    annotationProcessor project(':diff-processor')
     //annotationProcessor files('libs/DiffRecyclerProcessor.jar')
 
     implementation 'com.squareup:javapoet:1.9.0'

@@ -20,7 +20,6 @@ task deleteOldJar(type: Delete) {
 task exportJar(type: Copy) {
     from('build/libs/')
     into('release/')
-    include('diff-processor.jar')
     ///Rename the jar
     rename('diff-processor.jar', 'DiffRecyclerProcessor.jar')
 }

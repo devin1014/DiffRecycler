@@ -125,6 +125,21 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
         LogUtil.info(this, String.format("onDataSetAppended(position=%s,count=%s", position, count));
     }
 
+    public final void updateItem(T t)
+    {
+        updateItem(findItemPosition(t), t);
+    }
+
+    public final void updateItem(int pos, T t)
+    {
+        if (mDataList != null && pos >= 0 && pos < mDataList.size())
+        {
+            mDataList.set(pos, t);
+
+            notifyItemChanged(pos);
+        }
+    }
+
     public final int findItemPosition(T t)
     {
         if (mDataList != null && t != null)

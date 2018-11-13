@@ -1,1 +1,2 @@
-include ':app', ':core', ':diff-processor', ':diff-processor-api'
+include ':app', ':core', ':diff-processor'
+//':diff-processor-api'
