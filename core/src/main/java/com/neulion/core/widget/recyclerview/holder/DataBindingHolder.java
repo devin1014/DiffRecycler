@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 /**
  * User: NeuLion(wei.liu@neulion.com.com)
@@ -21,13 +23,15 @@ public class DataBindingHolder<T> extends BaseViewHolder<T>
 
     private OnItemClickListener<T> mOnItemClickListener;
 
-    public DataBindingHolder(View itemView, OnItemClickListener<T> handler)
+    public DataBindingHolder(View itemView, OnItemClickListener<T> listener)
     {
         super(itemView);
 
-        mOnItemClickListener = handler;
+        mOnItemClickListener = listener;
 
         mViewDataBinding = new AbstractViewDataBinding(DataBindingUtil.bind(itemView));
+
+        mViewDataBinding.setItemClickListener(mOnItemClickListener);
     }
 
     public DataBindingHolder(LayoutInflater inflater, ViewGroup parent, int layoutId, OnItemClickListener<T> handler)
@@ -50,8 +54,6 @@ public class DataBindingHolder<T> extends BaseViewHolder<T>
     public void setData(T t)
     {
         mViewDataBinding.setData(t);
-
-        mViewDataBinding.setItemClickListener(mOnItemClickListener);
 
         mViewDataBinding.executePendingBindings();
     }
@@ -80,9 +82,13 @@ public class DataBindingHolder<T> extends BaseViewHolder<T>
 
                 try
                 {
-                    mSetDataMethod = mSourceViewDataBinding.getClass().getMethod("setData", t.getClass());
+                    Field field = mSourceViewDataBinding.getClass().getSuperclass().getDeclaredField("mData");
+
+                    Type type = field.getGenericType();
+
+                    mSetDataMethod = mSourceViewDataBinding.getClass().getMethod("setData", (Class) type);
                 }
-                catch (NoSuchMethodException e)
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }

@@ -14,7 +14,7 @@ import java.util.Locale;
  * Date: 2017-11-17
  * Time: 11:08
  */
-public class UIData
+public class UIData implements UIDataInterface
 {
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
 

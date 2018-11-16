@@ -2,6 +2,7 @@ package com.neulion.recyclerviewdemo.provider;
 
 import com.neulion.recyclerviewdemo.R;
 import com.neulion.recyclerviewdemo.bean.UIData;
+import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,9 @@ public class DataProvider
         IMAGES[9] = R.drawable.placekitten_4;
     }
 
-    private static List<UIData> sList;
+    private static List<UIDataInterface> sList;
 
-    public static List<UIData> getData()
+    public static List<UIDataInterface> getData()
     {
         INDEX++;
 
@@ -42,7 +43,7 @@ public class DataProvider
 
         int count = random.nextInt(50);
 
-        List<UIData> list = new ArrayList<>(count);
+        List<UIDataInterface> list = new ArrayList<>(count);
 
         for (int i = 0; i < count; i++)
         {
@@ -75,7 +76,7 @@ public class DataProvider
         return list;
     }
 
-    public static List<UIData> getDataCache()
+    public static List<UIDataInterface> getDataCache()
     {
         if (sList != null)
         {

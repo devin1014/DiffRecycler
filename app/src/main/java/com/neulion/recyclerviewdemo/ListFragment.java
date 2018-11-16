@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.recyclerviewdemo.bean.UIData;
+import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 import java.util.List;
@@ -86,7 +86,7 @@ public class ListFragment extends Fragment implements OnRefreshListener
     {
         private LayoutInflater mLayoutInflater;
 
-        private List<UIData> mData;
+        private List<UIDataInterface> mData;
 
         ListAdapter()
         {
@@ -113,12 +113,12 @@ public class ListFragment extends Fragment implements OnRefreshListener
             return mData.size();
         }
 
-        UIData getItem(int position)
+        UIDataInterface getItem(int position)
         {
             return mData.get(position);
         }
 
-        public void setData(List<UIData> data)
+        public void setData(List<UIDataInterface> data)
         {
             mData = data;
         }
@@ -152,7 +152,7 @@ public class ListFragment extends Fragment implements OnRefreshListener
             mDate = itemView.findViewById(R.id.date);
         }
 
-        public void setData(UIData data, int pos)
+        public void setData(UIDataInterface data, int pos)
         {
             itemView.setTag(pos);
 

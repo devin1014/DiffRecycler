@@ -16,7 +16,7 @@ import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
 import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
-import com.neulion.recyclerviewdemo.bean.UIData;
+import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 /**
@@ -81,10 +81,10 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         });
     }
 
-    private OnItemClickListener<UIData> mOnItemClickListener = new OnItemClickListener<UIData>()
+    private OnItemClickListener<UIDataInterface> mOnItemClickListener = new OnItemClickListener<UIDataInterface>()
     {
         @Override
-        public void onItemClick(View view, UIData uiData)
+        public void onItemClick(View view, UIDataInterface uiData)
         {
             Toast.makeText(getActivity(), "onItemClick:" + mListAdapter.findItemPosition(uiData), Toast.LENGTH_SHORT).show();
         }
@@ -95,9 +95,9 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class ListAdapter extends DiffDataBindingAdapter<UIData>
+    private class ListAdapter extends DiffDataBindingAdapter<UIDataInterface>
     {
-        ListAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIData> listener)
+        ListAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIDataInterface> listener)
         {
             super(layoutInflater, listener);
         }
@@ -109,7 +109,7 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         }
 
         @Override
-        public void onBindViewHolder(DataBindingHolder<UIData> holder, UIData data, int position)
+        public void onBindViewHolder(DataBindingHolder<UIDataInterface> holder, UIDataInterface data, int position)
         {
             super.onBindViewHolder(holder, data, position);
 
@@ -125,7 +125,7 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         }
 
         @Override
-        public void onItemClick(View view, UIData uiData)
+        public void onItemClick(View view, UIDataInterface uiData)
         {
             super.onItemClick(view, uiData);
 

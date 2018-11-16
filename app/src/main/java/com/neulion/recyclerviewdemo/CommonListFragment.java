@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.neulion.core.widget.recyclerview.RecyclerView;
 import com.neulion.core.widget.recyclerview.adapter.BaseRecyclerViewAdapter;
 import com.neulion.core.widget.recyclerview.holder.BaseViewHolder;
-import com.neulion.recyclerviewdemo.bean.UIData;
+import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 /**
@@ -78,7 +78,7 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class ListAdapter extends BaseRecyclerViewAdapter<UIData, Holder>
+    private class ListAdapter extends BaseRecyclerViewAdapter<UIDataInterface, Holder>
     {
         ListAdapter(LayoutInflater inflater)
         {
@@ -92,7 +92,7 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, UIData data, int position)
+        public void onBindViewHolder(Holder holder, UIDataInterface data, int position)
         {
             holder.itemView.setTag(position);
 
@@ -111,7 +111,7 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Holder
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class Holder extends BaseViewHolder<UIData> implements OnClickListener
+    private class Holder extends BaseViewHolder<UIDataInterface> implements OnClickListener
     {
         Holder(View itemView)
         {

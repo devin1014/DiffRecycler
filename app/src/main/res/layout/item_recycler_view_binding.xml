@@ -8,7 +8,7 @@
 
         <variable
             name="data"
-            type="com.neulion.recyclerviewdemo.bean.UIData" />
+            type="com.neulion.recyclerviewdemo.bean.UIDataInterface" />
 
         <variable
             name="itemClickListener"
