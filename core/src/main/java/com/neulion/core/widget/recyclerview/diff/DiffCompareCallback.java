@@ -8,9 +8,7 @@ import com.neulion.core.widget.recyclerview.util.LogUtil;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-20
- * Time: 15:23
+ * User: NeuLion
  */
 public final class DiffCompareCallback<T extends IDiffComparable<T>> extends DiffUtil.Callback
 {

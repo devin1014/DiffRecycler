@@ -3,9 +3,7 @@ package com.neulion.core.widget.recyclerview.listener;
 import android.view.View;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-08-07
- * Time: 15:11
+ * User: NeuLion
  */
 public interface OnItemClickListener<T>
 {

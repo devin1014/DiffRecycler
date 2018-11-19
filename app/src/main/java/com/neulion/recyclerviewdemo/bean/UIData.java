@@ -10,9 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-17
- * Time: 11:08
+ * User: NeuLion
  */
 public class UIData implements UIDataInterface
 {

@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-22
- * Time: 14:39
+ * User: NeuLion
  */
 public class MapDiffUtil
 {

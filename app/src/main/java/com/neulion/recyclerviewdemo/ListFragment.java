@@ -23,9 +23,7 @@ import com.neulion.recyclerviewdemo.provider.DataProvider;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 15:19
+ * User: NeuLion
  */
 public class ListFragment extends Fragment implements OnRefreshListener
 {

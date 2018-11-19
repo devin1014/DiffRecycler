@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView.State;
 import android.view.View;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-10-17
- * Time: 15:46
+ * User: NeuLion
  */
 public class DividerDecoration extends RecyclerView.ItemDecoration
 {

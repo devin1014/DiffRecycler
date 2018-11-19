@@ -24,9 +24,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic.Kind;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 16:52
+ * User: NeuLion
  */
 @SuppressWarnings("unused")
 @AutoService(Processor.class)

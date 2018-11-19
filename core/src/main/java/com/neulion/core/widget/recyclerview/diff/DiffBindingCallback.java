@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-21
- * Time: 14:55
+ * User: NeuLion
  */
 public final class DiffBindingCallback<T> extends DiffUtil.Callback
 {

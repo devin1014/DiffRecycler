@@ -14,9 +14,7 @@ import com.neulion.core.widget.recyclerview.util.LogUtil;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-13
- * Time: 10:16
+ * User: NeuLion
  */
 public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
 {

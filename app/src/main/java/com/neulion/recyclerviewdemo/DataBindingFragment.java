@@ -20,9 +20,7 @@ import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-17
- * Time: 11:28
+ * User: NeuLion
  */
 public class DataBindingFragment extends Fragment implements OnRefreshListener
 {

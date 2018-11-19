@@ -1,9 +1,7 @@
 package com.neulion.core.widget.recyclerview.diff;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-10
- * Time: 15:50
+ * User: NeuLion
  */
 public interface IDiffComparable<T>
 {

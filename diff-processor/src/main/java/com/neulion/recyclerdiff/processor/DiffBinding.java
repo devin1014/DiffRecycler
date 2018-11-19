@@ -19,9 +19,7 @@ import javax.lang.model.element.VariableElement;
 
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-15
- * Time: 11:26
+ * User: NeuLion
  */
 class DiffBinding
 {

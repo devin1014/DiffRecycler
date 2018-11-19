@@ -5,9 +5,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-09-26
- * Time: 18:17
+ * User: NeuLion
  */
 public class LogUtil
 {

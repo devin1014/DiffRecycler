@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 15:36
+ * User: NeuLion
  */
 public class DataProvider
 {

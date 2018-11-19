@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 14:55
+ * User: NeuLion
  */
 public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
 {

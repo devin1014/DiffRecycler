@@ -13,9 +13,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-05-18
- * Time: 16:34
+ * User: NeuLion
  */
 public class DataBindingHolder<T> extends BaseViewHolder<T>
 {
@@ -112,7 +110,7 @@ public class DataBindingHolder<T> extends BaseViewHolder<T>
         @Override
         public void setItemClickListener(OnItemClickListener<T> listener)
         {
-            if (mSetItemClickMethod == null && !mSetItemClickMethodField)
+            if (listener != null && mSetItemClickMethod == null && !mSetItemClickMethodField)
             {
                 mSetItemClickMethodField = true;
 

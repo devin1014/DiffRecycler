@@ -21,9 +21,7 @@ import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 16:09
+ * User: NeuLion
  */
 public class CommonListFragment extends Fragment implements OnRefreshListener
 {

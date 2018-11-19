@@ -5,9 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 /**
- * User: liuwei(wei.liu@neulion.com.com)
- * Date: 2018-09-13
- * Time: 19:05
+ * User: liuwei
  */
 public class DataBindingAdapterCompat
 {

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
+ * User: NeuLion
  * Date: 2017-11-13
  * Time: 18:20
  */

@@ -8,9 +8,7 @@ import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
 import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-05-18
- * Time: 16:33
+ * User: NeuLion
  */
 public abstract class DataBindingAdapter<T> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
 {
@@ -26,7 +24,7 @@ public abstract class DataBindingAdapter<T> extends BaseRecyclerViewAdapter<T, D
     @Override
     public DataBindingHolder<T> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new DataBindingHolder<>(inflater, parent, getLayout(viewType), this);
+        return new DataBindingHolder<>(inflater, parent, getLayout(viewType), mOnItemClickListener != null ? this : null);
     }
 
     protected abstract int getLayout(int viewType);

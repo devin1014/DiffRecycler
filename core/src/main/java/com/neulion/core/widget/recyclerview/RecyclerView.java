@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-27
- * Time: 14:38
+ * User: NeuLion
  */
 public class RecyclerView extends android.support.v7.widget.RecyclerView
 {

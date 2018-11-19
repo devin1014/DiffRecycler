@@ -5,9 +5,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * User: NeuLion(wei.liu@neulion.com.com)
- * Date: 2017-11-14
- * Time: 14:54
+ * User: NeuLion
  */
 public abstract class BaseViewHolder<T> extends ViewHolder
 {
