@@ -7,16 +7,16 @@ import android.view.View;
 /**
  * User: NeuLion
  */
-public abstract class BaseViewHolder<T> extends ViewHolder
+public class BaseViewHolder<T> extends ViewHolder
 {
     private SparseArray<View> mViewSparseArray;
 
     public BaseViewHolder(View itemView)
     {
-    super(itemView);
+        super(itemView);
 
-    mViewSparseArray = new SparseArray<>();
-}
+        mViewSparseArray = new SparseArray<>();
+    }
 
     @SuppressWarnings("unchecked")
     public final <V extends View> V findViewById(int id)

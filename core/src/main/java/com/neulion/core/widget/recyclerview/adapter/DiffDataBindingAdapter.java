@@ -46,12 +46,6 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         }
     }
 
-    @Override
-    protected void onDataSetAppended(int position, int count)
-    {
-        mListUpdateCallbackWrapper.onInserted(position, count);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // ListUpdateCallback Wrapper
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

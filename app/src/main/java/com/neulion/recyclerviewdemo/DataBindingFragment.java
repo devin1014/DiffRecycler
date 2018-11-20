@@ -9,7 +9,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.core.widget.recyclerview.RecyclerView;
@@ -49,7 +52,7 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -58,6 +61,79 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         mListAdapter.setData(DataProvider.getData());
 
         recyclerView.setAdapter(mListAdapter);
+
+        view.findViewById(R.id.clear_data).setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mListAdapter.setData(null);
+            }
+        });
+
+        view.findViewById(R.id.add_header).setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                int headerSize = mListAdapter.getHeaderSize();
+
+                final View headerView = getActivity().getLayoutInflater()
+                        .inflate(headerSize % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, recyclerView, false);
+
+                int index = mListAdapter.addHeader(headerView);
+
+                ((TextView) headerView.findViewById(R.id.header_position)).setText(String.valueOf(index));
+
+                headerView.setOnLongClickListener(new OnLongClickListener()
+                {
+                    @Override
+                    public boolean onLongClick(View v)
+                    {
+                        int pos = mListAdapter.removeHeader(v);
+
+                        if (pos != -1)
+                        {
+                            Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
+                        }
+
+                        return pos != -1;
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.add_footer).setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                int size = mListAdapter.getFooterSize();
+
+                final View inflaterView = getActivity().getLayoutInflater()
+                        .inflate(size % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, recyclerView, false);
+
+                int index = mListAdapter.addFooter(inflaterView);
+
+                ((TextView) inflaterView.findViewById(R.id.header_position)).setText(String.valueOf(index));
+
+                inflaterView.setOnLongClickListener(new OnLongClickListener()
+                {
+                    @Override
+                    public boolean onLongClick(View v)
+                    {
+                        int pos = mListAdapter.removeFooter(v);
+
+                        if (pos != -1)
+                        {
+                            Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
+                        }
+
+                        return pos != -1;
+                    }
+                });
+            }
+        });
     }
 
     private Handler mHandler = new Handler();
@@ -112,22 +188,6 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
             super.onBindViewHolder(holder, data, position);
 
             holder.itemView.setBackgroundColor(COLORS[position % 2]);
-
-            //            ViewDataBinding dataBinding = holder.getViewDataBinding();
-            //
-            //            ((ItemRecyclerViewBindingBinding) dataBinding).setData(data);
-            //
-            //            ((ItemRecyclerViewBindingBinding) dataBinding).setClickListener(this);
-            //
-            //            dataBinding.executePendingBindings();
-        }
-
-        @Override
-        public void onItemClick(View view, UIDataInterface uiData)
-        {
-            super.onItemClick(view, uiData);
-
-            notifyItemChanged(findItemPosition(uiData));
         }
     }
 }
