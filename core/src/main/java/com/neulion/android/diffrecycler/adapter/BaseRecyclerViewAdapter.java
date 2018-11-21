@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
+import com.neulion.android.diffrecycler.diff.DataComparable;
 import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.android.diffrecycler.holder.HeaderViewHolder;
 import com.neulion.android.diffrecycler.util.LogUtil;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class BaseRecyclerViewAdapter<T extends Comparable<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
+public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
 {
     private static final int TYPE_HEADER = 10;
 
@@ -409,7 +410,7 @@ public abstract class BaseRecyclerViewAdapter<T extends Comparable<T>, Holder ex
         {
             for (int i = 0; i < mDataList.size(); i++)
             {
-                if (t.compareTo(mDataList.get(i)) == 0) //TODO
+                if (t.compareTo(mDataList.get(i)))
                 {
                     return i;
                 }

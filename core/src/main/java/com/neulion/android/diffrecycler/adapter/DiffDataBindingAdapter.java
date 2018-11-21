@@ -7,7 +7,8 @@ import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.util.ListUpdateCallback;
 import android.view.LayoutInflater;
 
-import com.neulion.android.diffrecycler.diff.DiffBindingCallback;
+import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DiffComparableCallback;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.android.diffrecycler.util.LogUtil;
 
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class DiffDataBindingAdapter<T extends Comparable<T>> extends DataBindingAdapter<T>
+public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extends DataBindingAdapter<T>
 {
     private DiffCompareTask mCompareTask;
 
@@ -124,7 +125,7 @@ public abstract class DiffDataBindingAdapter<T extends Comparable<T>> extends Da
             LogUtil.set(this);
 
             // detectMoves should set to false!
-            return DiffUtil.calculateDiff(new DiffBindingCallback<>(oldList, newList), false);
+            return DiffUtil.calculateDiff(new DiffComparableCallback<>(oldList, newList), false);
         }
 
         @Override

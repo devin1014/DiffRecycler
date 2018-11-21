@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public final class DiffBindingCallback<T> extends DiffUtil.Callback
+public final class DiffComparableCallback<T> extends DiffUtil.Callback
 {
-    private List<IDiffComparable> mOldList;
+    private List<DiffComparable> mOldList;
 
-    private List<IDiffComparable> mNewList;
+    private List<DiffComparable> mNewList;
 
-    public DiffBindingCallback(List<T> oldList, List<T> newList)
+    public DiffComparableCallback(List<T> oldList, List<T> newList)
     {
         LogUtil.set(this);
 
@@ -29,9 +29,9 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
         LogUtil.test(this, "convert list item to IDiffComparable object!");
     }
 
-    private List<IDiffComparable> convertList(List<T> list)
+    private List<DiffComparable> convertList(List<T> list)
     {
-        ArrayList<IDiffComparable> result = null;
+        ArrayList<DiffComparable> result = null;
 
         if (list != null)
         {
@@ -72,7 +72,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
     {
         try
         {
-            boolean itemSame = mOldList.get(oldItemPosition).compareObject(mNewList.get(newItemPosition));
+            boolean itemSame = mOldList.get(oldItemPosition).compareItem(mNewList.get(newItemPosition));
 
             if (!itemSame)
             {
@@ -127,7 +127,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
         }
     }
 
-    private IDiffComparable<?> newInstance(T v)
+    private DiffComparable<?> newInstance(T v)
     {
         try
         {
@@ -135,7 +135,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
 
             Constructor<?> constructor = cls.getConstructor(v.getClass());
 
-            return (IDiffComparable) constructor.newInstance(v);
+            return (DiffComparable) constructor.newInstance(v);
         }
         catch (Exception e)
         {

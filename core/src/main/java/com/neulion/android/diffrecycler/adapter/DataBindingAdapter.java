@@ -4,13 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.neulion.android.diffrecycler.diff.DataComparable;
 import com.neulion.android.diffrecycler.holder.DataBindingHolder;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 /**
  * User: NeuLion
  */
-public abstract class DataBindingAdapter<T extends Comparable<T>> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
+public abstract class DataBindingAdapter<T extends DataComparable<T>> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
 {
     private OnItemClickListener<T> mOnItemClickListener;
 

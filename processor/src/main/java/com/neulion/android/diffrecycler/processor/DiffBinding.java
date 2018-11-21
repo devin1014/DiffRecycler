@@ -27,7 +27,7 @@ class DiffBinding
 
     private final String UTIL_NAME = "MapDiffUtil";
 
-    private ClassName mInterfaceClassName = ClassName.get("com.neulion.android.diffrecycler.diff", "IDiffComparable");
+    private ClassName mInterfaceClassName = ClassName.get("com.neulion.android.diffrecycler.diff", "DiffComparable");
 
     private ClassName mMapClassName = ClassName.get("java.util", "Map");
 
@@ -199,7 +199,7 @@ class DiffBinding
     // -----------------------------------------------------------------------------------------
     private MethodSpec addInterfaceItemsMethod()
     {
-        MethodSpec.Builder builder = MethodSpec.methodBuilder("compareObject");
+        MethodSpec.Builder builder = MethodSpec.methodBuilder("compareItem");
 
         builder.addAnnotation(Override.class);
 

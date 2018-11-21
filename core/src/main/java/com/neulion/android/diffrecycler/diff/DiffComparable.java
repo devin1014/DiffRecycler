@@ -3,9 +3,9 @@ package com.neulion.android.diffrecycler.diff;
 /**
  * User: NeuLion
  */
-public interface IDiffComparable<T>
+public interface DiffComparable<T>
 {
-    boolean compareObject(T t);
+    boolean compareItem(T t);
 
     boolean compareContent(T t);
 
