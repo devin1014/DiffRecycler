@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
+public abstract class DiffDataBindingAdapter<T extends Comparable<T>> extends DataBindingAdapter<T>
 {
     private DiffCompareTask mCompareTask;
 
@@ -56,6 +56,8 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onInserted(int position, int count)
         {
+            position += mHeadPositionOffset;
+
             LogUtil.info(this, String.format("onInserted(position=%s,count=%s)", position, count));
 
             notifyItemRangeInserted(position, count);
@@ -64,6 +66,8 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onRemoved(int position, int count)
         {
+            position += mHeadPositionOffset;
+
             LogUtil.info(this, String.format("onRemoved(position=%s,count=%s)", position, count));
 
             notifyItemRangeRemoved(position, count);
@@ -72,6 +76,10 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onMoved(int fromPosition, int toPosition)
         {
+            fromPosition += mHeadPositionOffset;
+
+            toPosition += mHeadPositionOffset;
+
             LogUtil.info(this, String.format("onMoved(fromPosition=%s,toPosition=%s)", fromPosition, toPosition));
 
             notifyItemMoved(fromPosition, toPosition);
@@ -80,6 +88,8 @@ public abstract class DiffDataBindingAdapter<T> extends DataBindingAdapter<T>
         @Override
         public void onChanged(int position, int count, Object payload)
         {
+            position += mHeadPositionOffset;
+
             LogUtil.info(this, String.format("onChanged(position=%s,count=%s,payload=%s)", position, count, payload));
 
             notifyItemRangeChanged(position, count, payload);

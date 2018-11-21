@@ -2,7 +2,6 @@ package com.neulion.recyclerviewdemo;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,89 +53,18 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mListAdapter = new ListAdapter(getLayoutInflater(), mOnItemClickListener);
 
         mListAdapter.setData(DataProvider.getData());
 
         recyclerView.setAdapter(mListAdapter);
 
-        view.findViewById(R.id.clear_data).setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mListAdapter.setData(null);
-            }
-        });
+        view.findViewById(R.id.clear_data).setOnClickListener(mOnClickListener);
 
-        view.findViewById(R.id.add_header).setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                int headerSize = mListAdapter.getHeaderSize();
+        view.findViewById(R.id.add_header).setOnClickListener(mOnClickListener);
 
-                final View headerView = getActivity().getLayoutInflater()
-                        .inflate(headerSize % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, recyclerView, false);
-
-                int index = mListAdapter.addHeader(headerView);
-
-                ((TextView) headerView.findViewById(R.id.header_position)).setText(String.valueOf(index));
-
-                headerView.setOnLongClickListener(new OnLongClickListener()
-                {
-                    @Override
-                    public boolean onLongClick(View v)
-                    {
-                        int pos = mListAdapter.removeHeader(v);
-
-                        if (pos != -1)
-                        {
-                            Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
-                        }
-
-                        return pos != -1;
-                    }
-                });
-            }
-        });
-
-        view.findViewById(R.id.add_footer).setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                int size = mListAdapter.getFooterSize();
-
-                final View inflaterView = getActivity().getLayoutInflater()
-                        .inflate(size % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, recyclerView, false);
-
-                int index = mListAdapter.addFooter(inflaterView);
-
-                ((TextView) inflaterView.findViewById(R.id.header_position)).setText(String.valueOf(index));
-
-                inflaterView.setOnLongClickListener(new OnLongClickListener()
-                {
-                    @Override
-                    public boolean onLongClick(View v)
-                    {
-                        int pos = mListAdapter.removeFooter(v);
-
-                        if (pos != -1)
-                        {
-                            Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
-                        }
-
-                        return pos != -1;
-                    }
-                });
-            }
-        });
+        view.findViewById(R.id.add_footer).setOnClickListener(mOnClickListener);
     }
-
-    private Handler mHandler = new Handler();
 
     @Override
     public void onRefresh()
@@ -144,16 +72,91 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         mSwipeRefreshLayout.setRefreshing(false);
 
         mListAdapter.setData(DataProvider.getData());
+    }
 
-        mHandler.post(new Runnable()
+    private void addHeader()
+    {
+        int headerSize = mListAdapter.getHeaderSize();
+
+        final View headerView = getActivity().getLayoutInflater()
+                .inflate(headerSize % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, null, false);
+
+        int index = mListAdapter.addHeader(headerView);
+
+        ((TextView) headerView.findViewById(R.id.header_position)).setText(String.valueOf(index));
+
+        headerView.setOnLongClickListener(new OnLongClickListener()
         {
             @Override
-            public void run()
+            public boolean onLongClick(View v)
             {
-                mListAdapter.setData(DataProvider.getDataCache());
+                int pos = mListAdapter.removeHeader(v);
+
+                if (pos != -1)
+                {
+                    Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
+                }
+
+                return pos != -1;
             }
         });
     }
+
+    private void addFooter()
+    {
+        int size = mListAdapter.getFooterSize();
+
+        final View inflaterView = getActivity().getLayoutInflater()
+                .inflate(size % 2 == 0 ? R.layout.comp_header1 : R.layout.comp_header2, null, false);
+
+        int index = mListAdapter.addFooter(inflaterView);
+
+        ((TextView) inflaterView.findViewById(R.id.header_position)).setText(String.valueOf(index));
+
+        inflaterView.setOnLongClickListener(new OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                int pos = mListAdapter.removeFooter(v);
+
+                if (pos != -1)
+                {
+                    Toast.makeText(getActivity(), String.format("删除第%s", pos), Toast.LENGTH_SHORT).show();
+                }
+
+                return pos != -1;
+            }
+        });
+    }
+
+    private OnClickListener mOnClickListener = new OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+            switch (v.getId())
+            {
+                case R.id.clear_data:
+
+                    mListAdapter.setData(null);
+
+                    break;
+
+                case R.id.add_header:
+
+                    addHeader();
+
+                    break;
+
+                case R.id.add_footer:
+
+                    addFooter();
+
+                    break;
+            }
+        }
+    };
 
     private OnItemClickListener<UIDataInterface> mOnItemClickListener = new OnItemClickListener<UIDataInterface>()
     {
@@ -161,16 +164,18 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
         public void onItemClick(View view, UIDataInterface uiData)
         {
             Toast.makeText(getActivity(), "onItemClick:" + mListAdapter.findItemPosition(uiData), Toast.LENGTH_SHORT).show();
+
+            mListAdapter.removeItem(uiData);
         }
     };
-
-    private static int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private class ListAdapter extends DiffDataBindingAdapter<UIDataInterface>
     {
+        private int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
+
         ListAdapter(LayoutInflater layoutInflater, OnItemClickListener<UIDataInterface> listener)
         {
             super(layoutInflater, listener);

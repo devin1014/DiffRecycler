@@ -1,16 +1,15 @@
 package com.neulion.recyclerviewdemo.bean;
 
-public interface UIDataInterface
+import android.support.annotation.DrawableRes;
+
+public interface UIDataInterface extends Comparable<UIDataInterface>
 {
+    String getId();
+
     String getName();
 
     String getDescription();
 
-    String getDate();
-
+    @DrawableRes
     int getImageRes();
-
-    String getIndex();
-
-    void update();
 }

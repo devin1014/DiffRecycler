@@ -1,20 +1,18 @@
 package com.neulion.recyclerviewdemo.bean;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 
 import com.neulion.recyclerdiff.annotation.DiffContent;
 import com.neulion.recyclerdiff.annotation.DiffItem;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * User: NeuLion
  */
 public class UIData implements UIDataInterface
 {
-    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
+    @DiffItem
+    String id;
 
     @DiffItem
     String name;
@@ -22,29 +20,24 @@ public class UIData implements UIDataInterface
     @DiffContent
     String description;
 
-    String date;
-
     @DiffContent
     int imageRes;
 
-    @DiffItem
-    int index;
-
-    int requestIndex;
-
-    public UIData(int requestIndex, int index, String name, String description, @DrawableRes int imageRes)
+    public UIData(int id, String name, String description, @DrawableRes int imageRes)
     {
-        this.requestIndex = requestIndex;
-
-        this.index = index;
+        this.id = String.valueOf(id);
 
         this.name = name;
 
         this.description = description;
 
         this.imageRes = imageRes;
+    }
 
-        this.date = format.format(new Date());
+    @Override
+    public String getId()
+    {
+        return id;
     }
 
     public String getName()
@@ -57,23 +50,19 @@ public class UIData implements UIDataInterface
         return description;
     }
 
-    public String getDate()
-    {
-        return date;
-    }
-
     public int getImageRes()
     {
         return imageRes;
     }
 
-    public String getIndex()
+    @Override
+    public int compareTo(@NonNull UIDataInterface o)
     {
-        return String.format("索引：%s - %s", requestIndex, index);
-    }
+        if (getId().equalsIgnoreCase(o.getId()) && getName().equalsIgnoreCase(o.getName()))
+        {
+            return 0;
+        }
 
-    public void update()
-    {
-        description = description + " 副本";
+        return -1;
     }
 }

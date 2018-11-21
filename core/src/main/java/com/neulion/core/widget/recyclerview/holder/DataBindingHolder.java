@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 /**
  * User: NeuLion
  */
-public class DataBindingHolder<T> extends BaseViewHolder<T>
+public class DataBindingHolder<T extends Comparable<T>> extends BaseViewHolder<T>
 {
     private final AbstractViewDataBinding mViewDataBinding;
 

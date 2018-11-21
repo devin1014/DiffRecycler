@@ -31,7 +31,7 @@
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:image="@{data.imageRes}"
-            tools:background="#aa00ff00" />
+            tools:background="#7700ff00" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:id="@+id/index"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.index}"
+                android:text="@{data.id}"
                 android:textColor="#000000"
                 android:textSize="12dp"
                 tools:ignore="SpUsage"
@@ -71,16 +71,6 @@
                 android:textSize="12dp"
                 tools:ignore="SpUsage"
                 tools:text="这是第一张图片" />
-
-            <!--<TextView-->
-            <!--android:id="@+id/date"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@{data.date.toString()}"-->
-            <!--android:textColor="#000000"-->
-            <!--android:textSize="12dp"-->
-            <!--tools:text="日期"-->
-            <!--tools:ignore="SpUsage" />-->
 
         </LinearLayout>
 

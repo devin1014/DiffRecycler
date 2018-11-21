@@ -13,8 +13,6 @@ import java.util.Random;
  */
 public class DataProvider
 {
-    //private static final int COUNT = 30;
-    private static int INDEX = 0;
     private static final int[] IMAGES = new int[10];
 
     static
@@ -31,15 +29,11 @@ public class DataProvider
         IMAGES[9] = R.drawable.placekitten_4;
     }
 
-    private static List<UIDataInterface> sList;
-
     public static List<UIDataInterface> getData()
     {
-        INDEX++;
-
         Random random = new Random(System.currentTimeMillis());
 
-        int count = random.nextInt(50);
+        int count = random.nextInt(10);
 
         List<UIDataInterface> list = new ArrayList<>(count);
 
@@ -66,28 +60,9 @@ public class DataProvider
                 description = "第4张图片";
             }
 
-            list.add(new UIData(INDEX, i, "这是一只猫", description, IMAGES[randomIndex]));
+            list.add(new UIData(i, "这是一只猫", description, IMAGES[randomIndex]));
         }
-
-        sList = list;
 
         return list;
     }
-
-    public static List<UIDataInterface> getDataCache()
-    {
-        if (sList != null)
-        {
-            for (int i = 0; i < sList.size(); i++)
-            {
-                if (i % 3 == 0)
-                {
-                    sList.get(i).update();
-                }
-            }
-        }
-
-        return sList;
-    }
-
 }

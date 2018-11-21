@@ -131,7 +131,7 @@ public final class DiffBindingCallback<T> extends DiffUtil.Callback
     {
         try
         {
-            Class<?> cls = Class.forName(v.getClass().getName() + "_DiffBinding");
+            Class<?> cls = Class.forName(v.getClass().getName() + "DiffComparableImp");
 
             Constructor<?> constructor = cls.getConstructor(v.getClass());
 

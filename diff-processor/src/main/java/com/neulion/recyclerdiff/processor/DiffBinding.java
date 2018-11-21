@@ -23,6 +23,10 @@ import javax.lang.model.element.VariableElement;
  */
 class DiffBinding
 {
+    private final String UTIL_PACKAGE = "com.neulion.core.util";
+
+    private final String UTIL_NAME = "MapDiffUtil";
+
     private ClassName mInterfaceClassName = ClassName.get("com.neulion.core.widget.recyclerview.diff", "IDiffComparable");
 
     private ClassName mMapClassName = ClassName.get("java.util", "Map");
@@ -31,11 +35,11 @@ class DiffBinding
 
     private ClassName mParamString = ClassName.get("java.lang", "String");
 
-    private ClassName mParamObject = ClassName.get("java.lang", "Object");
+    private ClassName mParamComparable = ClassName.get("java.lang", "Comparable");
 
-    private TypeName mParameterStringObjectType = ParameterizedTypeName.get(mMapClassName, mParamString, mParamObject);
+    private TypeName mParameterStringObjectType = ParameterizedTypeName.get(mMapClassName, mParamString, mParamComparable);
 
-    private TypeName mParameterStringObjectHashMapType = ParameterizedTypeName.get(mHashMapClassName, mParamString, mParamObject);
+    private TypeName mParameterStringObjectHashMapType = ParameterizedTypeName.get(mHashMapClassName, mParamString, mParamComparable);
 
     private ClassName mBindingClassName;
 
@@ -57,7 +61,7 @@ class DiffBinding
 
         String className = typeElement.getSimpleName().toString();
 
-        mBindingClassName = ClassName.get(packageName, className + "_DiffBinding");
+        mBindingClassName = ClassName.get(packageName, className + "DiffComparableImp");
 
         mTypeName = TypeName.get(typeElement.asType());
 
@@ -205,7 +209,7 @@ class DiffBinding
 
         builder.addParameter(mBindingClassName, "t", Modifier.FINAL);
 
-        builder.addStatement("return $T.compare($L,$L)", ClassName.get("com.neulion.core.util", "MapDiffUtil"), "mItems", "t.mItems");
+        builder.addStatement("return $T.compare($L,$L)", ClassName.get(UTIL_PACKAGE, UTIL_NAME), "mItems", "t.mItems");
 
         return builder.build();
     }
@@ -222,7 +226,7 @@ class DiffBinding
 
         builder.addParameter(mBindingClassName, "t", Modifier.FINAL);
 
-        builder.addStatement("return $T.compare($L,$L)", ClassName.get("com.neulion.core.util", "MapDiffUtil"), "mContents", "t.mContents");
+        builder.addStatement("return $T.compare($L,$L)", ClassName.get(UTIL_PACKAGE, UTIL_NAME), "mContents", "t.mContents");
 
         return builder.build();
     }
@@ -239,7 +243,7 @@ class DiffBinding
 
         builder.addParameter(mBindingClassName, "t", Modifier.FINAL);
 
-        builder.addStatement("return $T.diff($L,$L)", ClassName.get("com.neulion.core.util", "MapDiffUtil"), "mContents", "t.mContents");
+        builder.addStatement("return $T.diff($L,$L)", ClassName.get(UTIL_PACKAGE, UTIL_NAME), "mContents", "t.mContents");
 
         return builder.build();
     }

@@ -175,8 +175,6 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
             ((TextView) holder.findViewById(R.id.name)).setText(data.getName());
 
             ((TextView) holder.findViewById(R.id.description)).setText(data.getDescription());
-
-            ((TextView) holder.findViewById(R.id.date)).setText(data.getDate());
         }
     }
 

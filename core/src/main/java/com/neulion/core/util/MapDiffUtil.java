@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class MapDiffUtil
 {
-    public static boolean compare(Map<String, Object> oldMap, Map<String, Object> newMap)
+    public static boolean compare(Map<String, Comparable> oldMap, Map<String, Comparable> newMap)
     {
         // old & new map is empty
         if ((oldMap == null || oldMap.size() == 0) && (newMap == null || newMap.size() == 0))
@@ -32,7 +32,7 @@ public class MapDiffUtil
                 return false;
             }
 
-            if (!isEquals(oldMap.get(key), newMap.get(key)))
+            if (!compare(oldMap.get(key), newMap.get(key)))
             {
                 return false;
             }
@@ -41,7 +41,7 @@ public class MapDiffUtil
         return true;
     }
 
-    public static Map<String, Object> diff(Map<String, Object> oldMap, Map<String, Object> newMap)
+    public static Map<String, Comparable> diff(Map<String, Comparable> oldMap, Map<String, Comparable> newMap)
     {
         if ((oldMap == null || oldMap.size() == 0) && (newMap == null || newMap.size() == 0))
         {
@@ -58,7 +58,7 @@ public class MapDiffUtil
             return oldMap;
         }
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Comparable> result = new HashMap<>();
 
         for (String key : oldMap.keySet())
         {
@@ -66,7 +66,7 @@ public class MapDiffUtil
             {
                 result.put(key, oldMap.get(key));
             }
-            else if (!isEquals(oldMap.get(key), newMap.get(key)))
+            else if (!compare(oldMap.get(key), newMap.get(key)))
             {
                 result.put(key, newMap.get(key));
             }
@@ -78,7 +78,7 @@ public class MapDiffUtil
             {
                 result.put(key, newMap.get(key));
             }
-            else if (!isEquals(newMap.get(key), oldMap.get(key)))
+            else if (!compare(newMap.get(key), oldMap.get(key)))
             {
                 result.put(key, newMap.get(key));
             }
@@ -87,8 +87,18 @@ public class MapDiffUtil
         return result;
     }
 
-    private static boolean isEquals(Object sourceObj, Object targetObj)
+    @SuppressWarnings({"unchecked", "BooleanMethodIsAlwaysInverted"})
+    private static boolean compare(Comparable sourceObj, Comparable targetObj)
     {
-        return sourceObj != null && sourceObj.equals(targetObj);
+        try
+        {
+            return sourceObj.compareTo(targetObj) == 0;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+            return false;
+        }
     }
 }

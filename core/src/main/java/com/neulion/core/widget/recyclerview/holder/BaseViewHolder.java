@@ -7,7 +7,7 @@ import android.view.View;
 /**
  * User: NeuLion
  */
-public class BaseViewHolder<T> extends ViewHolder
+public class BaseViewHolder<T extends Comparable<T>> extends ViewHolder
 {
     private SparseArray<View> mViewSparseArray;
 

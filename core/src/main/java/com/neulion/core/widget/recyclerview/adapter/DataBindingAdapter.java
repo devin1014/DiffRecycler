@@ -10,7 +10,7 @@ import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
 /**
  * User: NeuLion
  */
-public abstract class DataBindingAdapter<T> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
+public abstract class DataBindingAdapter<T extends Comparable<T>> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
 {
     private OnItemClickListener<T> mOnItemClickListener;
 

@@ -159,8 +159,6 @@ public class ListFragment extends Fragment implements OnRefreshListener
             mName.setText(data.getName());
 
             mDescription.setText(data.getDescription());
-
-            mDate.setText(data.getDate());
         }
 
         @Override

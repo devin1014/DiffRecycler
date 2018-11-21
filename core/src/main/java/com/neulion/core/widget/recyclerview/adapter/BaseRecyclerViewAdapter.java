@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
+public abstract class BaseRecyclerViewAdapter<T extends Comparable<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
 {
     private static final int TYPE_HEADER = 10;
 
@@ -29,13 +29,13 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
 
     private List<T> mDataList;
 
-    private LinearLayout mHeaderLayout;
+    protected LinearLayout mHeaderLayout;
 
-    private LinearLayout mFooterLayout;
+    protected LinearLayout mFooterLayout;
 
-    private int mHeadPositionOffset = 0;
+    protected int mHeadPositionOffset = 0;
 
-    private int mFootPositionOffset = 0;
+    protected int mFootPositionOffset = 0;
 
     public BaseRecyclerViewAdapter(LayoutInflater inflater)
     {
@@ -80,7 +80,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
     @Override
     public void onBindViewHolder(Holder holder, int position, List<Object> payloads)
     {
-        LogUtil.log(this, String.format("onBindViewHolder(holder=@%s,position=%s,payloads=%s", Integer.toHexString(holder.hashCode()), position, payloads));
+        LogUtil.log(this, String.format("onBindHolder(holder=@%s,position=%s,payloads=%s", Integer.toHexString(holder.hashCode()), position, payloads));
 
         super.onBindViewHolder(holder, position, payloads);
     }
@@ -346,6 +346,11 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
         LogUtil.warn(this, String.format("onDataSetChanged(oldList=%s,newList=%s)", oldList != null ? oldList.size() : 0, newList != null ? newList.size() : 0));
     }
 
+    public final void appendData(T t)
+    {
+        appendData(t, getDataList().size());
+    }
+
     public final void appendData(T t, int pos)
     {
         mDataList.add(pos, t);
@@ -355,11 +360,31 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
 
     public final void appendData(List<T> list)
     {
+        appendData(list, mDataList.size());
+    }
+
+    public final void appendData(List<T> list, int index)
+    {
         if (list != null && list.size() > 0)
         {
-            mDataList.addAll(list);
+            mDataList.addAll(index, list);
 
-            notifyItemRangeInserted(mDataList.size() + mHeadPositionOffset, list.size());
+            notifyItemRangeInserted(index + mHeadPositionOffset, list.size());
+        }
+    }
+
+    public final void removeItem(T t)
+    {
+        removeItem(findItemPosition(t));
+    }
+
+    public final void removeItem(int pos)
+    {
+        if (pos >= 0 && pos < mDataList.size())
+        {
+            mDataList.remove(pos);
+
+            notifyItemRemoved(pos + mHeadPositionOffset);
         }
     }
 
@@ -384,7 +409,7 @@ public abstract class BaseRecyclerViewAdapter<T, Holder extends BaseViewHolder<T
         {
             for (int i = 0; i < mDataList.size(); i++)
             {
-                if (t.equals(mDataList.get(i)))
+                if (t.compareTo(mDataList.get(i)) == 0) //TODO
                 {
                     return i;
                 }
