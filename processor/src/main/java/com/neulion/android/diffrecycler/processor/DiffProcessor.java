@@ -1,8 +1,8 @@
-package com.neulion.recyclerdiff.processor;
+package com.neulion.android.diffrecycler.processor;
 
 import com.google.auto.service.AutoService;
-import com.neulion.recyclerdiff.annotation.DiffContent;
-import com.neulion.recyclerdiff.annotation.DiffItem;
+import com.neulion.android.diffrecycler.annotation.DiffContent;
+import com.neulion.android.diffrecycler.annotation.DiffItem;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

@@ -3,8 +3,8 @@ package com.neulion.recyclerviewdemo.bean;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
-import com.neulion.recyclerdiff.annotation.DiffContent;
-import com.neulion.recyclerdiff.annotation.DiffItem;
+import com.neulion.android.diffrecycler.annotation.DiffContent;
+import com.neulion.android.diffrecycler.annotation.DiffItem;
 
 /**
  * User: NeuLion

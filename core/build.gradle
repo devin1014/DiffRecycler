@@ -53,7 +53,7 @@ dependencies {
     implementation("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
 
     //implementation project(':diff-processor-api')
-    annotationProcessor project(':diff-processor')
+    annotationProcessor project(':processor')
 }
 
 apply from: "../uploadCoreArchives.gradle"

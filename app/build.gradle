@@ -47,8 +47,8 @@ dependencies {
 
     // compile local project
     implementation project(':core')
-    implementation project(':diff-processor') //注解@DiffItem,@DiffContent
-    annotationProcessor project(':diff-processor') //注解解释器
+    implementation project(':processor') //注解@DiffItem,@DiffContent
+    annotationProcessor project(':processor') //注解解释器
 
     // compile local file
     //implementation(name: 'recyclerViewSupport_v1.0.1112', ext: 'aar')

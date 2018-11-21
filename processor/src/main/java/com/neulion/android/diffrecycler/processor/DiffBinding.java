@@ -1,4 +1,4 @@
-package com.neulion.recyclerdiff.processor;
+package com.neulion.android.diffrecycler.processor;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
