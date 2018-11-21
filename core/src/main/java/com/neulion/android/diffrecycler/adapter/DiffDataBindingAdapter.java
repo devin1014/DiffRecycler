@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import com.neulion.android.diffrecycler.diff.DataComparable;
 import com.neulion.android.diffrecycler.diff.DiffComparableCallback;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
-import com.neulion.android.diffrecycler.util.LogUtil;
+import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         {
             position += mHeadPositionOffset;
 
-            LogUtil.info(this, String.format("onInserted(position=%s,count=%s)", position, count));
+            DiffRecyclerLogger.info(this, String.format("onInserted(position = %s , count = %s)", position, count));
 
             notifyItemRangeInserted(position, count);
         }
@@ -69,7 +69,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         {
             position += mHeadPositionOffset;
 
-            LogUtil.info(this, String.format("onRemoved(position=%s,count=%s)", position, count));
+            DiffRecyclerLogger.info(this, String.format("onRemoved(position = %s , count = %s)", position, count));
 
             notifyItemRangeRemoved(position, count);
         }
@@ -81,7 +81,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
 
             toPosition += mHeadPositionOffset;
 
-            LogUtil.info(this, String.format("onMoved(fromPosition=%s,toPosition=%s)", fromPosition, toPosition));
+            DiffRecyclerLogger.info(this, String.format("onMoved(fromPosition = %s , toPosition = %s)", fromPosition, toPosition));
 
             notifyItemMoved(fromPosition, toPosition);
         }
@@ -91,7 +91,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         {
             position += mHeadPositionOffset;
 
-            LogUtil.info(this, String.format("onChanged(position=%s,count=%s,payload=%s)", position, count, payload));
+            DiffRecyclerLogger.info(this, String.format("onChanged(position = %s , count = %s , payload = %s)", position, count, payload));
 
             notifyItemRangeChanged(position, count, payload);
         }
@@ -116,13 +116,13 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         {
             super.onPreExecute();
 
-            LogUtil.info(this, "---------------- DiffCompareTask Start ------------");
+            DiffRecyclerLogger.info(this, "---------------- DiffCompareTask Start ------------");
         }
 
         @Override
         protected DiffResult doInBackground(Void... voids)
         {
-            LogUtil.set(this);
+            DiffRecyclerLogger.set(this);
 
             // detectMoves should set to false!
             return DiffUtil.calculateDiff(new DiffComparableCallback<>(oldList, newList), false);
@@ -131,7 +131,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         @Override
         protected void onPostExecute(DiffResult diffResult)
         {
-            LogUtil.test(this, "---------------- DiffCompareTask Complete ------------");
+            DiffRecyclerLogger.test(this, "---------------- DiffCompareTask Complete ------------");
 
             onCompareTaskFinished(newList);
 
@@ -143,7 +143,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         {
             super.onCancelled(diffResult);
 
-            LogUtil.warn(this, "---------------- DiffCompareTask Cancelled ------------");
+            DiffRecyclerLogger.warn(this, "---------------- DiffCompareTask Cancelled ------------");
         }
     }
 

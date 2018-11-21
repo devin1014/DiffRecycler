@@ -7,11 +7,11 @@ import android.util.SparseArray;
 /**
  * User: NeuLion
  */
-public class LogUtil
+public class DiffRecyclerLogger
 {
     private static boolean DEBUG = false;
 
-    private static final String TAG = "LogUtil_";
+    private static final String TAG = "DiffRecycler";
 
     public static void setDEBUG(boolean debug)
     {
@@ -81,11 +81,11 @@ public class LogUtil
 
             if (duration >= 100)
             {
-                LogUtil.warn(object, msg + " @(" + duration + "ms)");
+                DiffRecyclerLogger.warn(object, msg + " @(" + duration + "ms)");
             }
             else
             {
-                LogUtil.info(object, msg + " @(" + duration + "ms)");
+                DiffRecyclerLogger.info(object, msg + " @(" + duration + "ms)");
             }
         }
 

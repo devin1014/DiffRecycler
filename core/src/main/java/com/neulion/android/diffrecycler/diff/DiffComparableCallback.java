@@ -1,9 +1,10 @@
 package com.neulion.android.diffrecycler.diff;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
-import com.neulion.android.diffrecycler.util.LogUtil;
+import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -14,29 +15,51 @@ import java.util.List;
  */
 public final class DiffComparableCallback<T> extends DiffUtil.Callback
 {
+    @NonNull
     private List<DiffComparable> mOldList;
-
+    @NonNull
     private List<DiffComparable> mNewList;
+
+    private int mOldListSize = -1;
+
+    private int mNewListSize = -1;
 
     public DiffComparableCallback(List<T> oldList, List<T> newList)
     {
-        LogUtil.set(this);
+        DiffRecyclerLogger.set(this);
 
         mOldList = convertList(oldList);
 
         mNewList = convertList(newList);
 
-        LogUtil.test(this, "convert list item to IDiffComparable object!");
+        DiffRecyclerLogger.test(this, String.format("convert list item to %s !", DiffComparable.class));
+
+        DiffRecyclerLogger.log(this, "'list as follow:'");
+
+        for (int i = 0; i < Math.max(mOldList.size(), mNewList.size()); i++)
+        {
+            DiffRecyclerLogger.log(this, String.format("pos = %s", i));
+
+            DiffComparable oldItem = i < mOldList.size() ? mOldList.get(i) : null;
+
+            DiffComparable newItem = i < mNewList.size() ? mNewList.get(i) : null;
+
+            DiffRecyclerLogger.log(this, String.format("    oldItem = %s", oldItem != null ? oldItem.getItems().toString() : "NULL"));
+
+            DiffRecyclerLogger.log(this, String.format("    newItem = %s", newItem != null ? newItem.getItems().toString() : "NULL"));
+
+            DiffRecyclerLogger.log(this, String.format("    oldContent = %s", oldItem != null ? oldItem.getContents().toString() : "NULL"));
+
+            DiffRecyclerLogger.log(this, String.format("    newContent = %s", newItem != null ? newItem.getContents().toString() : "NULL"));
+        }
     }
 
     private List<DiffComparable> convertList(List<T> list)
     {
-        ArrayList<DiffComparable> result = null;
+        ArrayList<DiffComparable> result = new ArrayList<>();
 
         if (list != null)
         {
-            result = new ArrayList<>(list.size());
-
             for (T t : list)
             {
                 result.add(newInstance(t));
@@ -49,21 +72,27 @@ public final class DiffComparableCallback<T> extends DiffUtil.Callback
     @Override
     public int getOldListSize()
     {
-        int size = mOldList != null ? mOldList.size() : 0;
+        if (mOldListSize == -1)
+        {
+            mOldListSize = mOldList.size();
 
-        LogUtil.warn(this, String.format("getOldListSize=%s", size));
+            DiffRecyclerLogger.warn(this, String.format("getOldListSize = %s", mOldListSize));
+        }
 
-        return size;
+        return mOldListSize;
     }
 
     @Override
     public int getNewListSize()
     {
-        int size = mNewList != null ? mNewList.size() : 0;
+        if (mNewListSize == -1)
+        {
+            mNewListSize = mNewList.size();
 
-        LogUtil.warn(this, String.format("getNewListSize=%s", size));
+            DiffRecyclerLogger.warn(this, String.format("getNewListSize = %s", mNewListSize));
+        }
 
-        return size;
+        return mNewListSize;
     }
 
     @SuppressWarnings("unchecked")
@@ -76,7 +105,7 @@ public final class DiffComparableCallback<T> extends DiffUtil.Callback
 
             if (!itemSame)
             {
-                LogUtil.info(this, String.format("compareItem(old=%s,new=%s) [changed]", oldItemPosition, newItemPosition));
+                DiffRecyclerLogger.info(this, String.format("compareItem(old=%s,new=%s) [changed]", oldItemPosition, newItemPosition));
             }
 
             return itemSame;
@@ -97,7 +126,7 @@ public final class DiffComparableCallback<T> extends DiffUtil.Callback
 
             if (!contentSame)
             {
-                LogUtil.info(this, String.format("compareContent(old=%s,new=%s) [changed]", oldItemPosition, newItemPosition));
+                DiffRecyclerLogger.info(this, String.format("compareContent(old = %s , new = %s) [changed]", oldItemPosition, newItemPosition));
             }
 
             return contentSame;
@@ -115,11 +144,11 @@ public final class DiffComparableCallback<T> extends DiffUtil.Callback
     {
         try
         {
-            Object object = mOldList.get(oldItemPosition).getChangePayload(mNewList.get(newItemPosition));
+            return mOldList.get(oldItemPosition).getChangePayload(mNewList.get(newItemPosition));
 
-            LogUtil.info(this, String.format("getChangePayload(old=%s,new=%s,object=%s)", oldItemPosition, newItemPosition, object));
-
-            return object;
+            //DiffRecyclerLogger.info(this, String.format("getChangePayload(old = %s,new = %s , object = %s)", oldItemPosition, newItemPosition, object));
+            //
+            //return object;
         }
         catch (Exception e)
         {

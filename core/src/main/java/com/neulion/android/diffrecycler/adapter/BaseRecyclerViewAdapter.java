@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.neulion.android.diffrecycler.diff.DataComparable;
 import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.android.diffrecycler.holder.HeaderViewHolder;
-import com.neulion.android.diffrecycler.util.LogUtil;
+import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +50,13 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
     {
         if (viewType == TYPE_HEADER)
         {
-            LogUtil.info(this, String.format("onCreateHeaderHolder(viewType=%s)", viewType));
+            DiffRecyclerLogger.info(this, String.format("onCreateHeaderHolder(viewType=%s)", viewType));
 
             return onCreateHeaderHolder(mHeaderLayout);
         }
         else if (viewType == TYPE_FOOTER)
         {
-            LogUtil.info(this, String.format("onCreateHeaderHolder(viewType=%s)", viewType));
+            DiffRecyclerLogger.info(this, String.format("onCreateHeaderHolder(viewType=%s)", viewType));
 
             return onCreateHeaderHolder(mFooterLayout);
         }
@@ -64,7 +64,7 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
         {
             viewType = viewType - TYPE_ITEM_PREFIX;
 
-            LogUtil.info(this, String.format("onCreateViewHolder(viewType=%s)", viewType));
+            DiffRecyclerLogger.info(this, String.format("onCreateViewHolder(viewType=%s)", viewType));
 
             return onCreateViewHolder(mLayoutInflater, parent, viewType);
         }
@@ -81,7 +81,7 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
     @Override
     public void onBindViewHolder(Holder holder, int position, List<Object> payloads)
     {
-        LogUtil.log(this, String.format("onBindHolder(holder=@%s,position=%s,payloads=%s", Integer.toHexString(holder.hashCode()), position, payloads));
+        DiffRecyclerLogger.log(this, String.format("onBindHolder(holder=@%s,position=%s,payloads=%s", Integer.toHexString(holder.hashCode()), position, payloads));
 
         super.onBindViewHolder(holder, position, payloads);
     }
@@ -325,11 +325,11 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
 
         if (list.size() == 0)
         {
-            LogUtil.warn(this, "setData(list=null/empty)");
+            DiffRecyclerLogger.warn(this, "setData(list=null/empty)");
         }
         else
         {
-            LogUtil.log(this, String.format("setData(list<%s>) , list.getSize()=%s", list.get(0).getClass().getSimpleName(), list.size()));
+            DiffRecyclerLogger.log(this, String.format("setData(list<%s>) , list.getSize()=%s", list.get(0).getClass().getSimpleName(), list.size()));
         }
 
         if (mDataList != list)
@@ -344,7 +344,7 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
 
     protected void onDataSetChanged(List<T> oldList, List<T> newList)
     {
-        LogUtil.warn(this, String.format("onDataSetChanged(oldList=%s,newList=%s)", oldList != null ? oldList.size() : 0, newList != null ? newList.size() : 0));
+        DiffRecyclerLogger.warn(this, String.format("onDataSetChanged(oldList=%s,newList=%s)", oldList != null ? oldList.size() : 0, newList != null ? newList.size() : 0));
     }
 
     public final void appendData(T t)

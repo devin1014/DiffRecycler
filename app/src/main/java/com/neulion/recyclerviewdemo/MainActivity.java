@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.neulion.android.diffrecycler.util.LogUtil;
+import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        LogUtil.setDEBUG(true);
+        DiffRecyclerLogger.setDEBUG(true);
 
         setContentView(R.layout.activity_main);
 
