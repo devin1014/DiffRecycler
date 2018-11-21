@@ -4,6 +4,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url "${REPOSITORY_SERVER}/content/groups/public/"
+            credentials {
+                username REPOSITORY_USERNAME
+                password REPOSITORY_PASSWORD
+            }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -16,6 +23,13 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url "${REPOSITORY_SERVER}/content/groups/public/"
+            credentials {
+                username REPOSITORY_USERNAME
+                password REPOSITORY_PASSWORD
+            }
+        }
     }
 }
 

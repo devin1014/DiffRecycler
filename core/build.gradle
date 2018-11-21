@@ -55,3 +55,5 @@ dependencies {
     //implementation project(':diff-processor-api')
     annotationProcessor project(':diff-processor')
 }
+
+apply from: "../uploadCoreArchives.gradle"

@@ -43,13 +43,19 @@ dependencies {
     implementation("com.android.support:appcompat-v7:${SUPPORTLIBVERSION}")
     implementation("com.android.support:design:${SUPPORTLIBVERSION}")
 
+    implementation 'com.squareup:javapoet:1.9.0'
+
+    // compile local project
     implementation project(':core')
     implementation project(':diff-processor') //注解@DiffItem,@DiffContent
     annotationProcessor project(':diff-processor') //注解解释器
 
+    // compile local file
     //implementation(name: 'recyclerViewSupport_v1.0.1112', ext: 'aar')
     //implementation files('libs/DiffRecyclerProcessor_api.jar')
     //annotationProcessor files('libs/DiffRecyclerProcessor.jar')
 
-    implementation 'com.squareup:javapoet:1.9.0'
+    // compile maven
+    //implementation 'com.neulion.android:recyclerview-support:1.0.0-SNAPSHOT'
+    //annotationProcessor 'com.neulion.android:recyclerview-support-processor:1.0.0-SNAPSHOT'
 }
