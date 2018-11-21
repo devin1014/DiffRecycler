@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.adapter;
+package com.neulion.android.diffrecycler.adapter;
 
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-import com.neulion.core.widget.recyclerview.holder.BaseViewHolder;
-import com.neulion.core.widget.recyclerview.holder.HeaderViewHolder;
-import com.neulion.core.widget.recyclerview.util.LogUtil;
+import com.neulion.android.diffrecycler.holder.BaseViewHolder;
+import com.neulion.android.diffrecycler.holder.HeaderViewHolder;
+import com.neulion.android.diffrecycler.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

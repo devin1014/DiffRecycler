@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.neulion.core.widget.recyclerview.util.LogUtil;
+import com.neulion.android.diffrecycler.util.LogUtil;
 
 public class MainActivity extends AppCompatActivity
 {

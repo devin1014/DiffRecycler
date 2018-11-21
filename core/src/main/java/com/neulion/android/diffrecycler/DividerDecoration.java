@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview;
+package com.neulion.android.diffrecycler;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

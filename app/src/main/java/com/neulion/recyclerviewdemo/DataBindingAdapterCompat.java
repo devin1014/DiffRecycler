@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.util;
+package com.neulion.recyclerviewdemo;
 
 import android.databinding.BindingAdapter;
 import android.view.View;

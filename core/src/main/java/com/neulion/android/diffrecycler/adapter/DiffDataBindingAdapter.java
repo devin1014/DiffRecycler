@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.adapter;
+package com.neulion.android.diffrecycler.adapter;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -7,9 +7,9 @@ import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.util.ListUpdateCallback;
 import android.view.LayoutInflater;
 
-import com.neulion.core.widget.recyclerview.diff.DiffBindingCallback;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
-import com.neulion.core.widget.recyclerview.util.LogUtil;
+import com.neulion.android.diffrecycler.diff.DiffBindingCallback;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.util.LogUtil;
 
 import java.util.List;
 

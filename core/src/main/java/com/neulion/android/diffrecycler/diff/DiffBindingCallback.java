@@ -1,9 +1,9 @@
-package com.neulion.core.widget.recyclerview.diff;
+package com.neulion.android.diffrecycler.diff;
 
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
-import com.neulion.core.widget.recyclerview.util.LogUtil;
+import com.neulion.android.diffrecycler.util.LogUtil;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;

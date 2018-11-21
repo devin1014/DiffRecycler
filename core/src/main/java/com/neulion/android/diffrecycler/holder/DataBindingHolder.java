@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.holder;
+package com.neulion.android.diffrecycler.holder;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

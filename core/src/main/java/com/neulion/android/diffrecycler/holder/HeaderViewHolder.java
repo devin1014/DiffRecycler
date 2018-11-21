@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.holder;
+package com.neulion.android.diffrecycler.holder;
 
 import android.view.View;
 import android.widget.LinearLayout;

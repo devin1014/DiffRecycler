@@ -1,6 +1,6 @@
-package com.neulion.core.widget.recyclerview.holder;
+package com.neulion.android.diffrecycler.holder;
 
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 public interface DataBinding<T>
 {

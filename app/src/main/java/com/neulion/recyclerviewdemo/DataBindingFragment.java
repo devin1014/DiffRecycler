@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.DiffDataBindingAdapter;
-import com.neulion.core.widget.recyclerview.holder.DataBindingHolder;
-import com.neulion.core.widget.recyclerview.listener.OnItemClickListener;
+import com.neulion.android.diffrecycler.RecyclerView;
+import com.neulion.android.diffrecycler.adapter.DiffDataBindingAdapter;
+import com.neulion.android.diffrecycler.holder.DataBindingHolder;
+import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 

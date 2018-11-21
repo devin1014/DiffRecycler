@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview;
+package com.neulion.android.diffrecycler;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -40,13 +40,13 @@ public class RecyclerView extends android.support.v7.widget.RecyclerView
     {
         mDividerDecoration = new DividerDecoration(0, 0);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RecyclerView);
+        TypedArray a = context.obtainStyledAttributes(attrs, com.neulion.android.diffrecycler.R.styleable.RecyclerView);
 
-        setOrientation(a.getInt(R.styleable.RecyclerView_orientation, LinearLayoutManager.HORIZONTAL));
+        setOrientation(a.getInt(com.neulion.android.diffrecycler.R.styleable.RecyclerView_orientation, LinearLayoutManager.HORIZONTAL));
 
-        setDividerColor(a.getColor(R.styleable.RecyclerView_dividerColor, Color.TRANSPARENT));
+        setDividerColor(a.getColor(com.neulion.android.diffrecycler.R.styleable.RecyclerView_dividerColor, Color.TRANSPARENT));
 
-        setDividerSize(a.getDimensionPixelSize(R.styleable.RecyclerView_dividerSize, 0));
+        setDividerSize(a.getDimensionPixelSize(com.neulion.android.diffrecycler.R.styleable.RecyclerView_dividerSize, 0));
 
         a.recycle();
 

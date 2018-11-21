@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.holder;
+package com.neulion.android.diffrecycler.holder;
 
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.SparseArray;

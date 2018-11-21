@@ -12,7 +12,7 @@
 
         <variable
             name="itemClickListener"
-            type="com.neulion.core.widget.recyclerview.listener.OnItemClickListener" />
+            type="com.neulion.android.diffrecycler.listener.OnItemClickListener" />
 
     </data>
 

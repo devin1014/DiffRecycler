@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.listener;
+package com.neulion.android.diffrecycler.listener;
 
 import android.view.View;
 

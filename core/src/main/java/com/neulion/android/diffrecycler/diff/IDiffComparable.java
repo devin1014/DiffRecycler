@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.diff;
+package com.neulion.android.diffrecycler.diff;
 
 /**
  * User: NeuLion

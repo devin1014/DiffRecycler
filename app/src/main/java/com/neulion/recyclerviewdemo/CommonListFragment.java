@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.neulion.core.widget.recyclerview.RecyclerView;
-import com.neulion.core.widget.recyclerview.adapter.BaseRecyclerViewAdapter;
-import com.neulion.core.widget.recyclerview.holder.BaseViewHolder;
+import com.neulion.android.diffrecycler.RecyclerView;
+import com.neulion.android.diffrecycler.adapter.BaseRecyclerViewAdapter;
+import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
@@ -150,7 +150,7 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class ListAdapter extends BaseRecyclerViewAdapter<UIDataInterface, Holder>
+    private class ListAdapter extends BaseRecyclerViewAdapter<UIDataInterface, ItemHolder>
     {
         ListAdapter(LayoutInflater inflater)
         {
@@ -158,13 +158,13 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
         }
 
         @Override
-        public Holder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+        public ItemHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
             return new ItemHolder(inflater.inflate(R.layout.item_recycler_view_2, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, UIDataInterface data, int position)
+        public void onBindViewHolder(ItemHolder holder, UIDataInterface data, int position)
         {
             holder.itemView.setTag(position);
 
@@ -181,15 +181,7 @@ public class CommonListFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Holder
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class Holder extends BaseViewHolder<UIDataInterface>
-    {
-        Holder(View itemView)
-        {
-            super(itemView);
-        }
-    }
-
-    private class ItemHolder extends Holder implements OnClickListener
+    private class ItemHolder extends BaseViewHolder<UIDataInterface> implements OnClickListener
     {
         ItemHolder(View itemView)
         {

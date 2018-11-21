@@ -1,4 +1,4 @@
-package com.neulion.core.widget.recyclerview.util;
+package com.neulion.android.diffrecycler.util;
 
 import android.os.SystemClock;
 import android.util.Log;

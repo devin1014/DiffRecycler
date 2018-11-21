@@ -1,4 +1,4 @@
-package com.neulion.core.util;
+package com.neulion.android.diffrecycler.util;
 
 import java.util.HashMap;
 import java.util.Map;

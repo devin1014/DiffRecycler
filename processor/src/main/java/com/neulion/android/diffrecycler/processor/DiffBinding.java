@@ -23,11 +23,11 @@ import javax.lang.model.element.VariableElement;
  */
 class DiffBinding
 {
-    private final String UTIL_PACKAGE = "com.neulion.core.util";
+    private final String UTIL_PACKAGE = "com.neulion.android.diffrecycler.util";
 
     private final String UTIL_NAME = "MapDiffUtil";
 
-    private ClassName mInterfaceClassName = ClassName.get("com.neulion.core.widget.recyclerview.diff", "IDiffComparable");
+    private ClassName mInterfaceClassName = ClassName.get("com.neulion.android.diffrecycler.diff", "IDiffComparable");
 
     private ClassName mMapClassName = ClassName.get("java.util", "Map");
 
