@@ -7,6 +7,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
+import android.view.View;
+
+import com.neulion.android.diffrecycler.adapter.BaseRecyclerAdapterWrapper;
 
 /**
  * User: NeuLion
@@ -50,7 +53,9 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
         a.recycle();
 
-        super.addItemDecoration(mDividerDecoration, -1);
+        super.addItemDecoration(mDividerDecoration, -1);//FIXME
+
+        super.setAdapter(mAdapterWrapper);
     }
 
     public void setDividerSize(int size)
@@ -87,15 +92,62 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         }
     }
 
-    @Override
-    public void addItemDecoration(ItemDecoration decor, int index)
-    {
-        if (decor instanceof DividerDecoration)
-        {
-            throw new IllegalArgumentException("Only one DividerDecoration can be added.");
-        }
+    private BaseRecyclerAdapterWrapper mAdapterWrapper = new BaseRecyclerAdapterWrapper();
 
-        super.addItemDecoration(decor, index);
+    @Override
+    public void setAdapter(Adapter adapter)
+    {
+        // should not call super function!!!
+        //super.setAdapter(adapter);
+
+        //noinspection unchecked
+        mAdapterWrapper.setSourceAdapter(adapter);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    // - Headers
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    public <V extends View> int addHeader(V header)
+    {
+        return addHeader(header, -1);
+    }
+
+    public <V extends View> int addHeader(V header, int index)
+    {
+        return mAdapterWrapper.addHeader(header, index);
+    }
+
+    public <V extends View> int removeHeader(V header)
+    {
+        return mAdapterWrapper.removeHeader(header);
+    }
+
+    public final int getHeaderCount()
+    {
+        return mAdapterWrapper.getHeaderCount();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    // - Footer
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    public <V extends View> int addFooter(V footer)
+    {
+        return addFooter(footer, -1);
+    }
+
+    public <V extends View> int addFooter(V footer, int index)
+    {
+        return mAdapterWrapper.addFooter(footer, index);
+    }
+
+    public <V extends View> int removeFooter(V footer)
+    {
+        return mAdapterWrapper.removeFooter(footer);
+    }
+
+    public final int getFooterCount()
+    {
+        return mAdapterWrapper.getFooterCount();
     }
 
 }

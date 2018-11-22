@@ -29,7 +29,8 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
     @Override
     public void setData(List<T> list)
     {
-        if (getDataList() == null || list == null)
+        if (getDataList() == null || getDataList().size() == 0
+                || list == null || list.size() == 0)
         {
             super.setData(list);
 
@@ -42,7 +43,6 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
                 mCompareTask.cancel(true);
             }
 
-            //FIXME,be careful destroyed!
             (mCompareTask = new DiffCompareTask(getDataList(), list)).execute();
         }
     }
@@ -57,7 +57,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         @Override
         public void onInserted(int position, int count)
         {
-            position += mHeadPositionOffset;
+            //position += mHeadPositionOffset;
 
             DiffRecyclerLogger.info(this, String.format("onInserted(position = %s , count = %s)", position, count));
 
@@ -67,7 +67,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         @Override
         public void onRemoved(int position, int count)
         {
-            position += mHeadPositionOffset;
+            //position += mHeadPositionOffset;
 
             DiffRecyclerLogger.info(this, String.format("onRemoved(position = %s , count = %s)", position, count));
 
@@ -77,9 +77,9 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         @Override
         public void onMoved(int fromPosition, int toPosition)
         {
-            fromPosition += mHeadPositionOffset;
+            //fromPosition += mHeadPositionOffset;
 
-            toPosition += mHeadPositionOffset;
+            //toPosition += mHeadPositionOffset;
 
             DiffRecyclerLogger.info(this, String.format("onMoved(fromPosition = %s , toPosition = %s)", fromPosition, toPosition));
 
@@ -89,7 +89,7 @@ public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extend
         @Override
         public void onChanged(int position, int count, Object payload)
         {
-            position += mHeadPositionOffset;
+            //position += mHeadPositionOffset;
 
             DiffRecyclerLogger.info(this, String.format("onChanged(position = %s , count = %s , payload = %s)", position, count, payload));
 

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public class ListFragment extends Fragment implements OnRefreshListener
+public class NativeRecyclerViewFragment extends Fragment implements OnRefreshListener
 {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -54,18 +54,12 @@ public class ListFragment extends Fragment implements OnRefreshListener
 
         DiffRecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
-
-        //recyclerView.addItemDecoration(new DividerDecoration(50, 50));
-
         mListAdapter = new ListAdapter();
 
         mListAdapter.setData(DataProvider.getData());
 
         recyclerView.setAdapter(mListAdapter);
     }
-
-    private static int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
 
     @Override
     public void onRefresh()
@@ -82,6 +76,8 @@ public class ListFragment extends Fragment implements OnRefreshListener
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private class ListAdapter extends Adapter<Holder>
     {
+        private int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
+
         private LayoutInflater mLayoutInflater;
 
         private List<UIDataInterface> mData;
@@ -131,8 +127,6 @@ public class ListFragment extends Fragment implements OnRefreshListener
 
         private TextView mDescription;
 
-        private TextView mDate;
-
         private ImageView mImage;
 
         Holder(View itemView)
@@ -146,8 +140,6 @@ public class ListFragment extends Fragment implements OnRefreshListener
             mName = itemView.findViewById(R.id.name);
 
             mDescription = itemView.findViewById(R.id.description);
-
-            mDate = itemView.findViewById(R.id.date);
         }
 
         public void setData(UIDataInterface data, int pos)

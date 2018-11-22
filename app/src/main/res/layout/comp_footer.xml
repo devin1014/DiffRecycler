@@ -3,21 +3,23 @@
     android:id="@+id/header2"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
     android:background="#ffcacaac"
     android:gravity="center_vertical"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/header"
+        android:id="@+id/footer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Header2" />
+        android:padding="6dp"
+        android:text="Footer" />
 
     <TextView
-        android:id="@+id/header_position"
+        android:id="@+id/footer_position"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="6dp"
         android:text="pos" />
 
 </LinearLayout>

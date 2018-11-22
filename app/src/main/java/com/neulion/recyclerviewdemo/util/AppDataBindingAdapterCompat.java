@@ -1,4 +1,4 @@
-package com.neulion.recyclerviewdemo;
+package com.neulion.recyclerviewdemo.util;
 
 import android.databinding.BindingAdapter;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 /**
  * User: liuwei
  */
-public class DataBindingAdapterCompat
+public class AppDataBindingAdapterCompat
 {
     // ------------------------------------------------------------------------------------
     // ImageView
