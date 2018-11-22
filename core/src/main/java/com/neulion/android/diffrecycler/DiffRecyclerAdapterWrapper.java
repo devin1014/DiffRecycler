@@ -15,7 +15,7 @@ import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.List;
 
-final class BaseRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder>
+final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder>
 {
     private static final int TYPE_HEADER = 1024;
 
@@ -33,7 +33,7 @@ final class BaseRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
 
     private RecyclerView mRecyclerView;
 
-    BaseRecyclerAdapterWrapper()
+    DiffRecyclerAdapterWrapper()
     {
     }
 
@@ -343,9 +343,9 @@ final class BaseRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
     // ----------------------------------------------------------------------------------------------------
     private static class InnerAdapterDataObserver extends AdapterDataObserver
     {
-        private BaseRecyclerAdapterWrapper mAdapterWrapper;
+        private DiffRecyclerAdapterWrapper mAdapterWrapper;
 
-        InnerAdapterDataObserver(BaseRecyclerAdapterWrapper adapter)
+        InnerAdapterDataObserver(DiffRecyclerAdapterWrapper adapter)
         {
             mAdapterWrapper = adapter;
         }

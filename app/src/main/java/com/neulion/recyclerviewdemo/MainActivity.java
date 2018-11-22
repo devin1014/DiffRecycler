@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.radio_native:
 
-                        showFragment(new NativeRecyclerViewFragment());
+                        showFragment(new NativeRecyclerFragment());
 
                         break;
 
                     case R.id.radio_common:
 
-                        showFragment(new CommonListFragment());
+                        showFragment(new CustomRecyclerFragment());
 
                         break;
 

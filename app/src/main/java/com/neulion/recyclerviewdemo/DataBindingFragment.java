@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.android.diffrecycler.DiffDataBindingAdapter;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.android.diffrecycler.holder.DataBindingHolder;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
@@ -69,7 +69,7 @@ public class DataBindingFragment extends BaseDiffRecyclerFragment
         @Override
         protected int getLayout(int viewType)
         {
-            return R.layout.item_recycler_view_binding;
+            return R.layout.adapter_list_common;
         }
 
         @Override

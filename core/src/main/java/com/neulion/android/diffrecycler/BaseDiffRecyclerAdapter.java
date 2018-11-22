@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class BaseRecyclerViewAdapter<T extends DataDiffCompare<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
+public abstract class BaseDiffRecyclerAdapter<T extends DataDiffCompare<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
 {
     private final LayoutInflater mLayoutInflater;
 
     private List<T> mDataList;
 
-    public BaseRecyclerViewAdapter(LayoutInflater inflater)
+    public BaseDiffRecyclerAdapter(LayoutInflater inflater)
     {
         mLayoutInflater = inflater;
 

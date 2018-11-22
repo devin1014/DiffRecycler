@@ -11,7 +11,7 @@ import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 /**
  * User: NeuLion
  */
-public abstract class DataBindingAdapter<T extends DataDiffCompare<T>> extends BaseRecyclerViewAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
+public abstract class DataBindingAdapter<T extends DataDiffCompare<T>> extends BaseDiffRecyclerAdapter<T, DataBindingHolder<T>> implements OnItemClickListener<T>
 {
     private OnItemClickListener<T> mOnItemClickListener;
 

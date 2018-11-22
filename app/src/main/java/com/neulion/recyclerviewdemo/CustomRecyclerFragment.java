@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerView;
-import com.neulion.android.diffrecycler.BaseRecyclerViewAdapter;
+import com.neulion.android.diffrecycler.BaseDiffRecyclerAdapter;
 import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public class CommonListFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
+public class CustomRecyclerFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
 {
     private ListAdapter mListAdapter;
 
@@ -52,7 +52,7 @@ public class CommonListFragment extends BaseDiffRecyclerFragment implements OnRe
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class ListAdapter extends BaseRecyclerViewAdapter<UIDataInterface, CustomViewHolder>
+    private class ListAdapter extends BaseDiffRecyclerAdapter<UIDataInterface, CustomViewHolder>
     {
         private int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
 
@@ -64,7 +64,7 @@ public class CommonListFragment extends BaseDiffRecyclerFragment implements OnRe
         @Override
         public CustomViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
-            return new CustomViewHolder(inflater.inflate(R.layout.item_recycler_view_2, parent, false));
+            return new CustomViewHolder(inflater.inflate(R.layout.adapter_list_common, parent, false));
         }
 
         @Override

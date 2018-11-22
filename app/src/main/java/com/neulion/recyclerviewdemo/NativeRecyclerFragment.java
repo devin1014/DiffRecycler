@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public class NativeRecyclerViewFragment extends Fragment implements OnRefreshListener
+public class NativeRecyclerFragment extends Fragment implements OnRefreshListener
 {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -90,7 +90,7 @@ public class NativeRecyclerViewFragment extends Fragment implements OnRefreshLis
         @Override
         public Holder onCreateViewHolder(ViewGroup parent, int viewType)
         {
-            return new Holder(mLayoutInflater.inflate(R.layout.item_recycler_view_2, parent, false));
+            return new Holder(mLayoutInflater.inflate(R.layout.adapter_list_common, parent, false));
         }
 
         @Override
