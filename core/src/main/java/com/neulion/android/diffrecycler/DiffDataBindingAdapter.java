@@ -1,4 +1,4 @@
-package com.neulion.android.diffrecycler.adapter;
+package com.neulion.android.diffrecycler;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -7,7 +7,7 @@ import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.util.ListUpdateCallback;
 import android.view.LayoutInflater;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 import com.neulion.android.diffrecycler.diff.DiffComparableCallback;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class DiffDataBindingAdapter<T extends DataComparable<T>> extends DataBindingAdapter<T>
+public abstract class DiffDataBindingAdapter<T extends DataDiffCompare<T>> extends DataBindingAdapter<T>
 {
     private DiffCompareTask mCompareTask;
 

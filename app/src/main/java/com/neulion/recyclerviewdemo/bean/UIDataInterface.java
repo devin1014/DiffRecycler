@@ -2,9 +2,9 @@ package com.neulion.recyclerviewdemo.bean;
 
 import android.support.annotation.DrawableRes;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 
-public interface UIDataInterface extends DataComparable<UIDataInterface>
+public interface UIDataInterface extends DataDiffCompare<UIDataInterface>
 {
     String getId();
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 
 import java.lang.reflect.Field;
@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
 /**
  * User: NeuLion
  */
-public class DataBindingHolder<T extends DataComparable<T>> extends BaseViewHolder<T>
+public class DataBindingHolder<T extends DataDiffCompare<T>> extends BaseViewHolder<T>
 {
     private final AbstractViewDataBinding mViewDataBinding;
 

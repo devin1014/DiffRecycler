@@ -1,10 +1,10 @@
-package com.neulion.android.diffrecycler.adapter;
+package com.neulion.android.diffrecycler;
 
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
+public abstract class BaseRecyclerViewAdapter<T extends DataDiffCompare<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
 {
     private final LayoutInflater mLayoutInflater;
 
@@ -169,7 +169,7 @@ public abstract class BaseRecyclerViewAdapter<T extends DataComparable<T>, Holde
         {
             for (int i = 0; i < mDataList.size(); i++)
             {
-                if (t.compareTo(mDataList.get(i)))
+                if (t.compareData(mDataList.get(i)))
                 {
                     return i;
                 }

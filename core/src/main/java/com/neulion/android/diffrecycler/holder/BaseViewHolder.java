@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
 
 /**
  * User: NeuLion
  */
-public class BaseViewHolder<T extends DataComparable<T>> extends ViewHolder
+public class BaseViewHolder<T extends DataDiffCompare<T>> extends ViewHolder
 {
     private SparseArray<View> mViewSparseArray;
 

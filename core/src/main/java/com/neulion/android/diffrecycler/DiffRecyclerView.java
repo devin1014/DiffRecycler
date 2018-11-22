@@ -9,8 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.neulion.android.diffrecycler.adapter.BaseRecyclerAdapterWrapper;
-
 /**
  * User: NeuLion
  */

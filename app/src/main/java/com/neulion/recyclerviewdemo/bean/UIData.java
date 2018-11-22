@@ -56,7 +56,7 @@ public class UIData implements UIDataInterface
     }
 
     @Override
-    public boolean compareTo(@NonNull UIDataInterface o)
+    public boolean compareData(@NonNull UIDataInterface o)
     {
         return getId().equalsIgnoreCase(o.getId()) && getName().equalsIgnoreCase(o.getName());
     }

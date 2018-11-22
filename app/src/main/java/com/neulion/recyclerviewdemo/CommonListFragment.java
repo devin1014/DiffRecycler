@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerView;
-import com.neulion.android.diffrecycler.adapter.BaseRecyclerViewAdapter;
+import com.neulion.android.diffrecycler.BaseRecyclerViewAdapter;
 import com.neulion.android.diffrecycler.holder.BaseViewHolder;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;

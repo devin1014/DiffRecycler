@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerView;
-import com.neulion.android.diffrecycler.adapter.DiffDataBindingAdapter;
+import com.neulion.android.diffrecycler.DiffDataBindingAdapter;
 import com.neulion.android.diffrecycler.holder.DataBindingHolder;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;

@@ -1,4 +1,4 @@
-package com.neulion.android.diffrecycler.adapter;
+package com.neulion.android.diffrecycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -10,13 +10,12 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-import com.neulion.android.diffrecycler.diff.DataComparable;
 import com.neulion.android.diffrecycler.holder.HeaderViewHolder;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.List;
 
-public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder extends ViewHolder> extends Adapter<Holder>
+final class BaseRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder>
 {
     private static final int TYPE_HEADER = 1024;
 
@@ -34,7 +33,7 @@ public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder exte
 
     private RecyclerView mRecyclerView;
 
-    public BaseRecyclerAdapterWrapper()
+    BaseRecyclerAdapterWrapper()
     {
     }
 
@@ -96,7 +95,7 @@ public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder exte
     @SuppressWarnings({"unchecked", "WeakerAccess"})
     protected Holder onCreateHeaderHolder(View header)
     {
-        return (Holder) (new HeaderViewHolder<>(header));
+        return (Holder) (new HeaderViewHolder(header));
     }
 
     @Override
@@ -105,12 +104,12 @@ public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder exte
         if (isHeader(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder<T>) holder);
+            onBindHeaderHolder((HeaderViewHolder) holder);
         }
         else if (isFooter(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder<T>) holder);
+            onBindHeaderHolder((HeaderViewHolder) holder);
         }
         else if (mAdapter != null)
         {
@@ -124,12 +123,12 @@ public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder exte
         if (isHeader(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder<T>) holder);
+            onBindHeaderHolder((HeaderViewHolder) holder);
         }
         else if (isFooter(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder<T>) holder);
+            onBindHeaderHolder((HeaderViewHolder) holder);
         }
         else if (mAdapter != null)
         {
@@ -138,7 +137,7 @@ public class BaseRecyclerAdapterWrapper<T extends DataComparable<T>, Holder exte
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
-    public void onBindHeaderHolder(HeaderViewHolder<T> holder)
+    public void onBindHeaderHolder(HeaderViewHolder holder)
     {
     }
 
