@@ -11,25 +11,25 @@ import android.util.AttributeSet;
 /**
  * User: NeuLion
  */
-public class RecyclerView extends android.support.v7.widget.RecyclerView
+public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 {
     private int mOrientation;
 
     private DividerDecoration mDividerDecoration;
 
-    public RecyclerView(Context context)
+    public DiffRecyclerView(Context context)
     {
         super(context);
     }
 
-    public RecyclerView(Context context, @Nullable AttributeSet attrs)
+    public DiffRecyclerView(Context context, @Nullable AttributeSet attrs)
     {
         super(context, attrs);
 
         initialize(context, attrs);
     }
 
-    public RecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle)
+    public DiffRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
 
@@ -40,13 +40,13 @@ public class RecyclerView extends android.support.v7.widget.RecyclerView
     {
         mDividerDecoration = new DividerDecoration(0, 0);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, com.neulion.android.diffrecycler.R.styleable.RecyclerView);
+        TypedArray a = context.obtainStyledAttributes(attrs, com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView);
 
-        setOrientation(a.getInt(com.neulion.android.diffrecycler.R.styleable.RecyclerView_orientation, LinearLayoutManager.HORIZONTAL));
+        setOrientation(a.getInt(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_orientation, LinearLayoutManager.HORIZONTAL));
 
-        setDividerColor(a.getColor(com.neulion.android.diffrecycler.R.styleable.RecyclerView_dividerColor, Color.TRANSPARENT));
+        setDividerColor(a.getColor(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_dividerColor, Color.TRANSPARENT));
 
-        setDividerSize(a.getDimensionPixelSize(com.neulion.android.diffrecycler.R.styleable.RecyclerView_dividerSize, 0));
+        setDividerSize(a.getDimensionPixelSize(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_dividerSize, 0));
 
         a.recycle();
 

@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.neulion.android.diffrecycler.RecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
@@ -52,7 +52,7 @@ public class ListFragment extends Fragment implements OnRefreshListener
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        DiffRecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.HORIZONTAL, false));
 

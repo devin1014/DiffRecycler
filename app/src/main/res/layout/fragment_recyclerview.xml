@@ -36,7 +36,7 @@
 
         </LinearLayout>
 
-        <com.neulion.android.diffrecycler.RecyclerView
+        <com.neulion.android.diffrecycler.DiffRecyclerView
             android:id="@+id/recycler_view"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"

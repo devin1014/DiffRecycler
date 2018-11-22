@@ -4,7 +4,7 @@ apply plugin: 'java'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //implementation project(':diff-processor-api')
+    api project(':processor-api')
     api 'com.google.auto.service:auto-service:1.0-rc3'
     api 'com.squareup:javapoet:1.9.0'
 }
@@ -12,19 +12,18 @@ dependencies {
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-//task to delete the old jar
+def jarName = "processor-" + VERSION + ".jar"
+
 task deleteOldJar(type: Delete) {
     delete 'release/DiffRecyclerProcessor.jar'
 }
 
-//task to export contents as jar
 task exportJar(type: Copy) {
     from('build/libs/')
     into('release/')
-    ///Rename the jar
-    rename('diff-processor.jar', 'DiffRecyclerProcessor.jar')
+    rename(jarName, 'DiffRecyclerProcessor.jar')
 }
 
 exportJar.dependsOn(deleteOldJar, build)
 
-apply from: '../uploadDiffProcessorArchives.gradle'
+apply from: 'upload.gradle'

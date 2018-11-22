@@ -1,10 +1,6 @@
 apply plugin: 'com.android.library'
 
-def versionNamePrefix = '1.0.'
-
-static def getVersionName(String prefix) {
-    return prefix + new Date().format("MMdd", TimeZone.getTimeZone("GMT+8"))
-}
+def aarName = "DiffRecycler-v" + VERSION + ".aar"
 
 android {
     compileSdkVersion 26
@@ -13,7 +9,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
-        versionName getVersionName(versionNamePrefix)
+        versionName VERSION
     }
 
     buildTypes {
@@ -25,7 +21,7 @@ android {
             libraryVariants.all { variant ->
                 if (variant.buildType.name == 'release') {
                     variant.outputs.all {
-                        outputFileName = "recyclerViewSupport_v${android.defaultConfig.versionName}.aar"
+                        outputFileName = aarName
                     }
                 }
             }
@@ -34,12 +30,6 @@ android {
 
     dataBinding {
         enabled = true
-    }
-}
-
-tasks.withType(Jar) { jarTask ->
-    if (jarTask.name == 'packageReleaseJar') {
-        jarTask.from android.sourceSets.main.java.srcDirs
     }
 }
 
@@ -52,8 +42,20 @@ dependencies {
 
     implementation("com.android.support:recyclerview-v7:${SUPPORTLIBVERSION}")
 
-    //implementation project(':diff-processor-api')
+    implementation project(':processor-api')
     annotationProcessor project(':processor')
 }
 
-apply from: "../uploadCoreArchives.gradle"
+apply from: "upload.gradle"
+
+task buildReleaseApk(dependsOn: ['assembleRelease']) {
+    doLast {
+        delete {
+            'release'
+        }
+        copy {
+            from 'build/outputs/aar/' + aarName
+            into 'release'
+        }
+    }
+}

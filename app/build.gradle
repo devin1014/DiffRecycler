@@ -47,8 +47,8 @@ dependencies {
 
     // compile local project
     implementation project(':core')
-    implementation project(':processor') //注解@DiffItem,@DiffContent
-    annotationProcessor project(':processor') //注解解释器
+    implementation project(':processor-api') //api
+    annotationProcessor project(':processor') //processor
 
     // compile local file
     //implementation(name: 'recyclerViewSupport_v1.0.1112', ext: 'aar')
@@ -56,6 +56,7 @@ dependencies {
     //annotationProcessor files('libs/DiffRecyclerProcessor.jar')
 
     // compile maven
-    //implementation 'com.neulion.android:recyclerview-support:1.0.0-SNAPSHOT'
-    //annotationProcessor 'com.neulion.android:recyclerview-support-processor:1.0.0-SNAPSHOT'
+//    implementation 'com.neulion.android:recyclerview-support:1.0.1-SNAPSHOT'
+//    implementation 'com.neulion.android:recyclerview-support-processor:1.0.1-SNAPSHOT'
+//    annotationProcessor 'com.neulion.android:recyclerview-support-processor:1.0.1-SNAPSHOT'
 }

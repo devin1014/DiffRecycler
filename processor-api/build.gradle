@@ -1,0 +1,24 @@
+apply plugin: 'java-library'
+apply plugin: 'java'
+
+dependencies {
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+def jarName = "processor-api-" + VERSION + ".jar"
+
+task deleteOldJar(type: Delete) {
+    delete 'release/DiffRecyclerProcessorApi.jar'
+}
+
+task exportJar(type: Copy) {
+    from('build/libs/')
+    into('release/')
+    rename(jarName, 'DiffRecyclerProcessorApi.jar')
+}
+
+exportJar.dependsOn(deleteOldJar, build)
+
+apply from: 'upload.gradle'

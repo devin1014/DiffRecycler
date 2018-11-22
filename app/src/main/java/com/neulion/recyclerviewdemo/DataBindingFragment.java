@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.neulion.android.diffrecycler.RecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.android.diffrecycler.adapter.DiffDataBindingAdapter;
 import com.neulion.android.diffrecycler.holder.DataBindingHolder;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
@@ -51,7 +51,7 @@ public class DataBindingFragment extends Fragment implements OnRefreshListener
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        final DiffRecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
         mListAdapter = new ListAdapter(getLayoutInflater(), mOnItemClickListener);
 
