@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
@@ -24,6 +25,8 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     protected DiffRecyclerView mRecyclerView;
+
+    protected DiffRecyclerAdapter<UIDataInterface> mListAdapter;
 
     @Nullable
     @Override
@@ -96,9 +99,15 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
         }
     }
 
-    protected abstract void resetData(List<UIDataInterface> list);
+    protected void resetData(List<UIDataInterface> list)
+    {
+        mListAdapter.setData(list);
+    }
 
-    protected abstract void clearData();
+    protected void clearData()
+    {
+        mListAdapter.setData(null);
+    }
 
     public void addHeader()
     {

@@ -1,10 +1,12 @@
 package com.neulion.android.diffrecycler.holder;
 
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class HeaderViewHolder extends ViewHolder
+import com.neulion.android.diffrecycler.diff.DataDiffCompare;
+
+@SuppressWarnings("unused")
+public class HeaderViewHolder<T extends DataDiffCompare<T>> extends DiffViewHolder
 {
     @SuppressWarnings("WeakerAccess")
     public final LinearLayout mHeaderLinearLayout;

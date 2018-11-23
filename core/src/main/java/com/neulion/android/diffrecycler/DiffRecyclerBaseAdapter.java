@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.neulion.android.diffrecycler.diff.DataDiffCompare;
-import com.neulion.android.diffrecycler.holder.BaseViewHolder;
+import com.neulion.android.diffrecycler.holder.DiffViewHolder;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.ArrayList;
@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public abstract class BaseDiffRecyclerAdapter<T extends DataDiffCompare<T>, Holder extends BaseViewHolder<T>> extends Adapter<Holder>
+abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder extends DiffViewHolder<T>> extends Adapter<Holder>
 {
     private final LayoutInflater mLayoutInflater;
 
     private List<T> mDataList;
 
-    public BaseDiffRecyclerAdapter(LayoutInflater inflater)
+    DiffRecyclerBaseAdapter(LayoutInflater inflater)
     {
         mLayoutInflater = inflater;
 
@@ -72,6 +72,8 @@ public abstract class BaseDiffRecyclerAdapter<T extends DataDiffCompare<T>, Hold
             mDataList = list;
 
             onDataSetChanged(oldList, mDataList);
+
+            notifyDataSetChanged();
         }
     }
 

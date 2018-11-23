@@ -10,6 +10,7 @@
     tools:background="#55888888">
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:contentDescription="@null"

@@ -10,65 +10,47 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
-import com.neulion.android.diffrecycler.BaseDiffRecyclerAdapter;
-import com.neulion.android.diffrecycler.holder.BaseViewHolder;
+import com.neulion.android.diffrecycler.holder.DiffViewHolder;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
-
-import java.util.List;
 
 /**
  * User: NeuLion
  */
-public class CustomRecyclerFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
+public class CustomAdapterDemoFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
 {
-    private ListAdapter mListAdapter;
-
     @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
     {
-        mListAdapter = new ListAdapter(getLayoutInflater());
+        mListAdapter = new CustomRecyclerAdapter(getLayoutInflater());
 
         mListAdapter.setData(DataProvider.getData());
 
         recyclerView.setAdapter(mListAdapter);
     }
 
-    @Override
-    protected void resetData(List<UIDataInterface> list)
-    {
-        mListAdapter.setData(list);
-
-        mListAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void clearData()
-    {
-        mListAdapter.setData(null);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class ListAdapter extends BaseDiffRecyclerAdapter<UIDataInterface, CustomViewHolder>
+    private class CustomRecyclerAdapter extends DiffRecyclerAdapter<UIDataInterface>
     {
-        private int[] COLORS = new int[]{Color.parseColor("#eeeeee"), Color.parseColor("#bdbdbd")};
+        private int[] COLORS = new int[]{Color.parseColor("#aa00aa00"), Color.parseColor("#aa0000aa")};
 
-        ListAdapter(LayoutInflater inflater)
+        CustomRecyclerAdapter(LayoutInflater inflater)
         {
             super(inflater);
         }
 
         @Override
-        public CustomViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+        public DiffViewHolder<UIDataInterface> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
-            return new CustomViewHolder(inflater.inflate(R.layout.adapter_list_common, parent, false));
+            return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
         @Override
-        public void onBindViewHolder(CustomViewHolder holder, UIDataInterface data, int position)
+        public void onBindViewHolder(DiffViewHolder<UIDataInterface> holder, UIDataInterface data, int position)
         {
             holder.itemView.setTag(position);
 
@@ -76,16 +58,24 @@ public class CustomRecyclerFragment extends BaseDiffRecyclerFragment implements 
 
             ((ImageView) holder.findViewById(R.id.image)).setImageResource(data.getImageRes());
 
+            ((TextView) holder.findViewById(R.id.index)).setText(String.valueOf(position));
+
             ((TextView) holder.findViewById(R.id.name)).setText(data.getName());
 
             ((TextView) holder.findViewById(R.id.description)).setText(data.getDescription());
+        }
+
+        @Override
+        protected int getViewHolderLayout(int viewType)
+        {
+            return R.layout.adapter_list_common;
         }
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Holder
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class CustomViewHolder extends BaseViewHolder<UIDataInterface> implements OnClickListener
+    private class CustomViewHolder extends DiffViewHolder<UIDataInterface> implements OnClickListener
     {
         CustomViewHolder(View itemView)
         {
@@ -97,7 +87,7 @@ public class CustomRecyclerFragment extends BaseDiffRecyclerFragment implements 
         @Override
         public void onClick(View v)
         {
-            Toast.makeText(getActivity(), "onClick:" + v.getTag(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "单击事件:" + v.getTag(), Toast.LENGTH_SHORT).show();
         }
     }
 }

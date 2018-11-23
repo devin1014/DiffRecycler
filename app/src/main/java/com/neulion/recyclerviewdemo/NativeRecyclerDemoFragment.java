@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * User: NeuLion
  */
-public class NativeRecyclerFragment extends Fragment implements OnRefreshListener
+public class NativeRecyclerDemoFragment extends Fragment implements OnRefreshListener
 {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -123,6 +123,8 @@ public class NativeRecyclerFragment extends Fragment implements OnRefreshListene
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private class Holder extends ViewHolder implements OnClickListener
     {
+        private TextView mIndex;
+
         private TextView mName;
 
         private TextView mDescription;
@@ -135,6 +137,8 @@ public class NativeRecyclerFragment extends Fragment implements OnRefreshListene
 
             itemView.setOnClickListener(this);
 
+            mIndex = itemView.findViewById(R.id.index);
+
             mImage = itemView.findViewById(R.id.image);
 
             mName = itemView.findViewById(R.id.name);
@@ -145,6 +149,8 @@ public class NativeRecyclerFragment extends Fragment implements OnRefreshListene
         public void setData(UIDataInterface data, int pos)
         {
             itemView.setTag(pos);
+
+            mIndex.setText(data.getId());
 
             mImage.setImageResource(data.getImageRes());
 

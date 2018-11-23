@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
 
         initComponent();
 
-        showFragment(new DataBindingFragment());
+        showFragment(new SimpleAdapterDemoFragment());
     }
 
     private void initComponent()
@@ -37,19 +37,19 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.radio_native:
 
-                        showFragment(new NativeRecyclerFragment());
+                        showFragment(new NativeRecyclerDemoFragment());
 
                         break;
 
                     case R.id.radio_common:
 
-                        showFragment(new CustomRecyclerFragment());
+                        showFragment(new CustomAdapterDemoFragment());
 
                         break;
 
                     case R.id.radio_databinding:
 
-                        showFragment(new DataBindingFragment());
+                        showFragment(new SimpleAdapterDemoFragment());
 
                         break;
                 }
