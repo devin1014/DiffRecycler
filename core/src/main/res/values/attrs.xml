@@ -13,6 +13,8 @@
         </attr>
         <attr name="spanCount" format="integer" />
         <attr name="reverseLayout" format="boolean" />
+        <attr name="dividerSize" format="dimension|reference" />
+        <attr name="dividerColor" format="color|reference" />
     </declare-styleable>
 
 </resources>

@@ -10,6 +10,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.neulion.android.diffrecycler.decoration.ItemDividerDecoration;
+
 /**
  * User: NeuLion
  */
@@ -63,6 +65,15 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
             int spanCount = a.getInt(R.styleable.DiffRecyclerView_spanCount, 1);
 
             setLayoutManager(new StaggeredGridLayoutManager(spanCount, orientation));
+        }
+
+        int dividerSize = a.getDimensionPixelSize(R.styleable.DiffRecyclerView_dividerSize, 0);
+
+        if (dividerSize > 0)
+        {
+            int color = a.getColor(R.styleable.DiffRecyclerView_dividerColor, 0);
+
+            addItemDecoration(new ItemDividerDecoration(orientation, dividerSize, color));
         }
 
         a.recycle();
@@ -122,7 +133,9 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
                 return mSpanCount;
             }
 
-            return mSpanSizeLookup.getSpanSize(position);
+            final int offsetSize = mAdapterWrapper.getHeaderCount() > 0 ? 1 : 0;
+
+            return mSpanSizeLookup.getSpanSize(position - offsetSize);
         }
     }
 

@@ -1,6 +1,7 @@
-package com.neulion.android.diffrecycler;
+package com.neulion.android.diffrecycler.decoration;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.ColorInt;
@@ -12,40 +13,54 @@ import android.view.View;
 /**
  * User: NeuLion
  */
-public class DividerDecoration extends RecyclerView.ItemDecoration
+public class ItemDividerDecoration extends RecyclerView.ItemDecoration
 {
+    public static final int HORIZONTAL = LinearLayoutManager.HORIZONTAL;
+
+    public static final int VERTICAL = LinearLayoutManager.VERTICAL;
+
     private int mHorizontalSize = 0; //px
 
     private int mVerticalSize = 0; //px
 
     private Paint mDividerPaint;
 
-    public DividerDecoration(int horizontalSize, int verticalSize)
+    public ItemDividerDecoration(int orientation, int size)
     {
-        //LogUtil.log(this, "DividerDecoration(" + horizontalSize + "," + verticalSize + ")");
-
-        mDividerPaint = new Paint();
-
-        setHorizontalSize(horizontalSize);
-
-        setVerticalSize(verticalSize);
+        this(orientation, size, Color.parseColor("#00000000"));
     }
 
-    public void setHorizontalSize(int horizontalSize)
+    public ItemDividerDecoration(int orientation, int size, @ColorInt int color)
+    {
+        mDividerPaint = new Paint();
+
+        if (orientation == HORIZONTAL)
+        {
+            setHorizontalSize(size);
+        }
+        else if (orientation == VERTICAL)
+        {
+            setVerticalSize(size);
+        }
+
+        setDividerColor(color);
+    }
+
+    private void setHorizontalSize(int horizontalSize)
     {
         mHorizontalSize = horizontalSize;
 
         mDividerPaint.setStrokeWidth(horizontalSize);
     }
 
-    public void setVerticalSize(int verticalSize)
+    private void setVerticalSize(int verticalSize)
     {
         mVerticalSize = verticalSize;
 
         mDividerPaint.setStrokeWidth(mVerticalSize);
     }
 
-    public void setDividerColor(@ColorInt int color)
+    private void setDividerColor(@ColorInt int color)
     {
         mDividerPaint.setColor(color);
     }
@@ -53,8 +68,6 @@ public class DividerDecoration extends RecyclerView.ItemDecoration
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
     {
-        //LogUtil.log(this, "getItemOffsets(" + outRect + ")");
-
         if (mHorizontalSize > 0)
         {
             outRect.right = mHorizontalSize;
@@ -68,8 +81,6 @@ public class DividerDecoration extends RecyclerView.ItemDecoration
     @Override
     public void onDraw(Canvas c, RecyclerView parent, State state)
     {
-        //LogUtil.log(this, "onDraw");
-
         if (shouldDrawDivider())
         {
             if (parent.getLayoutManager() instanceof LinearLayoutManager)

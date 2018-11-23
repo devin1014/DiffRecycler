@@ -90,7 +90,7 @@ public abstract class DiffRecyclerAdapter<T extends DataDiffCompare<T>> extends 
     @Override
     public void onCompareResult(List<T> oldList, List<T> newList, DiffResult diffResult)
     {
-        super.setData(newList);
+        setDataNoNotifyChanged(newList);
 
         diffResult.dispatchUpdatesTo(mUpdateCallback);
     }

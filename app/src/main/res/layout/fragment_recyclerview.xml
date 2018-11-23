@@ -45,8 +45,10 @@
             android:fadeScrollbars="false"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
-            app:layoutType="linearLayout"
-            app:layoutOrientation="vertical" />
+            app:dividerColor="@color/colorAccent"
+            app:dividerSize="4dp"
+            app:layoutOrientation="vertical"
+            app:layoutType="linearLayout" />
 
     </LinearLayout>
 

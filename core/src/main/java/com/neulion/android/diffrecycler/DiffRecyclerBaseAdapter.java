@@ -77,6 +77,18 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
         }
     }
 
+    public void setDataNoNotifyChanged(List<T> list)
+    {
+        if (mDataList != list)
+        {
+            final List<T> oldList = mDataList;
+
+            mDataList = list;
+
+            onDataSetChanged(oldList, mDataList);
+        }
+    }
+
     @SuppressWarnings("WeakerAccess")
     protected void onDataSetChanged(List<T> oldList, List<T> newList)
     {
