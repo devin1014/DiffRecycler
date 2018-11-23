@@ -17,9 +17,9 @@ import java.util.List;
 
 final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder>
 {
-    private static final int TYPE_HEADER = 1024;
+    public static final int TYPE_HEADER = 1024;
 
-    private static final int TYPE_FOOTER = 2048;
+    public static final int TYPE_FOOTER = 2048;
 
     private LinearLayout mHeaderLayout;
 
@@ -166,6 +166,11 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         }
 
         return -1;
+    }
+
+    public Adapter<Holder> getSourceAdapter()
+    {
+        return mAdapter;
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------

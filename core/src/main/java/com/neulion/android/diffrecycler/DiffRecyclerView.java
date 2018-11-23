@@ -2,10 +2,11 @@ package com.neulion.android.diffrecycler;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.GridLayoutManager.SpanSizeLookup;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -14,9 +15,9 @@ import android.view.View;
  */
 public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 {
-    private int mOrientation;
-
-    private DividerDecoration mDividerDecoration;
+    private static final int TYPE_LINEARLAYOUT = 0;
+    private static final int TYPE_GRIDLAYOUT = 1;
+    private static final int TYPE_STAGGERGRIDLAYOUT = 2;
 
     public DiffRecyclerView(Context context)
     {
@@ -39,55 +40,34 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
     private void initialize(Context context, @Nullable AttributeSet attrs)
     {
-        mDividerDecoration = new DividerDecoration(0, 0);
-
         TypedArray a = context.obtainStyledAttributes(attrs, com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView);
 
-        setOrientation(a.getInt(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_orientation, LinearLayoutManager.HORIZONTAL));
+        int layoutType = a.getInt(R.styleable.DiffRecyclerView_layoutType, TYPE_LINEARLAYOUT);
 
-        setDividerColor(a.getColor(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_dividerColor, Color.TRANSPARENT));
+        int orientation = a.getInt(R.styleable.DiffRecyclerView_layoutOrientation, LinearLayoutManager.VERTICAL);
 
-        setDividerSize(a.getDimensionPixelSize(com.neulion.android.diffrecycler.R.styleable.DiffRecyclerView_dividerSize, 0));
+        boolean reverseLayout = a.getBoolean(R.styleable.DiffRecyclerView_reverseLayout, false);
+
+        if (layoutType == TYPE_LINEARLAYOUT)
+        {
+            setLayoutManager(new LinearLayoutManager(context, orientation, reverseLayout));
+        }
+        else if (layoutType == TYPE_GRIDLAYOUT)
+        {
+            int spanCount = a.getInt(R.styleable.DiffRecyclerView_spanCount, 1);
+
+            setLayoutManager(new GridLayoutManager(context, spanCount, orientation, reverseLayout));
+        }
+        else if (layoutType == TYPE_STAGGERGRIDLAYOUT)
+        {
+            int spanCount = a.getInt(R.styleable.DiffRecyclerView_spanCount, 1);
+
+            setLayoutManager(new StaggeredGridLayoutManager(spanCount, orientation));
+        }
 
         a.recycle();
 
-        super.addItemDecoration(mDividerDecoration, -1);//FIXME
-
-        super.setAdapter(mAdapterWrapper);
-    }
-
-    public void setDividerSize(int size)
-    {
-        if (mOrientation == LinearLayoutManager.HORIZONTAL)
-        {
-            mDividerDecoration.setHorizontalSize(size);
-        }
-        else
-        {
-            mDividerDecoration.setVerticalSize(size);
-        }
-    }
-
-    public void setDividerColor(@ColorInt int color)
-    {
-        mDividerDecoration.setDividerColor(color);
-    }
-
-    public void setOrientation(int orientation)
-    {
-        mOrientation = orientation;
-
-        if (getLayoutManager() != null)
-        {
-            if (getLayoutManager() instanceof LinearLayoutManager)
-            {
-                ((LinearLayoutManager) getLayoutManager()).setOrientation(orientation);
-            }
-        }
-        else
-        {
-            setLayoutManager(new LinearLayoutManager(getContext(), mOrientation, false));
-        }
+        super.setAdapter(mAdapterWrapper); // DiffRecyclerView should set 'DiffRecyclerAdapterWrapper'
     }
 
     private DiffRecyclerAdapterWrapper mAdapterWrapper = new DiffRecyclerAdapterWrapper();
@@ -100,6 +80,50 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
         //noinspection unchecked
         mAdapterWrapper.setSourceAdapter(adapter);
+    }
+
+    public Adapter getAdapterWrapper()
+    {
+        return mAdapterWrapper.getSourceAdapter();
+    }
+
+    @Override
+    public void setLayoutManager(LayoutManager layout)
+    {
+        super.setLayoutManager(layout);
+
+        if (layout instanceof GridLayoutManager)
+        {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
+
+            gridLayoutManager.setSpanSizeLookup(new DiffSpanSizeLookup(gridLayoutManager));
+        }
+    }
+
+    private class DiffSpanSizeLookup extends SpanSizeLookup
+    {
+        private SpanSizeLookup mSpanSizeLookup;
+
+        private int mSpanCount;
+
+        DiffSpanSizeLookup(GridLayoutManager layoutManager)
+        {
+            mSpanSizeLookup = layoutManager.getSpanSizeLookup();
+
+            mSpanCount = layoutManager.getSpanCount();
+        }
+
+        @Override
+        public int getSpanSize(int position)
+        {
+            if (mAdapterWrapper.getItemViewType(position) == DiffRecyclerAdapterWrapper.TYPE_HEADER
+                    || mAdapterWrapper.getItemViewType(position) == DiffRecyclerAdapterWrapper.TYPE_FOOTER)
+            {
+                return mSpanCount;
+            }
+
+            return mSpanSizeLookup.getSpanSize(position);
+        }
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------

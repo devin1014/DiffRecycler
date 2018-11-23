@@ -1,4 +1,4 @@
-package com.neulion.recyclerviewdemo;
+package com.neulion.recyclerviewdemo.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.recyclerviewdemo.R;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 

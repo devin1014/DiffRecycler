@@ -2,12 +2,17 @@
 <resources>
 
     <declare-styleable name="DiffRecyclerView">
-        <attr name="orientation" format="enum">
+        <attr name="layoutType" format="enum">
+            <enum name="linearLayout" value="0" />
+            <enum name="gridLayout" value="1" />
+            <enum name="staggerGridLayout" value="1" />
+        </attr>
+        <attr name="layoutOrientation" format="enum">
             <enum name="horizontal" value="0" />
             <enum name="vertical" value="1" />
         </attr>
-        <attr name="dividerSize" format="dimension|integer|reference" />
-        <attr name="dividerColor" />
+        <attr name="spanCount" format="integer" />
+        <attr name="reverseLayout" format="boolean" />
     </declare-styleable>
 
 </resources>

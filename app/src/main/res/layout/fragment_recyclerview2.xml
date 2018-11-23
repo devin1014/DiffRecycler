@@ -45,8 +45,10 @@
             android:fadeScrollbars="false"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
-            app:layoutType="linearLayout"
-            app:layoutOrientation="vertical" />
+            app:layoutOrientation="vertical"
+            app:layoutType="gridLayout"
+            app:reverseLayout="false"
+            app:spanCount="2" />
 
     </LinearLayout>
 
