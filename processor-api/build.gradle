@@ -1,16 +1,15 @@
 apply plugin: 'java-library'
 apply plugin: 'java'
 
-dependencies {
-}
+apply from: 'upload.gradle'
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-def jarName = "processor-api-" + VERSION + ".jar"
+def jarName = String.format('processor-api-%s.jar', VERSION)
 
 task deleteOldJar(type: Delete) {
-    delete 'release/DiffRecyclerProcessorApi.jar'
+    delete fileTree(dir: "release", exclude: "readme.txt")
 }
 
 task exportJar(type: Copy) {
@@ -20,5 +19,3 @@ task exportJar(type: Copy) {
 }
 
 exportJar.dependsOn(deleteOldJar, build)
-
-apply from: 'upload.gradle'

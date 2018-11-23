@@ -1,6 +1,8 @@
 apply plugin: 'java-library'
 apply plugin: 'java'
 
+apply from: 'upload.gradle'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -12,10 +14,10 @@ dependencies {
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-def jarName = "processor-" + VERSION + ".jar"
+def jarName = String.format('processor-%s.jar', VERSION)
 
 task deleteOldJar(type: Delete) {
-    delete 'release/DiffRecyclerProcessor.jar'
+    delete fileTree(dir: "release", exclude: "readme.txt")
 }
 
 task exportJar(type: Copy) {
@@ -25,5 +27,3 @@ task exportJar(type: Copy) {
 }
 
 exportJar.dependsOn(deleteOldJar, build)
-
-apply from: 'upload.gradle'

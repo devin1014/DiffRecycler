@@ -9,7 +9,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 import com.neulion.recyclerviewdemo.ui.fragment.CustomAdapterDemoFragment;
 import com.neulion.recyclerviewdemo.ui.fragment.NativeRecyclerDemoFragment;
-import com.neulion.recyclerviewdemo.ui.fragment.SimpleAdapterDemo2Fragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleAdapterDemoFragment;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
 
         initComponent();
 
-        showFragment(new SimpleAdapterDemo2Fragment());
+        //showFragment(new SimpleAdapterDemo2Fragment());
     }
 
     private void initComponent()
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.radio_databinding:
 
-                        showFragment(new SimpleAdapterDemo2Fragment());
+                        showFragment(new SimpleAdapterDemoFragment());
 
                         break;
                 }

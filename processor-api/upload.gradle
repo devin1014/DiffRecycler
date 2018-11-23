@@ -16,7 +16,7 @@ uploadArchives {
             }
 
             pom.project {
-                name 'RecyclerViewSupportProcessor'
+                name 'RecyclerViewSupport'
                 packaging 'aar'
                 artifactId 'diffRecycler-processor-api'
             }

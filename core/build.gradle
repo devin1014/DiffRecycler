@@ -1,6 +1,12 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.library'
 
-def aarName = "DiffRecycler-v" + VERSION + ".aar"
+apply from: "upload.gradle"
+
+SimpleDateFormat format = new SimpleDateFormat("MMddHHmm")
+
+def aarName = String.format('DiffRecycler-v%s.aar', VERSION.replace('SNAPSHOT', format.format(new Date())))
 
 android {
     compileSdkVersion 26
@@ -46,13 +52,11 @@ dependencies {
     annotationProcessor project(':processor')
 }
 
-apply from: "upload.gradle"
-
-task buildReleaseApk(dependsOn: ['assembleRelease']) {
+task aarRelease(dependsOn: ['assembleRelease']) {
+    doFirst {
+    }
     doLast {
-        delete {
-            'release'
-        }
+        delete fileTree(dir: "release", exclude: "readme.txt")
         copy {
             from 'build/outputs/aar/' + aarName
             into 'release'
