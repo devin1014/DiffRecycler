@@ -1,6 +1,8 @@
 package com.neulion.android.diffrecycler;
 
 import android.support.v7.util.DiffUtil.DiffResult;
+import android.support.v7.util.ListUpdateCallback;
+import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,13 +87,50 @@ public abstract class DiffRecyclerAdapter<T extends DataDiffCompare<T>> extends 
         }
     }
 
-    private DiffCompareListUpdateCallbackImp mUpdateCallback = new DiffCompareListUpdateCallbackImp(this);
-
     @Override
     public void onCompareResult(List<T> oldList, List<T> newList, DiffResult diffResult)
     {
         setDataNoNotifyChanged(newList);
 
         diffResult.dispatchUpdatesTo(mUpdateCallback);
+    }
+
+    private ListUpdateCallbackImp mUpdateCallback = new ListUpdateCallbackImp(this);
+
+    // -------------------------------------------------------------------------------------------------------
+    // - Callback
+    // -------------------------------------------------------------------------------------------------------
+    static class ListUpdateCallbackImp implements ListUpdateCallback
+    {
+        private Adapter mAdapter;
+
+        ListUpdateCallbackImp(Adapter adapter)
+        {
+            mAdapter = adapter;
+        }
+
+        @Override
+        public void onInserted(int position, int count)
+        {
+            mAdapter.notifyItemRangeInserted(position, count);
+        }
+
+        @Override
+        public void onRemoved(int position, int count)
+        {
+            mAdapter.notifyItemRangeRemoved(position, count);
+        }
+
+        @Override
+        public void onMoved(int fromPosition, int toPosition)
+        {
+            mAdapter.notifyItemMoved(fromPosition, toPosition);
+        }
+
+        @Override
+        public void onChanged(int position, int count, Object payload)
+        {
+            mAdapter.notifyItemRangeChanged(position, count, payload);
+        }
     }
 }

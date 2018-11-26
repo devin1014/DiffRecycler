@@ -21,6 +21,8 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
     private static final int TYPE_GRIDLAYOUT = 1;
     private static final int TYPE_STAGGERGRIDLAYOUT = 2;
 
+    private ItemTouchHelperCallbackImp mItemTouchHelperCallbackImp;
+
     public DiffRecyclerView(Context context)
     {
         super(context);
@@ -76,6 +78,14 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
             addItemDecoration(new ItemDividerDecoration(orientation, dividerSize, color));
         }
 
+        // support 'ItemTouchHelper' feature: touch to resort or swipe to delete
+        if (a.getBoolean(R.styleable.DiffRecyclerView_enableItemTouch, false))
+        {
+            mItemTouchHelperCallbackImp = new ItemTouchHelperCallbackImp(
+                    a.getBoolean(R.styleable.DiffRecyclerView_enableLongPressDrag, true),
+                    a.getBoolean(R.styleable.DiffRecyclerView_enableItemViewSwipe, true));
+        }
+
         a.recycle();
 
         super.setAdapter(mAdapterWrapper); // DiffRecyclerView should set 'DiffRecyclerAdapterWrapper'
@@ -91,6 +101,11 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
         //noinspection unchecked
         mAdapterWrapper.setSourceAdapter(adapter);
+
+        if (mItemTouchHelperCallbackImp != null && adapter instanceof DataListAdapter)
+        {
+            mItemTouchHelperCallbackImp.attachItemTouchHelperToRecyclerView(this, mAdapterWrapper, (DataListAdapter) adapter);
+        }
     }
 
     public Adapter getAdapter()
@@ -98,6 +113,7 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         return mAdapterWrapper.getSourceAdapter();
     }
 
+    @SuppressWarnings("unused")
     DiffRecyclerAdapterWrapper getAdapterWrapper()
     {
         return mAdapterWrapper;
@@ -112,17 +128,30 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
 
-            gridLayoutManager.setSpanSizeLookup(new DiffSpanSizeLookup(gridLayoutManager));
+            gridLayoutManager.setSpanSizeLookup(new DiffSpanSizeLookupWrapper(gridLayoutManager));
         }
     }
 
-    private class DiffSpanSizeLookup extends SpanSizeLookup
+    public interface ViewHolderTouchStateCallback
+    {
+        void onViewHolderTouchStateChanged(ViewHolder viewHolder, int actionState);
+    }
+
+    public void setOnViewHolderTouchStateCallback(ViewHolderTouchStateCallback callback)
+    {
+        mItemTouchHelperCallbackImp.setOnViewHolderTouchStateCallback(callback);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    // - SpanSizeLookupWrapper
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    private class DiffSpanSizeLookupWrapper extends SpanSizeLookup
     {
         private SpanSizeLookup mSpanSizeLookup;
 
         private int mSpanCount;
 
-        DiffSpanSizeLookup(GridLayoutManager layoutManager)
+        DiffSpanSizeLookupWrapper(GridLayoutManager layoutManager)
         {
             mSpanSizeLookup = layoutManager.getSpanSizeLookup();
 

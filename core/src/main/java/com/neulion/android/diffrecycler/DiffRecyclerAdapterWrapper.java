@@ -10,16 +10,17 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
+import com.neulion.android.diffrecycler.holder.FooterViewHolder;
 import com.neulion.android.diffrecycler.holder.HeaderViewHolder;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.List;
 
-final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder>
+final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapter<Holder> implements HeaderFooterAdapter
 {
-    public static final int TYPE_HEADER = 1024;
+    static final int TYPE_HEADER = 1024;
 
-    public static final int TYPE_FOOTER = 2048;
+    static final int TYPE_FOOTER = 2048;
 
     private LinearLayout mHeaderLayout;
 
@@ -53,21 +54,21 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         mRecyclerView = null;
     }
 
-    public void setSourceAdapter(Adapter<Holder> adapter)
+    void setSourceAdapter(Adapter<Holder> adapter)
     {
         if (mAdapter != null)
         {
-            mAdapter.unregisterAdapterDataObserver(mAdapterDataObserver);
+            mAdapter.unregisterAdapterDataObserver(mChildAdapterDataObserver);
         }
 
         mAdapter = adapter;
 
-        adapter.registerAdapterDataObserver(mAdapterDataObserver);
+        adapter.registerAdapterDataObserver(mChildAdapterDataObserver);
 
         notifyDataSetChanged();
     }
 
-    private InnerAdapterDataObserver mAdapterDataObserver = new InnerAdapterDataObserver(this);
+    private ChildAdapterDataObserver mChildAdapterDataObserver = new ChildAdapterDataObserver(this);
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -80,9 +81,9 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         }
         else if (viewType == TYPE_FOOTER)
         {
-            DiffRecyclerLogger.info(this, String.format("onCreateHeaderHolder(viewType = %s)", viewType));
+            DiffRecyclerLogger.info(this, String.format("onCreateFooterHolder(viewType = %s)", viewType));
 
-            return onCreateHeaderHolder(mFooterLayout);
+            return onCreateFooterHolder(mFooterLayout);
         }
         else if (mAdapter != null)
         {
@@ -98,6 +99,12 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return (Holder) (new HeaderViewHolder(header));
     }
 
+    @SuppressWarnings({"unchecked", "WeakerAccess"})
+    protected Holder onCreateFooterHolder(View footer)
+    {
+        return (Holder) (new FooterViewHolder<>(footer));
+    }
+
     @Override
     public void onBindViewHolder(Holder holder, int position, List<Object> payloads)
     {
@@ -109,7 +116,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         else if (isFooter(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder) holder);
+            onBindFooterHolder((FooterViewHolder) holder);
         }
         else if (mAdapter != null)
         {
@@ -128,7 +135,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         else if (isFooter(position))
         {
             //noinspection unchecked
-            onBindHeaderHolder((HeaderViewHolder) holder);
+            onBindFooterHolder((FooterViewHolder) holder);
         }
         else if (mAdapter != null)
         {
@@ -138,6 +145,11 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
 
     @SuppressWarnings({"unused", "WeakerAccess"})
     public void onBindHeaderHolder(HeaderViewHolder holder)
+    {
+    }
+
+    @SuppressWarnings({"unused", "WeakerAccess"})
+    public void onBindFooterHolder(FooterViewHolder holder)
     {
     }
 
@@ -168,6 +180,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return -1;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Adapter<Holder> getSourceAdapter()
     {
         return mAdapter;
@@ -176,7 +189,13 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
     // ----------------------------------------------------------------------------------------------------------------------------------
     // - Headers
     // ----------------------------------------------------------------------------------------------------------------------------------
-    public <V extends View> int addHeader(V header, int index)
+    @Override
+    public int addHeader(View header)
+    {
+        return addHeader(header, -1);
+    }
+
+    public int addHeader(View header, int index)
     {
         if (mHeaderLayout == null)
         {
@@ -202,7 +221,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return index;
     }
 
-    public <V extends View> int removeHeader(V header)
+    public int removeHeader(View header)
     {
         int index = -1;
 
@@ -210,7 +229,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         {
             index = mHeaderLayout.indexOfChild(header);
 
-            if (index != -1)
+            if (index >= 0)
             {
                 mHeaderLayout.removeViewAt(index);
             }
@@ -223,16 +242,49 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
             }
         }
 
-
         return index;
     }
 
-    private boolean isHeader(int position)
+    @Override
+    public View removeHeader(int index)
+    {
+        View removedView = null;
+
+        if (mHeaderLayout != null && index >= 0 && index < mHeaderLayout.getChildCount())
+        {
+            removedView = mHeaderLayout.getChildAt(index);
+
+            mHeaderLayout.removeViewAt(index);
+
+            if (mHeaderLayout.getChildCount() == 0)
+            {
+                mHeadPositionOffset = 0;
+
+                notifyItemRemoved(0);
+            }
+        }
+
+        return removedView;
+    }
+
+    public void removeAllHeader()
+    {
+        if (mHeaderLayout != null && mHeaderLayout.getChildCount() > 0)
+        {
+            mHeaderLayout.removeAllViews();
+
+            mHeadPositionOffset = 0;
+
+            notifyItemRemoved(0);
+        }
+    }
+
+    public boolean isHeader(int position)
     {
         return hasHeaders() && position == 0;
     }
 
-    private boolean hasHeaders()
+    public boolean hasHeaders()
     {
         return mHeadPositionOffset != 0;
     }
@@ -242,10 +294,16 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return mHeaderLayout != null ? mHeaderLayout.getChildCount() : 0;
     }
 
+    @Override
+    public int addFooter(View footer)
+    {
+        return 0;
+    }
+
     // ----------------------------------------------------------------------------------------------------------------------------------
     // - Footer
     // ----------------------------------------------------------------------------------------------------------------------------------
-    public <V extends View> int addFooter(V footer, int index)
+    public int addFooter(View footer, int index)
     {
         if (mFooterLayout == null)
         {
@@ -271,7 +329,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return index;
     }
 
-    public <V extends View> int removeFooter(V footer)
+    public int removeFooter(View footer)
     {
         int index = -1;
 
@@ -279,7 +337,7 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         {
             index = mFooterLayout.indexOfChild(footer);
 
-            if (index != -1)
+            if (index >= 0 && index < mFooterLayout.getChildCount())
             {
                 mFooterLayout.removeViewAt(index);
             }
@@ -296,12 +354,46 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         return index;
     }
 
-    private boolean isFooter(int position)
+    @Override
+    public View removeFooter(int index)
+    {
+        View removedView = null;
+
+        if (mFooterLayout != null && index >= 0 && index < mFooterLayout.getChildCount())
+        {
+            removedView = mFooterLayout.getChildAt(index);
+
+            mFooterLayout.removeViewAt(index);
+
+            if (mFooterLayout.getChildCount() == 0)
+            {
+                mFootPositionOffset = 0;
+
+                notifyItemRemoved(getItemCount());
+            }
+        }
+
+        return removedView;
+    }
+
+    public void removeAllFooter()
+    {
+        if (mFooterLayout != null && mFooterLayout.getChildCount() > 0)
+        {
+            mFooterLayout.removeAllViews();
+
+            mFootPositionOffset = 0;
+
+            notifyItemRemoved(getItemCount());
+        }
+    }
+
+    public boolean isFooter(int position)
     {
         return hasFooters() && position == getItemCount() - 1;
     }
 
-    private boolean hasFooters()
+    public boolean hasFooters()
     {
         return mFootPositionOffset != 0;
     }
@@ -344,13 +436,13 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
     }
 
     // ----------------------------------------------------------------------------------------------------
-    // - InnerDataObserver
+    // - DataObserver
     // ----------------------------------------------------------------------------------------------------
-    private static class InnerAdapterDataObserver extends AdapterDataObserver
+    private static class ChildAdapterDataObserver extends InnerAdapterDataObserver
     {
         private DiffRecyclerAdapterWrapper mAdapterWrapper;
 
-        InnerAdapterDataObserver(DiffRecyclerAdapterWrapper adapter)
+        ChildAdapterDataObserver(DiffRecyclerAdapterWrapper adapter)
         {
             mAdapterWrapper = adapter;
         }
@@ -358,37 +450,82 @@ final class DiffRecyclerAdapterWrapper<Holder extends ViewHolder> extends Adapte
         @Override
         public void onChanged()
         {
+            super.onChanged();
+
             mAdapterWrapper.notifyDataSetChanged();
         }
 
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount)
         {
+            super.onItemRangeChanged(positionStart, itemCount);
+
             mAdapterWrapper.notifyItemRangeChanged(positionStart + mAdapterWrapper.mHeadPositionOffset, itemCount);
         }
 
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount, Object payload)
         {
+            super.onItemRangeChanged(positionStart, itemCount, payload);
+
             mAdapterWrapper.notifyItemRangeChanged(positionStart + mAdapterWrapper.mHeadPositionOffset, itemCount, payload);
         }
 
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount)
         {
+            super.onItemRangeInserted(positionStart, itemCount);
+
             mAdapterWrapper.notifyItemRangeInserted(positionStart + mAdapterWrapper.mHeadPositionOffset, itemCount);
         }
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount)
         {
+            super.onItemRangeRemoved(positionStart, itemCount);
+
             mAdapterWrapper.notifyItemRangeRemoved(positionStart + mAdapterWrapper.mHeadPositionOffset, itemCount);
         }
 
         @Override
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
         {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount);
+
             mAdapterWrapper.notifyItemMoved(fromPosition + mAdapterWrapper.mHeadPositionOffset, toPosition + mAdapterWrapper.mHeadPositionOffset);
+        }
+    }
+
+    private static class InnerAdapterDataObserver extends AdapterDataObserver
+    {
+        @Override
+        public void onChanged()
+        {
+            DiffRecyclerLogger.warn(this, "onChanged");
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload)
+        {
+            DiffRecyclerLogger.warn(this, String.format("onItemRangeChanged(positionStart = %s , itemCount = %s , payload = %s)", positionStart, itemCount, payload));
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount)
+        {
+            DiffRecyclerLogger.warn(this, String.format("onItemRangeInserted(positionStart = %s , itemCount = %s)", positionStart, itemCount));
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount)
+        {
+            DiffRecyclerLogger.warn(this, String.format("onItemRangeRemoved(positionStart = %s , itemCount = %s)", positionStart, itemCount));
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount)
+        {
+            DiffRecyclerLogger.warn(this, String.format("onItemRangeMoved(fromPosition = %s , toPosition = %s , itemCount = %s)", fromPosition, toPosition, itemCount));
         }
     }
 }

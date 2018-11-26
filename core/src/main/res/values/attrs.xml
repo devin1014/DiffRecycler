@@ -15,6 +15,9 @@
         <attr name="reverseLayout" format="boolean" />
         <attr name="dividerSize" format="dimension|reference" />
         <attr name="dividerColor" format="color|reference" />
+        <attr name="enableItemTouch" format="boolean" />
+        <attr name="enableLongPressDrag" format="boolean" />
+        <attr name="enableItemViewSwipe" format="boolean" />
     </declare-styleable>
 
 </resources>

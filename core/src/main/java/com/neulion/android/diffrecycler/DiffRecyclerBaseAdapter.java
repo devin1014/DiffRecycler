@@ -9,12 +9,13 @@ import com.neulion.android.diffrecycler.holder.DiffViewHolder;
 import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * User: NeuLion
  */
-abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder extends DiffViewHolder<T>> extends Adapter<Holder>
+abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder extends DiffViewHolder<T>> extends Adapter<Holder> implements DataListAdapter<T>
 {
     private final LayoutInflater mLayoutInflater;
 
@@ -128,7 +129,7 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
     }
 
     @SuppressWarnings("unused")
-    public final void appendDataList(List<T> list)
+    public void appendDataList(List<T> list)
     {
         appendDataList(list, mDataList.size());
     }
@@ -141,6 +142,16 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
             mDataList.addAll(index, list);
 
             notifyItemRangeInserted(index, list.size());
+        }
+    }
+
+    public final void moveItem(int fromPosition, int toPosition)
+    {
+        if (fromPosition >= 0 && fromPosition < mDataList.size() && toPosition >= 0 && toPosition < mDataList.size())
+        {
+            Collections.swap(mDataList, fromPosition, toPosition);
+
+            notifyItemMoved(fromPosition, toPosition);
         }
     }
 

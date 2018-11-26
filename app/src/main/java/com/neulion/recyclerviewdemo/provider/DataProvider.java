@@ -33,7 +33,7 @@ public class DataProvider
     {
         Random random = new Random(System.currentTimeMillis());
 
-        int count = random.nextInt(10);
+        int count = random.nextInt(20);
 
         List<UIDataInterface> list = new ArrayList<>(count);
 

@@ -23,7 +23,7 @@ import java.util.List;
 
 public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRefreshListener, OnClickListener
 {
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
 
     protected DiffRecyclerView mRecyclerView;
 

@@ -48,6 +48,7 @@
             app:dividerColor="@color/colorAccent"
             app:dividerSize="4dp"
             app:layoutOrientation="vertical"
+            app:enableItemTouch="true"
             app:layoutType="linearLayout" />
 
     </LinearLayout>

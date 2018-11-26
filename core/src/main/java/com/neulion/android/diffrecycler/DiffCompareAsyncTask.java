@@ -10,7 +10,7 @@ import com.neulion.android.diffrecycler.util.DiffRecyclerLogger;
 
 import java.util.List;
 
-class DiffCompareAsyncTask<T extends DataDiffCompare<T>> extends AsyncTask<Void, Void, DiffResult>
+final class DiffCompareAsyncTask<T extends DataDiffCompare<T>> extends AsyncTask<Void, Void, DiffResult>
 {
     private List<T> oldList;
 
