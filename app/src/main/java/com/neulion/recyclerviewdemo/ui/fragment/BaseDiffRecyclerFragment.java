@@ -33,7 +33,7 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        return inflater.inflate(R.layout.fragment_linear_recycler, container, false);
     }
 
     @Override

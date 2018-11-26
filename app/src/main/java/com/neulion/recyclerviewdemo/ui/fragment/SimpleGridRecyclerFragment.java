@@ -14,19 +14,19 @@ import com.neulion.recyclerviewdemo.R;
 import com.neulion.recyclerviewdemo.bean.UIDataInterface;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
-public class SimpleAdapterDemo2Fragment extends BaseDiffRecyclerFragment
+public class SimpleGridRecyclerFragment extends BaseDiffRecyclerFragment
 {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_recyclerview2, container, false);
+        return inflater.inflate(R.layout.fragment_grid_recycler, container, false);
     }
 
     @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
     {
-        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_list_databinding2, mOnItemClickListener);
+        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_grid_item, mOnItemClickListener);
 
         mListAdapter.setData(DataProvider.getData());
 

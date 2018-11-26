@@ -13,12 +13,12 @@ import com.neulion.recyclerviewdemo.provider.DataProvider;
 /**
  * User: NeuLion
  */
-public class SimpleAdapterDemoFragment extends BaseDiffRecyclerFragment
+public class SimpleLinearRecyclerFragment extends BaseDiffRecyclerFragment
 {
     @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
     {
-        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_list_databinding, mOnItemClickListener);
+        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_linear_item, mOnItemClickListener);
 
         mListAdapter.setData(DataProvider.getData());
 

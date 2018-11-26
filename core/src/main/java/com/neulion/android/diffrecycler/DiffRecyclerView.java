@@ -93,9 +93,14 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         mAdapterWrapper.setSourceAdapter(adapter);
     }
 
-    public Adapter getAdapterWrapper()
+    public Adapter getAdapter()
     {
         return mAdapterWrapper.getSourceAdapter();
+    }
+
+    DiffRecyclerAdapterWrapper getAdapterWrapper()
+    {
+        return mAdapterWrapper;
     }
 
     @Override

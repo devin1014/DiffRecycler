@@ -20,7 +20,7 @@ import com.neulion.recyclerviewdemo.provider.DataProvider;
 /**
  * User: NeuLion
  */
-public class CustomAdapterDemoFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
+public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
 {
     @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
