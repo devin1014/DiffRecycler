@@ -2,7 +2,13 @@ package com.neulion.recyclerviewdemo.provider;
 
 import com.neulion.recyclerviewdemo.R;
 import com.neulion.recyclerviewdemo.bean.UIData;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
+import com.neulion.recyclerviewdemo.bean.UIDataImp;
+import com.neulion.recyclerviewdemo.bean.UIMenu;
+import com.neulion.recyclerviewdemo.bean.UIMenuImp;
+import com.neulion.recyclerviewdemo.ui.fragment.CustomDiffRecyclerFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.NativeRecyclerDemoFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleGridRecyclerFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleLinearRecyclerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +35,13 @@ public class DataProvider
         IMAGES[9] = R.drawable.placekitten_4;
     }
 
-    public static List<UIDataInterface> getData()
+    public static List<UIData> getData()
     {
         Random random = new Random(System.currentTimeMillis());
 
         int count = random.nextInt(20);
 
-        List<UIDataInterface> list = new ArrayList<>(count);
+        List<UIData> list = new ArrayList<>(count);
 
         for (int i = 0; i < count; i++)
         {
@@ -60,8 +66,94 @@ public class DataProvider
                 description = "第4张图片";
             }
 
-            list.add(new UIData(i, "这是一只猫", description, IMAGES[randomIndex]));
+            list.add(new UIDataImp(i, description, "左右滑动图片删除,长按拖拽", IMAGES[randomIndex]));
         }
+
+        return list;
+    }
+
+    public static List<UIData> getDataWithSwipeDrag()
+    {
+        Random random = new Random(System.currentTimeMillis());
+
+        int count = random.nextInt(20);
+
+        List<UIData> list = new ArrayList<>(count);
+
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = random.nextInt(10) % 10;
+
+            String description;
+
+            if (randomIndex < 2)
+            {
+                description = "第2张图片";
+            }
+            else if (randomIndex < 4)
+            {
+                description = "第2张图片";
+            }
+            else if (randomIndex < 7)
+            {
+                description = "第3张图片";
+            }
+            else
+            {
+                description = "第4张图片";
+            }
+
+            list.add(new UIDataImp(i, description, "单机置顶，左右滑动删除，长按拖拽", IMAGES[randomIndex]));
+        }
+
+        return list;
+    }
+
+    public static List<UIData> getDataWithDrag()
+    {
+        Random random = new Random(System.currentTimeMillis());
+
+        int count = random.nextInt(20);
+
+        List<UIData> list = new ArrayList<>(count);
+
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = random.nextInt(10) % 10;
+
+            String description;
+
+            if (randomIndex < 2)
+            {
+                description = "第2张图片";
+            }
+            else if (randomIndex < 4)
+            {
+                description = "第2张图片";
+            }
+            else if (randomIndex < 7)
+            {
+                description = "第3张图片";
+            }
+            else
+            {
+                description = "第4张图片";
+            }
+
+            list.add(new UIDataImp(i, description, "单机置顶，长按拖拽", IMAGES[randomIndex]));
+        }
+
+        return list;
+    }
+
+    public static List<UIMenu> getMenus()
+    {
+        List<UIMenu> list = new ArrayList<>();
+
+        list.add(new UIMenuImp("SimpleLinearRecycler", SimpleLinearRecyclerFragment.class));
+        list.add(new UIMenuImp("SimpleGridRecycler", SimpleGridRecyclerFragment.class));
+        list.add(new UIMenuImp("CustomDiffRecycler", CustomDiffRecyclerFragment.class));
+        list.add(new UIMenuImp("NativeRecycler", NativeRecyclerDemoFragment.class));
 
         return list;
     }

@@ -10,8 +10,10 @@ import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.android.diffrecycler.DiffRecyclerView.ViewHolderTouchStateCallback;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.R;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
+import com.neulion.recyclerviewdemo.bean.UIData;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
+
+import java.util.List;
 
 /**
  * User: NeuLion
@@ -23,7 +25,7 @@ public class SimpleLinearRecyclerFragment extends BaseDiffRecyclerFragment
     {
         mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_linear_item, mOnItemClickListener);
 
-        mListAdapter.setData(DataProvider.getData());
+        mListAdapter.setData(DataProvider.getDataWithSwipeDrag());
 
         recyclerView.setAdapter(mListAdapter);
 
@@ -37,10 +39,16 @@ public class SimpleLinearRecyclerFragment extends BaseDiffRecyclerFragment
         });
     }
 
-    private OnItemClickListener<UIDataInterface> mOnItemClickListener = new OnItemClickListener<UIDataInterface>()
+    @Override
+    public List<UIData> getData()
+    {
+        return DataProvider.getDataWithSwipeDrag();
+    }
+
+    private OnItemClickListener<UIData> mOnItemClickListener = new OnItemClickListener<UIData>()
     {
         @Override
-        public void onItemClick(View view, UIDataInterface uiData)
+        public void onItemClick(View view, UIData uiData)
         {
             Toast.makeText(getActivity(), "onItemClick:" + mListAdapter.findItemPosition(uiData), Toast.LENGTH_SHORT).show();
 

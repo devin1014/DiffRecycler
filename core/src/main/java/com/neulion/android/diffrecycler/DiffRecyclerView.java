@@ -139,7 +139,10 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
     public void setOnViewHolderTouchStateCallback(ViewHolderTouchStateCallback callback)
     {
-        mItemTouchHelperCallbackImp.setOnViewHolderTouchStateCallback(callback);
+        if (mItemTouchHelperCallbackImp != null)
+        {
+            mItemTouchHelperCallbackImp.setOnViewHolderTouchStateCallback(callback);
+        }
     }
 
     // ----------------------------------------------------------------------------------------------------------------------------------

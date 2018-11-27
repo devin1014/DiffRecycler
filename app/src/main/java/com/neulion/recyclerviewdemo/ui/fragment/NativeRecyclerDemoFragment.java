@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.recyclerviewdemo.R;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
+import com.neulion.recyclerviewdemo.bean.UIData;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 import java.util.List;
@@ -81,7 +81,7 @@ public class NativeRecyclerDemoFragment extends Fragment implements OnRefreshLis
 
         private LayoutInflater mLayoutInflater;
 
-        private List<UIDataInterface> mData;
+        private List<UIData> mData;
 
         ListAdapter()
         {
@@ -108,12 +108,12 @@ public class NativeRecyclerDemoFragment extends Fragment implements OnRefreshLis
             return mData.size();
         }
 
-        UIDataInterface getItem(int position)
+        UIData getItem(int position)
         {
             return mData.get(position);
         }
 
-        public void setData(List<UIDataInterface> data)
+        public void setData(List<UIData> data)
         {
             mData = data;
         }
@@ -147,7 +147,7 @@ public class NativeRecyclerDemoFragment extends Fragment implements OnRefreshLis
             mDescription = itemView.findViewById(R.id.description);
         }
 
-        public void setData(UIDataInterface data, int pos)
+        public void setData(UIData data, int pos)
         {
             itemView.setTag(pos);
 

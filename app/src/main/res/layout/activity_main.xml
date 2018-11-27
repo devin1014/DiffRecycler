@@ -1,56 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
+    android:id="@+id/fragment_page"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.neulion.recyclerviewdemo.MainActivity"
-    tools:ignore="HardcodedText,SpUsage">
-
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radio_databinding"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="DataBinding"
-            android:textColor="#000000"
-            android:textSize="14dp" />
-
-        <RadioButton
-            android:id="@+id/radio_common"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Common"
-            android:textColor="#000000"
-            android:textSize="14dp" />
-
-        <RadioButton
-            android:id="@+id/radio_native"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Native"
-            android:textColor="#000000"
-            android:textSize="14dp" />
-
-    </RadioGroup>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#888888" />
-
-    <FrameLayout
-        android:id="@+id/fragment_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+    tools:context="com.neulion.recyclerviewdemo.MainActivity" />

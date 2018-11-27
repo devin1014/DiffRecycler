@@ -1,5 +1,6 @@
 package com.neulion.android.diffrecycler;
 
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil.DiffResult;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -72,7 +73,7 @@ public abstract class DiffRecyclerAdapter<T extends DataDiffCompare<T>> extends 
     @Override
     public void setData(List<T> list)
     {
-        if (mDiffCompareEnabled)
+        if (mDiffCompareEnabled && getDataList() != null && getDataList().size() > 0)
         {
             if (mCompareTask != null)
             {
@@ -88,11 +89,18 @@ public abstract class DiffRecyclerAdapter<T extends DataDiffCompare<T>> extends 
     }
 
     @Override
-    public void onCompareResult(List<T> oldList, List<T> newList, DiffResult diffResult)
+    public void onCompareResult(List<T> oldList, List<T> newList, @Nullable DiffResult diffResult)
     {
         setDataNoNotifyChanged(newList);
 
-        diffResult.dispatchUpdatesTo(mUpdateCallback);
+        if (diffResult != null)
+        {
+            diffResult.dispatchUpdatesTo(mUpdateCallback);
+        }
+        else
+        {
+            notifyDataSetChanged();
+        }
     }
 
     private ListUpdateCallbackImp mUpdateCallback = new ListUpdateCallbackImp(this);

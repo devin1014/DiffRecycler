@@ -89,7 +89,10 @@ final class ItemTouchHelperCallbackImp extends ItemTouchHelper.Callback
 
         super.onSelectedChanged(viewHolder, actionState);
 
-        mViewHolderTouchStateCallback.onViewHolderTouchStateChanged(viewHolder, actionState);
+        if (mViewHolderTouchStateCallback != null)
+        {
+            mViewHolderTouchStateCallback.onViewHolderTouchStateChanged(viewHolder, actionState);
+        }
     }
 
     @Override

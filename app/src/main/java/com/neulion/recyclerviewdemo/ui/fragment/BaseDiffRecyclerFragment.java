@@ -16,8 +16,7 @@ import android.widget.Toast;
 import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
 import com.neulion.recyclerviewdemo.R;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
-import com.neulion.recyclerviewdemo.provider.DataProvider;
+import com.neulion.recyclerviewdemo.bean.UIData;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
 
     protected DiffRecyclerView mRecyclerView;
 
-    protected DiffRecyclerAdapter<UIDataInterface> mListAdapter;
+    protected DiffRecyclerAdapter<UIData> mListAdapter;
 
     @Nullable
     @Override
@@ -68,12 +67,14 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
     {
         mSwipeRefreshLayout.setRefreshing(false);
 
-        List<UIDataInterface> list = DataProvider.getData();
+        List<UIData> list = getData();
 
         resetData(list);
 
         Toast.makeText(getActivity(), String.format("刷新数据：%s", list.size()), Toast.LENGTH_SHORT).show();
     }
+
+    public abstract List<UIData> getData();
 
     @Override
     public void onClick(View v)
@@ -100,7 +101,7 @@ public abstract class BaseDiffRecyclerFragment extends Fragment implements OnRef
         }
     }
 
-    protected void resetData(List<UIDataInterface> list)
+    protected void resetData(List<UIData> list)
     {
         mListAdapter.setData(list);
     }

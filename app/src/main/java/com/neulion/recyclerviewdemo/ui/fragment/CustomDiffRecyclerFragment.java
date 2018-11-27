@@ -2,6 +2,8 @@ package com.neulion.recyclerviewdemo.ui.fragment;
 
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,10 +14,13 @@ import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerView.ViewHolderTouchStateCallback;
 import com.neulion.android.diffrecycler.holder.DiffViewHolder;
 import com.neulion.recyclerviewdemo.R;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
+import com.neulion.recyclerviewdemo.bean.UIData;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
+
+import java.util.List;
 
 /**
  * User: NeuLion
@@ -30,12 +35,27 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
         mListAdapter.setData(DataProvider.getData());
 
         recyclerView.setAdapter(mListAdapter);
+
+        recyclerView.setOnViewHolderTouchStateCallback(new ViewHolderTouchStateCallback()
+        {
+            @Override
+            public void onViewHolderTouchStateChanged(ViewHolder viewHolder, int actionState)
+            {
+                mSwipeRefreshLayout.setEnabled(actionState == ItemTouchHelper.ACTION_STATE_IDLE);
+            }
+        });
+    }
+
+    @Override
+    public List<UIData> getData()
+    {
+        return DataProvider.getData();
     }
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Adapter
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class CustomRecyclerAdapter extends DiffRecyclerAdapter<UIDataInterface>
+    private class CustomRecyclerAdapter extends DiffRecyclerAdapter<UIData>
     {
         private int[] COLORS = new int[]{Color.parseColor("#aa00aa00"), Color.parseColor("#aa0000aa")};
 
@@ -45,13 +65,13 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
         }
 
         @Override
-        public DiffViewHolder<UIDataInterface> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
+        public DiffViewHolder<UIData> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
             return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
         @Override
-        public void onBindViewHolder(DiffViewHolder<UIDataInterface> holder, UIDataInterface data, int position)
+        public void onBindViewHolder(DiffViewHolder<UIData> holder, UIData data, int position)
         {
             holder.itemView.setTag(position);
 
@@ -76,7 +96,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // Holder
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private class CustomViewHolder extends DiffViewHolder<UIDataInterface> implements OnClickListener
+    private class CustomViewHolder extends DiffViewHolder<UIData> implements OnClickListener
     {
         CustomViewHolder(View itemView)
         {

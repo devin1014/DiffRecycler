@@ -1,6 +1,7 @@
 package com.neulion.android.diffrecycler;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.util.DiffUtil.DiffResult;
 
@@ -22,7 +23,7 @@ final class DiffCompareAsyncTask<T extends DataDiffCompare<T>> extends AsyncTask
 
     interface Callback<T extends DataDiffCompare<T>>
     {
-        void onCompareResult(List<T> oldList, List<T> newList, DiffResult diffResult);
+        void onCompareResult(List<T> oldList, List<T> newList, @Nullable DiffResult diffResult);
     }
 
     DiffCompareAsyncTask(List<T> oldList, List<T> newList, Callback<T> callback, boolean detectMoves)

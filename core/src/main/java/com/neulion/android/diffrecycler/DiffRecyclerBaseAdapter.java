@@ -72,7 +72,7 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
 
             mDataList = list;
 
-            onDataSetChanged(oldList, mDataList);
+            onListChanged(oldList, mDataList);
 
             notifyDataSetChanged();
         }
@@ -86,14 +86,14 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
 
             mDataList = list;
 
-            onDataSetChanged(oldList, mDataList);
+            onListChanged(oldList, mDataList);
         }
     }
 
     @SuppressWarnings("WeakerAccess")
-    protected void onDataSetChanged(List<T> oldList, List<T> newList)
+    protected void onListChanged(List<T> oldList, List<T> newList)
     {
-        DiffRecyclerLogger.warn(this, "onDataSetChanged()");
+        DiffRecyclerLogger.warn(this, "onListChanged()");
 
         if (oldList == null)
         {

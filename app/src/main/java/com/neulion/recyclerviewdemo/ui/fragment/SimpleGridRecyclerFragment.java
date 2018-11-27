@@ -2,6 +2,8 @@ package com.neulion.recyclerviewdemo.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,13 @@ import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
 import com.neulion.android.diffrecycler.DiffRecyclerView;
+import com.neulion.android.diffrecycler.DiffRecyclerView.ViewHolderTouchStateCallback;
 import com.neulion.android.diffrecycler.listener.OnItemClickListener;
 import com.neulion.recyclerviewdemo.R;
-import com.neulion.recyclerviewdemo.bean.UIDataInterface;
+import com.neulion.recyclerviewdemo.bean.UIData;
 import com.neulion.recyclerviewdemo.provider.DataProvider;
+
+import java.util.List;
 
 public class SimpleGridRecyclerFragment extends BaseDiffRecyclerFragment
 {
@@ -28,19 +33,35 @@ public class SimpleGridRecyclerFragment extends BaseDiffRecyclerFragment
     {
         mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_grid_item, mOnItemClickListener);
 
-        mListAdapter.setData(DataProvider.getData());
+        mListAdapter.setData(DataProvider.getDataWithDrag());
 
         recyclerView.setAdapter(mListAdapter);
+
+        recyclerView.setOnViewHolderTouchStateCallback(new ViewHolderTouchStateCallback()
+        {
+            @Override
+            public void onViewHolderTouchStateChanged(ViewHolder viewHolder, int actionState)
+            {
+                mSwipeRefreshLayout.setEnabled(actionState == ItemTouchHelper.ACTION_STATE_IDLE);
+            }
+        });
     }
 
-    private OnItemClickListener<UIDataInterface> mOnItemClickListener = new OnItemClickListener<UIDataInterface>()
+    @Override
+    public List<UIData> getData()
+    {
+        return DataProvider.getDataWithDrag();
+    }
+
+    private OnItemClickListener<UIData> mOnItemClickListener = new OnItemClickListener<UIData>()
     {
         @Override
-        public void onItemClick(View view, UIDataInterface uiData)
+        public void onItemClick(View view, UIData uiData)
         {
             Toast.makeText(getActivity(), "onItemClick:" + mListAdapter.findItemPosition(uiData), Toast.LENGTH_SHORT).show();
 
-            mListAdapter.removeItem(uiData);
+            //mListAdapter.removeItem(uiData);
+            mListAdapter.moveItem(uiData, 0);
         }
     };
 }
