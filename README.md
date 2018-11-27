@@ -5,6 +5,12 @@ DiffRecycler
 |-------------------------------|
 | Email: wei.liu@neulion.com.cn |
 
+
+[![DiffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.neulion.com.cn:645/Wei.Liu/RecyclerView-Support)
+
+[![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)](https://android-sdks.neulion.net.cn/#view-repositories;snapshots~browsestorage)
+
+
 帮助开发者在使用RecyclerView的时候，减少代码量并提高开发效率。
 
 - *支持DiffUtil，支持数据更新后刷新局部UI*
@@ -170,8 +176,7 @@ Adapter
 ```java
 public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
 {
-    // ...
-    
+    //...
     private class CustomRecyclerAdapter extends DiffRecyclerAdapter<UIData>
     {
         CustomRecyclerAdapter(LayoutInflater inflater)
