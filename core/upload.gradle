@@ -29,7 +29,7 @@ android {
                 pom.project {
                     name 'RecyclerViewSupport'
                     packaging 'aar'
-                    artifactId 'diffRecycler'
+                    artifactId 'core'
                 }
             }
         }
