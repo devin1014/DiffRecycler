@@ -1,18 +1,35 @@
 DiffRecycler
 ============
 
+|        Author: LIUWEI         |
+|-------------------------------|
+| Email: wei.liu@neulion.com.cn |
+
 帮助开发者在使用RecyclerView的时候，减少代码量并提高开发效率。
 
-- 支持DiffUtil，支持数据更新后刷新局部UI
-- 支持左右滑动删除，长按拖拽
-- 支持添加单击事件
-- 支持添加头部，尾部（如果GridLayout布局，头部尾部自动占一行或一列）
-- 支持在xml中添加LayoutManager（系统默认布局）
-- 支持在xml中添加分割线（分割线可定义宽度和颜色）
-- 支持更新数据（增加、删除、更新、移动）
+- *支持DiffUtil，支持数据更新后刷新局部UI*
+- *支持左右滑动删除，长按拖拽*
+- *支持添加单击事件*
+- *支持添加头部，尾部（如果GridLayout布局，头部尾部自动占一行或一列）*
+- *支持在xml中添加LayoutManager（系统默认布局）*
+- *支持在xml中添加分割线（分割线可定义宽度和颜色）*
+- *支持更新数据（增加、删除、更新、移动）*
 
-如何引用
-----
+[Dependencies](#dependencies)
+
+[Description](#description)
+
+[Layout](#layout)
+
+[DataBean](#databean)
+
+[Adapter](#adapter)
+
+[Logger](#debug)
+
+
+Dependencies
+------------
 
 ```groovy
 android {
@@ -29,8 +46,8 @@ dependencies {
 }
 ```
 
-如何使用
-----
+Description
+-----------
 
 - 在xml中申明DiffRecyclerView替代RecyclerView
 - dividerColor、dividerSize 添加默认的分割线
@@ -77,6 +94,9 @@ class ExampleActivity extends Activity {
 }
 ```
 
+Layout
+------
+
 >R.layout.adapter_grid_item
 
 variable **data** , **itemClickListener** 必须是这个名字！！！
@@ -84,7 +104,6 @@ variable **data** , **itemClickListener** 必须是这个名字！！！
 variable **data** , **itemClickListener** 必须是这个名字！！！
 
 variable **data** , **itemClickListener** 必须是这个名字！！！
-
 
 ```xml
 <layout
@@ -107,13 +126,17 @@ variable **data** , **itemClickListener** 必须是这个名字！！！
 </layout>
 ```
 
-**数据型T** 必须继承 **DataDiffCompare<T>**
+DataBean
+--------
 
-**数据型T** 必须继承 **DataDiffCompare<T>**
+**数据类型T** 必须继承 **DataDiffCompare\<T\>**
 
-**数据型T** 必须继承 **DataDiffCompare<T>**
+**数据类型T** 必须继承 **DataDiffCompare\<T\>**
+
+**数据类型T** 必须继承 **DataDiffCompare\<T\>**
 
 >一个栗子
+
 
 ```java
 public class UIData implements DataDiffCompare<UIData>
@@ -138,13 +161,12 @@ public class UIData implements DataDiffCompare<UIData>
 }
 ```
 
-打开日志
-```
-DiffRecyclerLogger.setDEBUG(boolean debug)
-```
+Adapter
+-------
 
-自定义Adapter
 > 一个栗子
+
+
 ```java
 public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
 {
@@ -160,19 +182,18 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
         @Override
         public DiffViewHolder<UIData> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
+            //返回自定义ViewHolder，必须继承自DiffViewHolder
             return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
         @Override
         public void onBindViewHolder(DiffViewHolder<UIData> holder, UIData data, int position)
         {
-            ((ImageView) holder.findViewById(R.id.image)).setImageResource(data.getImageRes());
-
-            ((TextView) holder.findViewById(R.id.index)).setText(String.valueOf(position));
-
-            ((TextView) holder.findViewById(R.id.name)).setText(data.getName());
-
-            ((TextView) holder.findViewById(R.id.description)).setText(data.getDescription());
+            //DiffViewHolder中findViewById方法会缓存View
+            holder.setImageResource(R.id.image, data.getImageRes());
+            holder.setText(R.id.index, String.valueOf(position));
+            holder.setText(R.id.name, data.getName());
+            holder.setText(R.id.description, data.getDescription());
         }
 
         @Override
@@ -200,3 +221,11 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
     }
 }
 ```
+
+Debug
+-----
+
+```
+DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志
+```
+

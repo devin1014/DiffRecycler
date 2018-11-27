@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerAdapter;
@@ -67,6 +65,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
         @Override
         public DiffViewHolder<UIData> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
+            //返回自定义的Holder
             return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
@@ -77,13 +76,14 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
 
             holder.itemView.setBackgroundColor(COLORS[position % 2]);
 
-            ((ImageView) holder.findViewById(R.id.image)).setImageResource(data.getImageRes());
+            //DiffViewHolder中会缓存View
+            holder.setImageResource(R.id.image, data.getImageRes());
 
-            ((TextView) holder.findViewById(R.id.index)).setText(String.valueOf(position));
+            holder.setText(R.id.index, String.valueOf(position));
 
-            ((TextView) holder.findViewById(R.id.name)).setText(data.getName());
+            holder.setText(R.id.name, data.getName());
 
-            ((TextView) holder.findViewById(R.id.description)).setText(data.getDescription());
+            holder.setText(R.id.description, data.getDescription());
         }
 
         @Override
