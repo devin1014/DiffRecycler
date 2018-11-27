@@ -145,13 +145,32 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
         }
     }
 
+    @Override
+    public void moveItem(T t, int toPosition)
+    {
+        moveItem(findItemPosition(t), toPosition);
+    }
+
     public final void moveItem(int fromPosition, int toPosition)
     {
-        if (fromPosition >= 0 && fromPosition < mDataList.size() && toPosition >= 0 && toPosition < mDataList.size())
+        if (fromPosition != toPosition && checkPosition(fromPosition) && checkPosition(toPosition))
+        {
+            DataListAdapter.Helper.moveItem(mDataList, fromPosition, toPosition);
+
+            notifyItemMoved(fromPosition, toPosition);
+        }
+    }
+
+    @Override
+    public void swap(int fromPosition, int toPosition)
+    {
+        if (fromPosition != toPosition && checkPosition(fromPosition) && checkPosition(toPosition))
         {
             Collections.swap(mDataList, fromPosition, toPosition);
 
-            notifyItemMoved(fromPosition, toPosition);
+            notifyItemChanged(fromPosition);
+
+            notifyItemChanged(toPosition);
         }
     }
 
@@ -221,4 +240,8 @@ abstract class DiffRecyclerBaseAdapter<T extends DataDiffCompare<T>, Holder exte
         return mDataList;
     }
 
+    private boolean checkPosition(int position)
+    {
+        return position >= 0 && position < mDataList.size();
+    }
 }

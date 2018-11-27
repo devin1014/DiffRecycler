@@ -44,7 +44,7 @@ public class SimpleLinearRecyclerFragment extends BaseDiffRecyclerFragment
         {
             Toast.makeText(getActivity(), "onItemClick:" + mListAdapter.findItemPosition(uiData), Toast.LENGTH_SHORT).show();
 
-            mListAdapter.removeItem(uiData);
+            mListAdapter.moveItem(uiData, 0);
         }
     };
 }

@@ -12,7 +12,11 @@ interface DataListAdapter<T>
 
     void appendDataList(List<T> list, int index);
 
+    void moveItem(T t, int toPosition);
+
     void moveItem(int fromPosition, int toPosition);
+
+    void swap(int fromPosition, int toPosition);
 
     void removeItem(T t);
 
@@ -25,4 +29,32 @@ interface DataListAdapter<T>
     int findItemPosition(T t);
 
     T getItem(int position);
+
+    class Helper
+    {
+        static <T> void moveItem(List<T> list, int fromPosition, int toPosition)
+        {
+            T source = list.get(fromPosition);
+
+            if (fromPosition > toPosition)
+            {
+                for (int i = fromPosition; i > toPosition; i--)
+                {
+                    list.set(i, list.get(i - 1));
+                }
+
+                list.set(toPosition, source);
+            }
+
+            if (fromPosition < toPosition)
+            {
+                for (int i = fromPosition; i < toPosition; i++)
+                {
+                    list.set(i, list.get(i + 1));
+                }
+
+                list.set(toPosition, source);
+            }
+        }
+    }
 }
