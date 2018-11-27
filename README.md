@@ -6,8 +6,7 @@ DiffRecycler
 | Email: wei.liu@neulion.com.cn |
 
 
-[![DiffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.neulion.com.cn:645/Wei.Liu/RecyclerView-Support)
-
+[![diffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.neulion.com.cn:645/Wei.Liu/RecyclerView-Support)
 [![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)](https://android-sdks.neulion.net.cn/#view-repositories;snapshots~browsestorage)
 
 
@@ -20,6 +19,9 @@ DiffRecycler
 - *支持在xml中添加LayoutManager（系统默认布局）*
 - *支持在xml中添加分割线（分割线可定义宽度和颜色）*
 - *支持更新数据（增加、删除、更新、移动）*
+
+
+**`索引`**
 
 [Dependencies](#dependencies)
 
@@ -188,6 +190,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
         public DiffViewHolder<UIData> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
             //返回自定义ViewHolder，必须继承自DiffViewHolder
+            //一般不建议自定义ViewHolder，使用默认DiffViewHolder即可
             return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
@@ -195,6 +198,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment
         public void onBindViewHolder(DiffViewHolder<UIData> holder, UIData data, int position)
         {
             //DiffViewHolder中findViewById方法会缓存View
+            //DiffViewHolder中的set方法都是会自动调用findViewById
             holder.setImageResource(R.id.image, data.getImageRes());
             holder.setText(R.id.index, String.valueOf(position));
             holder.setText(R.id.name, data.getName());
@@ -231,6 +235,18 @@ Debug
 -----
 
 ```
-DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志
-```
+DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLogXXX
 
+    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onListChanged()
+    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     oldList = @1 , size = 0
+    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     newList = @6c760d13 , size = 4
+    11-27 19:59:33.623 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.636 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @b9575e7 , position = 0 , payloads = []
+    11-27 19:59:33.667 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.669 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @3a5957e , position = 1 , payloads = []
+    11-27 19:59:33.671 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.673 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @36561f5 , position = 2 , payloads = []
+    11-27 19:59:33.675 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.677 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @6435618 , position = 3 , payloads = []
+
+```
