@@ -7,8 +7,10 @@ import com.neulion.recyclerviewdemo.bean.UIMenu;
 import com.neulion.recyclerviewdemo.bean.UIMenuImp;
 import com.neulion.recyclerviewdemo.ui.fragment.CustomDiffRecyclerFragment;
 import com.neulion.recyclerviewdemo.ui.fragment.NativeRecyclerDemoFragment;
-import com.neulion.recyclerviewdemo.ui.fragment.SimpleGridRecyclerFragment;
-import com.neulion.recyclerviewdemo.ui.fragment.SimpleLinearRecyclerFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleGridHorizontalFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleGridVerticalFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleLinearHorizontalFragment;
+import com.neulion.recyclerviewdemo.ui.fragment.SimpleLinearVerticalFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +37,13 @@ public class DataProvider
         IMAGES[9] = R.drawable.placekitten_4;
     }
 
+    private static final int DATA_COUNT = 20;
+
     public static List<UIData> getData()
     {
         Random random = new Random(System.currentTimeMillis());
 
-        int count = random.nextInt(20);
+        int count = random.nextInt(DATA_COUNT);
 
         List<UIData> list = new ArrayList<>(count);
 
@@ -66,7 +70,7 @@ public class DataProvider
                 description = "第4张图片";
             }
 
-            list.add(new UIDataImp(i, description, "左右滑动图片删除,长按拖拽", IMAGES[randomIndex]));
+            list.add(new UIDataImp(i, description, "", IMAGES[randomIndex]));
         }
 
         return list;
@@ -76,7 +80,7 @@ public class DataProvider
     {
         Random random = new Random(System.currentTimeMillis());
 
-        int count = random.nextInt(20);
+        int count = random.nextInt(DATA_COUNT);
 
         List<UIData> list = new ArrayList<>(count);
 
@@ -113,7 +117,7 @@ public class DataProvider
     {
         Random random = new Random(System.currentTimeMillis());
 
-        int count = random.nextInt(20);
+        int count = random.nextInt(DATA_COUNT);
 
         List<UIData> list = new ArrayList<>(count);
 
@@ -150,8 +154,10 @@ public class DataProvider
     {
         List<UIMenu> list = new ArrayList<>();
 
-        list.add(new UIMenuImp("SimpleLinearRecycler", SimpleLinearRecyclerFragment.class));
-        list.add(new UIMenuImp("SimpleGridRecycler", SimpleGridRecyclerFragment.class));
+        list.add(new UIMenuImp("SimpleLinearVertical", SimpleLinearVerticalFragment.class));
+        list.add(new UIMenuImp("SimpleLinearHorizontal", SimpleLinearHorizontalFragment.class));
+        list.add(new UIMenuImp("SimpleGridVertical", SimpleGridVerticalFragment.class));
+        list.add(new UIMenuImp("SimpleGridHorizontal", SimpleGridHorizontalFragment.class));
         list.add(new UIMenuImp("CustomDiffRecycler", CustomDiffRecyclerFragment.class));
         list.add(new UIMenuImp("NativeRecycler", NativeRecyclerDemoFragment.class));
 

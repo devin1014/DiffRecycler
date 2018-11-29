@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#f0f0f0"
             android:orientation="horizontal">
 
             <Button
@@ -45,13 +46,12 @@
             android:fadeScrollbars="false"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
+            app:dividerColor="@color/colorAccent"
+            app:dividerMode="inner"
+            app:dividerSize="4dp"
             app:enableItemTouch="true"
-            app:enableItemViewSwipe="false"
-            app:enableLongPressDrag="true"
             app:layoutOrientation="vertical"
-            app:layoutType="gridLayout"
-            app:reverseLayout="false"
-            app:spanCount="2" />
+            app:layoutType="linearLayout" />
 
     </LinearLayout>
 

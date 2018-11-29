@@ -26,6 +26,12 @@ import java.util.List;
 public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment implements OnRefreshListener
 {
     @Override
+    protected int getFragmentLayoutId()
+    {
+        return R.layout.fragment_recycler_linear_vertical;
+    }
+
+    @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
     {
         mListAdapter = new CustomRecyclerAdapter(getLayoutInflater());
@@ -65,7 +71,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
         @Override
         public DiffViewHolder<UIData> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
         {
-            //返回自定义的Holder
+            //创建自定义的ViewHolder，不建议自定义！！！
             return new CustomViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
         }
 
@@ -89,7 +95,7 @@ public class CustomDiffRecyclerFragment extends BaseDiffRecyclerFragment impleme
         @Override
         protected int getViewHolderLayout(int viewType)
         {
-            return R.layout.adapter_list_common;
+            return R.layout.adapter_simple_linear_vertical;
         }
     }
 

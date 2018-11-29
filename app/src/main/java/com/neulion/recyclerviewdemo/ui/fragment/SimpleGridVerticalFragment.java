@@ -1,12 +1,8 @@
 package com.neulion.recyclerviewdemo.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.neulion.android.diffrecycler.DiffRecyclerSimpleAdapter;
@@ -19,19 +15,18 @@ import com.neulion.recyclerviewdemo.provider.DataProvider;
 
 import java.util.List;
 
-public class SimpleGridRecyclerFragment extends BaseDiffRecyclerFragment
+public class SimpleGridVerticalFragment extends BaseDiffRecyclerFragment
 {
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    protected int getFragmentLayoutId()
     {
-        return inflater.inflate(R.layout.fragment_grid_recycler, container, false);
+        return R.layout.fragment_recycler_grid_vertical;
     }
 
     @Override
     protected void initRecyclerView(DiffRecyclerView recyclerView)
     {
-        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_grid_item, mOnItemClickListener);
+        mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_simple_grid_vertical, mOnItemClickListener);
 
         mListAdapter.setData(DataProvider.getDataWithDrag());
 

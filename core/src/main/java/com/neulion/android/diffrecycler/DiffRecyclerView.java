@@ -10,7 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.neulion.android.diffrecycler.decoration.ItemDividerDecoration;
+import com.neulion.android.diffrecycler.decoration.DiffRecyclerDivider;
 
 /**
  * User: NeuLion
@@ -73,9 +73,11 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
         if (dividerSize > 0)
         {
-            int color = a.getColor(R.styleable.DiffRecyclerView_dividerColor, 0);
+            int color = a.getColor(R.styleable.DiffRecyclerView_dividerColor, DiffRecyclerDivider.DIVIDER_COLOR);
 
-            addItemDecoration(new ItemDividerDecoration(orientation, dividerSize, color));
+            int mode = a.getInt(R.styleable.DiffRecyclerView_dividerMode, 0); // default mode 0:inner
+
+            addItemDecoration(new DiffRecyclerDivider(dividerSize, color, mode));
         }
 
         // support 'ItemTouchHelper' feature: touch to resort or swipe to delete

@@ -15,6 +15,12 @@
         <attr name="reverseLayout" format="boolean" />
         <attr name="dividerSize" format="dimension|reference" />
         <attr name="dividerColor" format="color|reference" />
+        <attr name="dividerMode" format="enum">
+            <enum name="inner" value="0" />
+            <enum name="start" value="1" />
+            <enum name="end" value="2" />
+            <enum name="grid" value="3" />
+        </attr>
         <attr name="enableItemTouch" format="boolean" />
         <attr name="enableLongPressDrag" format="boolean" />
         <attr name="enableItemViewSwipe" format="boolean" />

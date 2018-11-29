@@ -17,7 +17,7 @@ DiffRecycler
 - *支持添加单击事件*
 - *支持添加头部，尾部（如果GridLayout布局，头部尾部自动占一行或一列）*
 - *支持在xml中添加LayoutManager（系统默认布局）*
-- *支持在xml中添加分割线（分割线可定义宽度和颜色）*
+- *支持在xml中添加分割线（分割线可定义宽度和颜色,仅支持Linear、Grid布局）*
 - *支持更新数据（增加、删除、更新、移动）*
 
 
@@ -35,6 +35,11 @@ DiffRecycler
 
 [Logger](#debug)
 
+
+Issue
+-----
+- [ ]  **在横向网格布局、添加头部尾部View时有Bug！！！**
+- [ ]  **头部尾部可被拖拽，滑动删除**
 
 Dependencies
 ------------
@@ -235,7 +240,7 @@ Debug
 -----
 
 ```
-DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLogXXX
+DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLog
 
     11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onListChanged()
     11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     oldList = @1 , size = 0
@@ -244,9 +249,5 @@ DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLogXXX
     11-27 19:59:33.636 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @b9575e7 , position = 0 , payloads = []
     11-27 19:59:33.667 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
     11-27 19:59:33.669 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @3a5957e , position = 1 , payloads = []
-    11-27 19:59:33.671 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
-    11-27 19:59:33.673 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @36561f5 , position = 2 , payloads = []
-    11-27 19:59:33.675 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
-    11-27 19:59:33.677 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @6435618 , position = 3 , payloads = []
 
 ```

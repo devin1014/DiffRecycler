@@ -16,18 +16,18 @@
 
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="96dp"
+        android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:onClick="@{(view) -> itemClickListener.onItemClick(view , data)}"
-        android:orientation="vertical"
-        tools:background="#55888888">
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:id="@+id/image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
             app:image="@{data.imageRes}"
@@ -35,9 +35,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="96dp"
-            android:layout_marginStart="96dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="6dp">
@@ -74,6 +72,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>
