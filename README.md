@@ -3,11 +3,11 @@ DiffRecycler
 
 |        Author: LIUWEI         |
 |-------------------------------|
-| Email: wei.liu@liuwei.com.cn |
+| Email: liuwei10074180@163.com |
 
 
-[![diffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.liuwei.com.cn:645/Wei.Liu/RecyclerView-Support)
-[![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)](https://android-sdks.liuwei.net.cn/#view-repositories;snapshots~browsestorage)
+[![diffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)]()
+[![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)]()
 
 
 帮助开发者在使用RecyclerView的时候，减少代码量并提高开发效率。
