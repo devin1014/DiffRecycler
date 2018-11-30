@@ -11,7 +11,7 @@ public class DiffRecyclerLogger
 {
     private static boolean DEBUG = false;
 
-    private static final String TAG = "NLLog";
+    private static final String TAG = "LW@";
 
     public static void setDEBUG(boolean debug)
     {

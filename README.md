@@ -240,7 +240,7 @@ Debug
 -----
 
 ```
-DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLog
+DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,LW@
 
     11-27 19:59:33.576 4592-4592/com.liuwei.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onListChanged()
     11-27 19:59:33.576 4592-4592/com.liuwei.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     oldList = @1 , size = 0
