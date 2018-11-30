@@ -39,7 +39,7 @@
 
         </LinearLayout>
 
-        <com.neulion.android.diffrecycler.DiffRecyclerView
+        <com.liuwei.android.diffrecycler.DiffRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

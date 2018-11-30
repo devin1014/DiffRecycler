@@ -7,11 +7,11 @@
 
         <variable
             name="data"
-            type="com.neulion.recyclerviewdemo.bean.UIMenu" />
+            type="com.liuwei.recyclerviewdemo.bean.UIMenu" />
 
         <variable
             name="itemClickListener"
-            type="com.neulion.android.diffrecycler.listener.OnItemClickListener" />
+            type="com.liuwei.android.diffrecycler.listener.OnItemClickListener" />
     </data>
 
     <LinearLayout

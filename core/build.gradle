@@ -2,8 +2,6 @@ import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.library'
 
-apply from: "upload.gradle"
-
 SimpleDateFormat format = new SimpleDateFormat("MMddHHmm")
 
 def aarName = String.format('DiffRecycler-v%s.aar', VERSION.replace('SNAPSHOT', format.format(new Date())))

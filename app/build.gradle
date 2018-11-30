@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.neulion.recyclerviewdemo"
+        applicationId "com.liuwei.recyclerviewdemo"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
@@ -56,7 +56,7 @@ dependencies {
     //annotationProcessor files('libs/DiffRecyclerProcessor.jar')
 
     // compile maven
-    //implementation 'com.neulion.android.diff-recycler:core:1.0.2-SNAPSHOT'
-    //implementation 'com.neulion.android.diff-recycler:processor-api:1.0.2-SNAPSHOT'
-    //annotationProcessor 'com.neulion.android.diff-recycler:processor:1.0.2-SNAPSHOT'
+    //implementation 'com.liuwei.android.diff-recycler:core:1.0.2-SNAPSHOT'
+    //implementation 'com.liuwei.android.diff-recycler:processor-api:1.0.2-SNAPSHOT'
+    //annotationProcessor 'com.liuwei.android.diff-recycler:processor:1.0.2-SNAPSHOT'
 }

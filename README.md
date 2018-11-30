@@ -3,11 +3,11 @@ DiffRecycler
 
 |        Author: LIUWEI         |
 |-------------------------------|
-| Email: wei.liu@neulion.com.cn |
+| Email: wei.liu@liuwei.com.cn |
 
 
-[![diffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.neulion.com.cn:645/Wei.Liu/RecyclerView-Support)
-[![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)](https://android-sdks.neulion.net.cn/#view-repositories;snapshots~browsestorage)
+[![diffRecycler](https://img.shields.io/badge/diffrecycler-snapshot-green.svg)](https://gitlab.liuwei.com.cn:645/Wei.Liu/RecyclerView-Support)
+[![version](https://img.shields.io/badge/version-1.0.2--snapshot-brightgreen.svg)](https://android-sdks.liuwei.net.cn/#view-repositories;snapshots~browsestorage)
 
 
 帮助开发者在使用RecyclerView的时候，减少代码量并提高开发效率。
@@ -53,9 +53,9 @@ android {
 }
 dependencies {
     // compile maven
-    implementation 'com.neulion.android.diff-recycler:core:${version}'
-    implementation 'com.neulion.android.diff-recycler:processor-api:${version}'
-    annotationProcessor 'com.neulion.android.diff-recycler:processor:${version}'
+    implementation 'com.liuwei.android.diff-recycler:core:${version}'
+    implementation 'com.liuwei.android.diff-recycler:processor-api:${version}'
+    annotationProcessor 'com.liuwei.android.diff-recycler:processor:${version}'
 }
 ```
 
@@ -69,7 +69,7 @@ Description
 - enableItemTouch 是否开启默认的长按拖拽默认，左右滑动删除默认
 
 ```xml
-<com.neulion.android.diffrecycler.DiffRecyclerView
+<com.liuwei.android.diffrecycler.DiffRecyclerView
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -127,7 +127,7 @@ variable **data** , **itemClickListener** 必须是这个名字！！！
             type="UIData" />
         <variable
             name="itemClickListener"
-            type="com.neulion.android.diffrecycler.listener.OnItemClickListener" />
+            type="com.liuwei.android.diffrecycler.listener.OnItemClickListener" />
     </data>
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -242,12 +242,12 @@ Debug
 ```
 DiffRecyclerLogger.setDEBUG(boolean debug) //打开日志,NLLog
 
-    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onListChanged()
-    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     oldList = @1 , size = 0
-    11-27 19:59:33.576 4592-4592/com.neulion.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     newList = @6c760d13 , size = 4
-    11-27 19:59:33.623 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
-    11-27 19:59:33.636 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @b9575e7 , position = 0 , payloads = []
-    11-27 19:59:33.667 4592-4592/com.neulion.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
-    11-27 19:59:33.669 4592-4592/com.neulion.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @3a5957e , position = 1 , payloads = []
+    11-27 19:59:33.576 4592-4592/com.liuwei.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onListChanged()
+    11-27 19:59:33.576 4592-4592/com.liuwei.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     oldList = @1 , size = 0
+    11-27 19:59:33.576 4592-4592/com.liuwei.recyclerviewdemo W/NLLogDiffRecyclerSimpleAdapter@f0f9bb8:     newList = @6c760d13 , size = 4
+    11-27 19:59:33.623 4592-4592/com.liuwei.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.636 4592-4592/com.liuwei.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @b9575e7 , position = 0 , payloads = []
+    11-27 19:59:33.667 4592-4592/com.liuwei.recyclerviewdemo I/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onCreateViewHolder(viewType = 0)
+    11-27 19:59:33.669 4592-4592/com.liuwei.recyclerviewdemo D/NLLogDiffRecyclerSimpleAdapter@f0f9bb8: onBindHolder(holder = @3a5957e , position = 1 , payloads = []
 
 ```

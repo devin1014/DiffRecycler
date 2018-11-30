@@ -8,11 +8,11 @@
 
         <variable
             name="data"
-            type="com.neulion.recyclerviewdemo.bean.UIData" />
+            type="com.liuwei.recyclerviewdemo.bean.UIData" />
 
         <variable
             name="itemClickListener"
-            type="com.neulion.android.diffrecycler.listener.OnItemClickListener" />
+            type="com.liuwei.android.diffrecycler.listener.OnItemClickListener" />
 
     </data>
 

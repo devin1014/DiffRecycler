@@ -1,8 +1,6 @@
 apply plugin: 'java-library'
 apply plugin: 'java'
 
-apply from: 'upload.gradle'
-
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 

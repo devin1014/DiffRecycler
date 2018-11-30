@@ -1,6 +1,6 @@
 
 **当前版本：**
-[v1.0.2-SNAPSHOT](https://android-sdks.neulion.net.cn/service/local/repositories/snapshots/content/com/neulion/android/diff-recycler/core/1.0.2-SNAPSHOT/core-1.0.2-20181127.062229-1.aar)
+[v1.0.2-SNAPSHOT](https://android-sdks.liuwei.net.cn/service/local/repositories/snapshots/content/com/liuwei/android/diff-recycler/core/1.0.2-SNAPSHOT/core-1.0.2-20181127.062229-1.aar)
 
 
 Update
