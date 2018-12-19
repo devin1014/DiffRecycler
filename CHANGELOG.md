@@ -6,6 +6,9 @@
 Update
 ------
 
+*2018.12.19*
+- add 'ScrolledNearByBottomListener' listener to **DiffRecyclerView**
+
 *2018.11.29*
 - update divider decoration
 

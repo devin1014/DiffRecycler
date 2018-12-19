@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.GridLayoutManager.SpanSizeLookup;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.liuwei.android.diffrecycler.decoration.DiffRecyclerDivider;
+import com.liuwei.android.diffrecycler.util.DiffRecyclerLogger;
 
 /**
  * User: liuwei
@@ -91,6 +93,22 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         a.recycle();
 
         super.setAdapter(mAdapterWrapper); // DiffRecyclerView should set 'DiffRecyclerAdapterWrapper'
+    }
+
+    @Override
+    protected void onAttachedToWindow()
+    {
+        super.onAttachedToWindow();
+
+        addOnScrollListener(mOnScrollListener);
+    }
+
+    @Override
+    protected void onDetachedFromWindow()
+    {
+        removeOnScrollListener(mOnScrollListener);
+
+        super.onDetachedFromWindow();
     }
 
     private DiffRecyclerAdapterWrapper mAdapterWrapper = new DiffRecyclerAdapterWrapper();
@@ -224,4 +242,81 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         return mAdapterWrapper.getFooterCount();
     }
 
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    // - CloseBottom
+    // ----------------------------------------------------------------------------------------------------------------------------------
+    public interface ScrolledNearByBottomListener
+    {
+        void onScrolledNearByBottom();
+    }
+
+    private ScrolledNearByBottomListener mScrolledNearByBottomListener;
+
+    public void setOnScrolledNearByBottomListener(ScrolledNearByBottomListener listener)
+    {
+        mScrolledNearByBottomListener = listener;
+    }
+
+    private int mNearByBottomOffset = 1;
+
+    public void setNearByBottomOffset(int offset)
+    {
+        mNearByBottomOffset = offset;
+    }
+
+    private int mCurrentLastChildPosition = -1;
+
+    private OnScrollListener mOnScrollListener = new OnScrollListener()
+    {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+        {
+            DiffRecyclerLogger.log(this, "newState=" + newState);
+
+            initLastChildPositionIfNeeded();
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+        {
+            DiffRecyclerLogger.log(this, "onScrolled: dx=" + dx + " , dy=" + dy);
+
+            initLastChildPositionIfNeeded();
+
+            int adaptPosition = getLastChildViewAdaptPosition();
+
+            if (dy > 0 || dx > 0)
+            {
+                if (mCurrentLastChildPosition != adaptPosition && adaptPosition == getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                {
+                    mCurrentLastChildPosition = adaptPosition;
+
+                    if (mScrolledNearByBottomListener != null)
+                    {
+                        mScrolledNearByBottomListener.onScrolledNearByBottom();
+                    }
+                }
+            }
+            else
+            {
+                if (adaptPosition < getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                {
+                    mCurrentLastChildPosition = -1;
+                }
+            }
+        }
+
+        private void initLastChildPositionIfNeeded()
+        {
+            if (mCurrentLastChildPosition == -1)
+            {
+                mCurrentLastChildPosition = getLastChildViewAdaptPosition();
+            }
+        }
+
+        private int getLastChildViewAdaptPosition()
+        {
+            return ((RecyclerView.LayoutParams) getChildAt(getChildCount() - 1).getLayoutParams()).getViewAdapterPosition();
+        }
+    };
 }

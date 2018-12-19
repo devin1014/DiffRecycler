@@ -40,7 +40,12 @@ public abstract class DiffRecyclerAdapter<T extends DataDiffCompare<T>> extends 
     @Override
     public DiffViewHolder<T> onCreateViewHolder(LayoutInflater inflater, ViewGroup parent, int viewType)
     {
-        return new DiffViewHolder<>(inflater, parent, getViewHolderLayout(viewType), mOnItemClickListener != null ? this : null);
+        return onCreateViewHolder(inflater.inflate(getViewHolderLayout(viewType), parent, false));
+    }
+
+    protected DiffViewHolder<T> onCreateViewHolder(View inflaterView)
+    {
+        return new DiffViewHolder<>(inflaterView, mOnItemClickListener != null ? this : null);
     }
 
     protected abstract int getViewHolderLayout(int viewType);

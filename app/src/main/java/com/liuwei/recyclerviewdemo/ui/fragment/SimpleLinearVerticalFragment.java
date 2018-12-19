@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 import com.liuwei.android.diffrecycler.DiffRecyclerSimpleAdapter;
 import com.liuwei.android.diffrecycler.DiffRecyclerView;
+import com.liuwei.android.diffrecycler.DiffRecyclerView.ScrolledNearByBottomListener;
 import com.liuwei.android.diffrecycler.DiffRecyclerView.ViewHolderTouchStateCallback;
 import com.liuwei.android.diffrecycler.listener.OnItemClickListener;
+import com.liuwei.android.diffrecycler.util.DiffRecyclerLogger;
 import com.liuwei.recyclerviewdemo.R;
 import com.liuwei.recyclerviewdemo.bean.UIData;
 import com.liuwei.recyclerviewdemo.provider.DataProvider;
@@ -32,6 +34,15 @@ public class SimpleLinearVerticalFragment extends BaseDiffRecyclerFragment
         mListAdapter = new DiffRecyclerSimpleAdapter<>(getLayoutInflater(), R.layout.adapter_simple_linear_vertical, mOnItemClickListener);
 
         mListAdapter.setData(DataProvider.getDataWithSwipeDrag());
+
+        recyclerView.setOnScrolledNearByBottomListener(new ScrolledNearByBottomListener()
+        {
+            @Override
+            public void onScrolledNearByBottom()
+            {
+                DiffRecyclerLogger.info(this, "onScrolledNearByBottom");
+            }
+        });
 
         recyclerView.setAdapter(mListAdapter);
 

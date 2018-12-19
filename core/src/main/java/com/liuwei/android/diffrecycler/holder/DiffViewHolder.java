@@ -46,6 +46,7 @@ public class DiffViewHolder<T extends DataDiffCompare<T>> extends ViewHolder
         mViewSparseArray = new SparseArray<>();
     }
 
+    @SuppressWarnings("unused")
     public DiffViewHolder(LayoutInflater inflater, ViewGroup parent, int layoutId, OnItemClickListener<T> listener)
     {
         this(inflater.inflate(layoutId, parent, false), listener);
