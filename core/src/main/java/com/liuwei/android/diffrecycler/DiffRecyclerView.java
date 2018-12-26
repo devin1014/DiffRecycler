@@ -281,27 +281,35 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         {
             DiffRecyclerLogger.log(this, "onScrolled: dx=" + dx + " , dy=" + dy);
 
-            initLastChildPositionIfNeeded();
-
-            int adaptPosition = getLastChildViewAdaptPosition();
-
-            if (dy > 0 || dx > 0)
+            if (getAdapter() != null)
             {
-                if (mCurrentLastChildPosition != adaptPosition && adaptPosition == getAdapter().getItemCount() - 1 - mNearByBottomOffset)
-                {
-                    mCurrentLastChildPosition = adaptPosition;
+                initLastChildPositionIfNeeded();
 
-                    if (mScrolledNearByBottomListener != null)
+                int adaptPosition = getLastChildViewAdaptPosition();
+
+                if (adaptPosition == -1)
+                {
+                    return;
+                }
+
+                if (dy > 0 || dx > 0)
+                {
+                    if (mCurrentLastChildPosition != adaptPosition && adaptPosition == getAdapter().getItemCount() - 1 - mNearByBottomOffset)
                     {
-                        mScrolledNearByBottomListener.onScrolledNearByBottom();
+                        mCurrentLastChildPosition = adaptPosition;
+
+                        if (mScrolledNearByBottomListener != null)
+                        {
+                            mScrolledNearByBottomListener.onScrolledNearByBottom();
+                        }
                     }
                 }
-            }
-            else
-            {
-                if (adaptPosition < getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                else
                 {
-                    mCurrentLastChildPosition = -1;
+                    if (adaptPosition < getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                    {
+                        mCurrentLastChildPosition = -1;
+                    }
                 }
             }
         }
@@ -316,7 +324,19 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
         private int getLastChildViewAdaptPosition()
         {
-            return ((RecyclerView.LayoutParams) getChildAt(getChildCount() - 1).getLayoutParams()).getViewAdapterPosition();
+            if (getChildCount() == 0)
+            {
+                return -1;
+            }
+
+            View lastView = getChildAt(getChildCount() - 1);
+
+            if (lastView == null || lastView.getLayoutParams() == null)
+            {
+                return -1;
+            }
+
+            return ((RecyclerView.LayoutParams) lastView.getLayoutParams()).getViewAdapterPosition();
         }
     };
 }
