@@ -59,6 +59,15 @@ dependencies {
 }
 ```
 
+Proguard
+--------
+
+```text
+-keep interface com.neulion.android.diffrecycler.holder.DiffViewDataBindingInterface { *; }
+-keep class * extends com.neulion.android.diffrecycler.holder.DiffViewDataBindingInterface { *; }
+-keep class 'xxxxxx'.databinding.** {*;} //xxx项目包名，项目自动生成的databinding目录需要keep
+```
+
 Description
 -----------
 
