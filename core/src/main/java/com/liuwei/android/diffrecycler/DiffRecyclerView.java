@@ -153,6 +153,8 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
             gridLayoutManager.setSpanSizeLookup(new DiffSpanSizeLookupWrapper(gridLayoutManager));
 
             mSpanCount = gridLayoutManager.getSpanCount();
+
+            mNearByBottomOffset = mNearByBottomOffset * mSpanCount;
         }
     }
 
