@@ -133,6 +133,8 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
         return mAdapterWrapper.getSourceAdapter();
     }
 
+    private int mSpanCount = 1;
+
     @SuppressWarnings("unused")
     DiffRecyclerAdapterWrapper getAdapterWrapper()
     {
@@ -149,6 +151,8 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layout;
 
             gridLayoutManager.setSpanSizeLookup(new DiffSpanSizeLookupWrapper(gridLayoutManager));
+
+            mSpanCount = gridLayoutManager.getSpanCount();
         }
     }
 
@@ -262,18 +266,23 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
     public void setNearByBottomOffset(int offset)
     {
         mNearByBottomOffset = offset;
+
+        if (getLayoutManager() instanceof GridLayoutManager)
+        {
+            mNearByBottomOffset = mNearByBottomOffset * ((GridLayoutManager) getLayoutManager()).getSpanCount();
+        }
     }
 
     private int mCurrentLastChildPosition = -1;
 
     private OnScrollListener mOnScrollListener = new OnScrollListener()
     {
+        private boolean mNearByBottom = false;
+
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState)
         {
             DiffRecyclerLogger.log(this, "newState=" + newState);
-
-            initLastChildPositionIfNeeded();
         }
 
         @Override
@@ -283,8 +292,6 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
             if (getAdapter() != null)
             {
-                initLastChildPositionIfNeeded();
-
                 int adaptPosition = getLastChildViewAdaptPosition();
 
                 if (adaptPosition == -1)
@@ -294,31 +301,33 @@ public class DiffRecyclerView extends android.support.v7.widget.RecyclerView
 
                 if (dy > 0 || dx > 0)
                 {
-                    if (mCurrentLastChildPosition != adaptPosition && adaptPosition == getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                    if (adaptPosition + mSpanCount >= getAdapter().getItemCount() - 1 - mNearByBottomOffset)
                     {
-                        mCurrentLastChildPosition = adaptPosition;
-
-                        if (mScrolledNearByBottomListener != null)
+                        if (!mNearByBottom)
                         {
-                            mScrolledNearByBottomListener.onScrolledNearByBottom();
+                            mNearByBottom = true;
+
+                            if (mScrolledNearByBottomListener != null)
+                            {
+                                mScrolledNearByBottomListener.onScrolledNearByBottom();
+                            }
+                        }
+                        else
+                        {
+                            mNearByBottom = false;
                         }
                     }
                 }
                 else
                 {
-                    if (adaptPosition < getAdapter().getItemCount() - 1 - mNearByBottomOffset)
+                    if (adaptPosition + mSpanCount < getAdapter().getItemCount() - 1 - mNearByBottomOffset)
                     {
-                        mCurrentLastChildPosition = -1;
+                        if (mNearByBottom)
+                        {
+                            mNearByBottom = false;
+                        }
                     }
                 }
-            }
-        }
-
-        private void initLastChildPositionIfNeeded()
-        {
-            if (mCurrentLastChildPosition == -1)
-            {
-                mCurrentLastChildPosition = getLastChildViewAdaptPosition();
             }
         }
 
